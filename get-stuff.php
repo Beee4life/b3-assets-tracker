@@ -93,7 +93,7 @@
                 $first_item = array_slice( $grouped_data, 0, 1 );
                 $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );
                 
-                if ( $asset_type ) {
+                if ( $asset_type && 'all' !== $asset_type ) {
                     $grouped_data = [
                         $first_item[ 0 ]->date => $first_item,
                         $last_item[ 0 ]->date  => $last_item,
