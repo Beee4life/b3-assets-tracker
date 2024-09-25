@@ -25,7 +25,7 @@
         <tr>
             <td>
                 <label>
-                    <select name="stats_from">
+                    <select name="stats_from" required>
                         <?php echo sprintf( '<option value="">%s</option>', 'Start' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
                             <?php $show_day = 2 == gmdate( 'N', strtotime( $date ) ) ? sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) : false; ?>
@@ -36,7 +36,7 @@
             </td>
             <td>
                 <label>
-                    <select name="stats_until">
+                    <select name="stats_until" required>
                         <?php echo sprintf( '<option value="">%s</option>', 'End' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
                             <?php $show_day = 2 == gmdate( 'N', strtotime( $date ) ) ? ' *' : false; ?>
