@@ -29,7 +29,8 @@
             public function initialize() {
 
                 register_activation_hook( __FILE__,     [ $this, 'bp_plugin_activation' ] );
-                // register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
+                register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
+                register_uninstall_hook( __FILE__,      [ $this, 'bp_plugin_uninstall' ] );
                 
                 add_action( 'admin_init',               [ $this, 'bp_check_table' ] );
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
@@ -54,6 +55,25 @@
              * Function which runs upon plugin deactivation
              */
             public function bp_plugin_deactivation() {
+                delete_option( 'bp_assets_date_format' );
+                delete_option( 'bp_currency' );
+            }
+
+
+            /**
+             * Function which runs upon plugin deactivation
+             */
+            public function bp_plugin_uninstall() {
+                global $wpdb;
+                $tables = [
+                    $wpdb->prefix . 'asset_data',
+                    $wpdb->prefix . 'asset_types',
+                ];
+                foreach( $tables as $table ) {
+                    $query = "DROP TABLE IF EXISTS $table";
+                    $wpdb->query($query);
+                }
+                $this->bp_plugin_deactivation();
             }
 
 
