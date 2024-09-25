@@ -30,7 +30,6 @@
 
                 register_activation_hook( __FILE__,     [ $this, 'bp_plugin_activation' ] );
                 register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
-                register_uninstall_hook( __FILE__,      [ $this, 'bp_plugin_uninstall' ] );
                 
                 add_action( 'admin_init',               [ $this, 'bp_check_table' ] );
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
@@ -57,23 +56,6 @@
             public function bp_plugin_deactivation() {
                 delete_option( 'bp_assets_date_format' );
                 delete_option( 'bp_currency' );
-            }
-
-
-            /**
-             * Function which runs upon plugin deactivation
-             */
-            public function bp_plugin_uninstall() {
-                global $wpdb;
-                $tables = [
-                    $wpdb->prefix . 'asset_data',
-                    $wpdb->prefix . 'asset_types',
-                ];
-                foreach( $tables as $table ) {
-                    $query = "DROP TABLE IF EXISTS $table";
-                    $wpdb->query($query);
-                }
-                $this->bp_plugin_deactivation();
             }
 
 
@@ -118,7 +100,9 @@
                 
                 if ( isset( $_POST[ 'stats_from' ] ) && isset( $_POST[ 'stats_until' ] ) ) {
                     if ( isset( $_POST[ 'show_graph' ] ) && ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) ) {
-                        bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                        if ( class_exists( 'bp_errors' ) ) {
+                            bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                        }
                     } else {
                         $asset_type     = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : false;
                         $date_from      = $_POST[ 'stats_from' ];
