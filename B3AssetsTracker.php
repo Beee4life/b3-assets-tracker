@@ -1,6 +1,6 @@
 <?php
     /*
-        Plugin Name: BP : Assets
+        Plugin Name: B3 : Assets Tracker
         Description: Assets storage
         Version: 1.0
         Author: Beee
@@ -12,12 +12,12 @@
         exit;
     }
 
-    if ( ! class_exists( 'BpAssets' ) ) :
+    if ( ! class_exists( 'B3AssetsTracker' ) ) :
 
         /**
          * Main class
          */
-        class BpAssets {
+        class B3AssetsTracker {
 
             var $settings;
 
@@ -29,7 +29,7 @@
             public function initialize() {
 
                 register_activation_hook( __FILE__,     [ $this, 'bp_plugin_activation' ] );
-                // register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
+                register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
                 
                 add_action( 'admin_init',               [ $this, 'bp_check_table' ] );
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
@@ -54,6 +54,8 @@
              * Function which runs upon plugin deactivation
              */
             public function bp_plugin_deactivation() {
+                delete_option( 'bp_assets_date_format' );
+                delete_option( 'bp_currency' );
             }
 
 
@@ -98,7 +100,9 @@
                 
                 if ( isset( $_POST[ 'stats_from' ] ) && isset( $_POST[ 'stats_until' ] ) ) {
                     if ( isset( $_POST[ 'show_graph' ] ) && ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) ) {
-                        bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                        if ( class_exists( 'bp_errors' ) ) {
+                            bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                        }
                     } else {
                         $asset_type     = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : false;
                         $date_from      = $_POST[ 'stats_from' ];
@@ -210,15 +214,15 @@
         }
 
         /**
-         * The main function responsible for returning the one true BpAssets instance to functions everywhere.
+         * The main function responsible for returning the one true B3AssetsTracker instance to functions everywhere.
          *
-         * @return \BpAssets
+         * @return \B3AssetsTracker
          */
         function init_assets_plugin() {
             global $assets_plugin;
 
             if ( ! isset( $assets_plugin ) ) {
-                $assets_plugin = new BpAssets();
+                $assets_plugin = new B3AssetsTracker();
                 $assets_plugin->initialize();
             }
 

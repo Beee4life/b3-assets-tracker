@@ -31,7 +31,9 @@
         
         if ( ! empty( $_POST ) ) {
             if ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) {
-                bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                if ( class_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
+                }
             } else {
                 $date_from    = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                 $date_until   = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
