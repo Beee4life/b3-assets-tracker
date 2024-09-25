@@ -23,7 +23,7 @@
         $types              = bp_get_types();
         
         $graph_options = [
-            'bar'   => 'BarChart',
+            // 'bar'   => 'BarChart',
             'line'  => 'LineChart',
             'pie'   => 'PieChart',
             'total' => 'Total (PieChart)',
