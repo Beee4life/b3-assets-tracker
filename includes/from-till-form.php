@@ -49,7 +49,7 @@
                 <td>
                     <label>
                         <select name="asset_type">
-                            <option value="all">All</option>
+                            <option value="all">All (total)</option>
                             <?php foreach( $types as $id => $type ) { ?>
                                 <?php if ( bp_is_type_hidden( $type->id ) ) { ?>
                                     <?php continue; ?>
