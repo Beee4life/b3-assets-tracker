@@ -123,20 +123,18 @@
      * @param array $data
      * @param string|bool $asset_type
      * @param string|bool $graph_type
+     * @param string|bool $show_all
      *
      * @return array|false
      */
-    function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false ) {
+    function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false, $show_all = false ) {
         if ( 'pie' === $graph_type ) {
             $top_row = [ 'Asset', '&euro;' ];
             
         } elseif ( 'line' === $graph_type ) {
-            if ( 'all' === $asset_type ) {
-                $top_row = [ 'Week', 'Euro' ];
-                
-            } else {
-                $top_row = [ 'Week' ];
-                
+            $top_row = [ 'Week' ];
+            
+            if ( $show_all ) {
                 foreach( bp_get_types() as $type ) {
                     if ( bp_is_type_hidden( $type->id ) ) {
                         continue;
@@ -144,6 +142,8 @@
                     $name      = bp_get_type_by_id( $type->id );
                     $top_row[] = $name;
                 }
+            } elseif ( $asset_type ) {
+                $top_row[] = 'Euro';
             }
             
         } else {
@@ -178,18 +178,31 @@
      *
      * @return array|false
      */
-    function bp_process_data_for_chart( $data, $asset_type = false, $graph_type = false ) {
+    function bp_process_data_for_chart( $data, $asset_type = false, $graph_type = false, $show_all = false ) {
         if ( ! is_array( $data ) ) {
             return false;
         }
         
-        $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type );
+        $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $show_all );
         
         if ( 'all' === $asset_type ) {
             foreach( $data as $entry_row ) {
                 $date        = bp_format_value( $entry_row[ 0 ]->date, 'date' );
                 $total_value = bp_get_value_on_date( $entry_row );
                 $all_rows[]  = [ $date, $total_value ];
+            }
+
+        } elseif ( 'line' === $graph_type ) {
+            if ( $show_all ) {
+                foreach( $data as $entry_row ) {
+                    $entry_row  = [ bp_get_type_by_id( $entry_row->type ), (float) $entry_row->value ];
+                    $all_rows[] = $entry_row;
+                }
+            } else {
+                foreach( $data as $entry_row ) {
+                    $entry_row  = [ bp_format_value( $entry_row[0]->date, 'date' ), (float) $entry_row[0]->value ];
+                    $all_rows[] = $entry_row;
+                }
             }
 
         } elseif ( 'pie' === $graph_type ) {
