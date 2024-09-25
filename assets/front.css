@@ -1,0 +1,85 @@
+#data {
+    .shortcode-notice + & {
+        @media screen and ( min-width: 700px ) {
+            margin-top: 1rem;
+        }
+    }
+
+    + p {
+        margin-top: 1rem;
+    }
+}
+
+#wrap table,
+#data table {
+    border-collapse: collapse;
+    border-spacing:  0;
+    border-width:    0;
+    margin-bottom:   0;
+
+    th,
+    th {
+        padding: 0;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    &.data-output {
+        display:     block;
+        font-size:   0.925rem;
+        overflow-x:  auto;
+        white-space: nowrap;
+
+        th,
+        td {
+            border-bottom: 1px solid #ccc;
+            padding:       0.25rem 2rem 0.25rem 0;
+        }
+
+        th,
+        td {
+            &.diff {
+                padding: 0.25rem 0.45rem;
+
+                &.plus {
+                    background: lightgreen;
+                }
+
+                &.minus {
+                    background: pink;
+                }
+            }
+            &.diff-percent,
+            &.percent-total {
+                padding:    0.25rem 0 0.25rem 1rem;
+                text-align: right;
+            }
+        }
+
+        tr.totalrow {
+            td {
+                border-bottom: 0;
+            }
+        }
+    }
+}
+
+.shortcode-notice {
+    font-size:  0.75rem;
+    margin-top: 1rem;
+
+    &.tablescroll {
+        @media screen and ( min-width: 700px ) {
+            display: none;
+        }
+    }
+
+    & + h2,
+    & + h3,
+    & + h4,
+    & + p {
+        margin-top: 1rem;
+    }
+}

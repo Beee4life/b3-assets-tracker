@@ -1,0 +1,107 @@
+#wrap .notice {
+    margin: 0;
+}
+
+#chart_div {
+    margin-top: 1rem;
+}
+
+#data-input,
+#data-output {
+    form {
+        display: inline-block;
+
+        + form {
+            margin-left: 2rem;
+        }
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing:  0;
+        border-width:    0;
+    }
+
+    th,
+    td {
+        padding: 0;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    table.add-data {
+        th,
+        td {
+            padding: 0.25rem 1rem 0.25rem 0;
+        }
+    }
+
+    table.data-input {
+        th {
+            padding: 0 0 0.25rem 0;
+        }
+
+        th,
+        td {
+            &.checkbox,
+            &.hide-type {
+                padding:    0 0.5rem 0.25rem 0.5rem;
+                text-align: center;
+            }
+        }
+    }
+
+    table.data-output {
+        margin-top: 2rem;
+
+        th,
+        td {
+            border-bottom: 1px solid #ccc;
+            padding:       0.25rem 2rem 0.25rem 0;
+        }
+
+        th,
+        td {
+            &.diff {
+                padding: 0.25rem 0.45rem;
+
+                &.plus {
+                    background: lightgreen;
+                }
+
+                &.minus {
+                    background: pink;
+                }
+            }
+
+            &.diff-percent,
+            &.percent-total {
+                padding:    0.25rem 0 0.25rem 1rem;
+                text-align: right;
+            }
+        }
+
+        tr.totalrow {
+            td {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    table.data-types {
+        th,
+        td {
+            border-bottom: 1px solid #ccc;
+            padding:       0.25rem 1rem 0.25rem 0;
+        }
+    }
+
+    table.settings {
+        th,
+        td {
+            padding: 0.25rem 1rem 0.25rem 0;
+        }
+    }
+}
