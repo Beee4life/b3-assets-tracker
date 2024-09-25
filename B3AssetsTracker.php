@@ -1,6 +1,6 @@
 <?php
     /*
-        Plugin Name: BP : Assets
+        Plugin Name: B3 : Assets Tracker
         Description: Assets storage
         Version: 1.0
         Author: Beee
@@ -12,12 +12,12 @@
         exit;
     }
 
-    if ( ! class_exists( 'BpAssets' ) ) :
+    if ( ! class_exists( 'B3AssetsTracker' ) ) :
 
         /**
          * Main class
          */
-        class BpAssets {
+        class B3AssetsTracker {
 
             var $settings;
 
@@ -210,15 +210,15 @@
         }
 
         /**
-         * The main function responsible for returning the one true BpAssets instance to functions everywhere.
+         * The main function responsible for returning the one true B3AssetsTracker instance to functions everywhere.
          *
-         * @return \BpAssets
+         * @return \B3AssetsTracker
          */
         function init_assets_plugin() {
             global $assets_plugin;
 
             if ( ! isset( $assets_plugin ) ) {
-                $assets_plugin = new BpAssets();
+                $assets_plugin = new B3AssetsTracker();
                 $assets_plugin->initialize();
             }
 
