@@ -40,7 +40,7 @@
                 }
             ?>
             
-            <?php echo BpAssets::bp_admin_menu(); ?>
+            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <?php if ( $types ) { ?>
                 <div id="data-input">

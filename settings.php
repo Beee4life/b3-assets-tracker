@@ -44,7 +44,7 @@
                 }
             ?>
             
-            <?php echo BpAssets::bp_admin_menu(); ?>
+            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <div id="data-input">
                 <form name="add-settings" action="" method="post">

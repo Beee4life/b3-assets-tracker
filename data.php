@@ -52,7 +52,7 @@
                 }
             ?>
             
-            <?php echo BpAssets::bp_admin_menu(); ?>
+            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
             
             <?php if ( empty( $grouped_data ) && empty( $types ) ) { ?>
                 <div id="data-input">

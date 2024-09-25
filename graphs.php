@@ -62,7 +62,7 @@
                 }
             ?>
             
-            <?php echo BpAssets::bp_admin_menu(); ?>
+            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <div id="data-input">
                 <?php include 'includes/from-till-form.php'; ?>

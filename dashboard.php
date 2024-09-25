@@ -75,7 +75,7 @@
                     bp_show_error_messages();
                 }
                 
-                echo BpAssets::bp_admin_menu();
+                echo B3AssetsTracker::bp_admin_menu();
             ?>
 
             <?php if ( ! empty( $grouped_data ) ) { ?>
