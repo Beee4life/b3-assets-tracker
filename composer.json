@@ -1,0 +1,14 @@
+{
+    "name": "beee4life/b3-assets-tracker",
+    "description": "A WordPress plugin which let's you track your assets.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^1.0 || ^2.0",
+        "php": "^8.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
