@@ -72,10 +72,18 @@
         $table = $wpdb->prefix . 'asset_data';
 
         if ( $from && $until ) {
-            if ( $asset_type && 'all' !== $asset_type ) {
-                $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date DESC", (int) $asset_type, $from, $until );
+            if ( 'all' === $asset_type ) {
+                if ( $show_all ) {
+                    $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
+                } else {
+                    $query = $wpdb->prepare( "SELECT * from $table WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
+                }
             } else {
-                $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date DESC", $from, $until );
+                if ( $show_all ) {
+                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
+                } else {
+                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND ( date = '%s' OR date = '%s' ) ORDER BY date ASC", (int) $asset_type, $from, $until );
+                }
             }
             
             $results = $wpdb->get_results( $query );
@@ -92,24 +100,23 @@
                 // extract first and last item
                 $first_item = array_slice( $grouped_data, 0, 1 );
                 $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );
-                
-                if ( $asset_type && 'all' !== $asset_type ) {
-                    $grouped_data = [
-                        $first_item[ 0 ]->date => $first_item,
-                        $last_item[ 0 ]->date  => $last_item,
-                    ];
+
+                if ( 'all' !== $asset_type ) {
+                    if ( isset( $first_item[ 0 ]->date ) && isset( $last_item[ 0 ]->date ) ) {
+                        $grouped_data = [
+                            $first_item[ 0 ]->date => $first_item[ 0 ]->value,
+                            $last_item[ 0 ]->date  => $last_item[ 0 ]->value,
+                        ];
+                    }
                 } else {
                     $grouped_data = array_merge( $first_item, $last_item );
                 }
+            } else {
+                error_log('Show all, so probably no edits needed');
             }
 
             return $grouped_data;
         
-        } elseif ( $from && 'total' === $asset_type ) {
-            $query   = $wpdb->prepare( "SELECT * from $table WHERE date = '%s'", $from );
-            $results = $wpdb->get_results( $query );
-            
-            return $results;
         }
         
         return [];
@@ -160,14 +167,20 @@
         }
         
         $total = 0;
-        foreach( $data as $entry ) {
-            if ( isset( $entry->value ) && ! empty( $entry->value ) ) {
-                if ( bp_is_type_hidden( $entry->type ) ) {
-                    continue;
+        if ( is_string( $data ) ) {
+            // date only
+            die('TODO: get value on date (string)');
+        } elseif ( is_array( $data ) ) {
+            foreach( $data as $entry ) {
+                if ( isset( $entry->value ) && ! empty( $entry->value ) ) {
+                    if ( bp_is_type_hidden( $entry->type ) ) {
+                        continue;
+                    }
+                    $total += $entry->value;
                 }
-                $total += $entry->value;
             }
         }
+        
         
         return $total;
     }
