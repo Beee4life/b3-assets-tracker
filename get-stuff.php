@@ -69,21 +69,31 @@
 
         return false;
     }
-
     
-    function bp_get_results_range( $from, $until, $asset_type = null, $show_all = false ) {
+    
+    /**
+     * Get results, optional from a specific range
+     *
+     * @param $from
+     * @param $until
+     * @param $asset_type
+     * @param $range
+     *
+     * @return array|object|stdClass[]|null
+     */
+    function bp_get_results_range( $from, $until, $asset_type = null, $range = false ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_data';
 
         if ( $from && $until ) {
             if ( 'all' === $asset_type ) {
-                if ( '1' === $show_all ) {
+                if ( '1' === $range ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 } else {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
                 }
             } else {
-                if ( '1' === $show_all ) {
+                if ( '1' === $range ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
                 } else {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND ( date = '%s' OR date = '%s' ) ORDER BY date ASC", (int) $asset_type, $from, $until );
@@ -100,7 +110,7 @@
                 $grouped_data[ $row->date ][] = $row;
             }
 
-            if ( '1' !== $show_all ) {
+            if ( '1' !== $range ) {
                 // extract first and last item
                 $first_item = array_slice( $grouped_data, 0, 1 );
                 $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );

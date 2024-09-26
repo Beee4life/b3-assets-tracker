@@ -103,15 +103,14 @@
                     
                     if ( $validated ) {
                         $asset_type   = 'all';
-                        $show_all     = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : '1';
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
+                        $range        = $_POST[ 'show_all' ];
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $range );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-                        $show_all     = $_POST[ 'show_all' ];
                         
                         if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $show_all );
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
 
                             $chart_args = [
                                 'data'       => $processed_data,

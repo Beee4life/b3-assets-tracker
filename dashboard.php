@@ -29,12 +29,12 @@
             $is_graph_page      = false;
             $is_dashboard       = true;
             $show_asset_types   = false;
-            $show_all           = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
+            $range              = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
             $show_diff          = false;
             $show_graph         = false;
             $show_graph_options = false;
             $show_total         = false;
-            $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
+            // $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
             
             if ( ! empty( $_POST ) ) {
                 if ( isset( $_POST[ 'bp_date' ] ) ) {
@@ -55,7 +55,7 @@
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $show_all );
+                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $range );
                 // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                 // $grouped_data = array_reverse( $grouped_data );
                 $show_diff    = true;

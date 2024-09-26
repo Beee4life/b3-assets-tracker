@@ -22,25 +22,23 @@
          */
         function shortcode_results( $attr, $content = null ) {
             $attributes = shortcode_atts( [
-                'from'    => '',
-                'till'    => '',
-                'showall' => '',
-                'footer'  => 'true',
+                'from'   => '',
+                'till'   => '',
+                'footer' => 'true',
             ], $attr );
 
             if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
-                    return '[shortcode misses attributes]';
+                    return '[shortcode is missing attributes]';
                 } else {
                     return '';
                 }
             }
             
-            // used by include
             $show_diff    = 'front';
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
-            $show_all     = empty( $attributes[ 'showall' ] ) ? false : true;
+            $range        = 'begin_end';
             $grouped_data = array_reverse( bp_get_results_range( $date_from, $date_until, false, $show_all ) );
             $show_all     = false;
             $show_total   = true;
