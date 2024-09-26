@@ -40,7 +40,11 @@
             return $grouped_data;
         }
         
-        return array_reverse( $grouped_data );
+        if ( 'reverse' === $order ) {
+            return array_reverse( $grouped_data );
+        }
+
+        return $grouped_data;
     }
     
     
