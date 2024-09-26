@@ -22,27 +22,24 @@
          */
         function shortcode_results( $attr, $content = null ) {
             $attributes = shortcode_atts( [
-                'from'    => '',
-                'till'    => '',
-                'showall' => '',
-                'footer'  => 'true',
+                'from'   => '',
+                'till'   => '',
+                'footer' => 'true',
             ], $attr );
 
             if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
-                    return '[shortcode misses attributes]';
+                    return '[shortcode is missing attributes]';
                 } else {
                     return '';
                 }
             }
             
-            // used by include
             $show_diff    = 'front';
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
-            $show_all     = empty( $attributes[ 'showall' ] ) ? false : true;
-            $grouped_data = array_reverse( bp_get_results_range( $date_from, $date_until, false, $show_all ) );
-            $show_all     = false;
+            $range        = 'begin_end';
+            $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', $range );
             $show_total   = true;
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
             $types        = bp_get_types();
@@ -55,7 +52,7 @@
 
                 echo sprintf( '<div class="shortcode-notice %s">%s</div>', $scroll_class, 'Table scrolls horizontally.' );
 
-                include 'includes/data-output.php';
+                include 'admin/includes/data-output.php';
                 
                 if ( 'true' == $attributes[ 'footer' ] ) {
                     $page_id = get_page_by_path( 'assets-tracker' );
@@ -69,7 +66,7 @@
                             $message = 'This data comes from a WordPress plugin I created to track my assets and easily share it within the site.';
                         }
                     }
-                    echo sprintf( '<div class="shortcode-notice">%s</div>', $message );
+                    echo sprintf( '<div class="shortcode-footer">%s</div>', $message );
                 }
                 $result = ob_get_clean();
                 

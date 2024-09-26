@@ -1,5 +1,5 @@
 #data {
-    .shortcode-notice + & {
+    .shortcode-footer + & {
         @media screen and ( min-width: 700px ) {
             margin-top: 1rem;
         }
@@ -66,7 +66,7 @@
     }
 }
 
-.shortcode-notice {
+.shortcode-footer {
     font-size:  0.75rem;
     margin-top: 1rem;
 

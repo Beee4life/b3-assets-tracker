@@ -7,34 +7,24 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         
-        $all_dates   = array_values( bp_get_dates() );
         $data_8dates = bp_get_data();
         $types       = bp_get_types();
-        
-        $range              = [
-            'all'       => 'All dates',
-            'begin_end' => 'Begin/end',
-        ];
         
         if ( ! empty( $data_8dates ) ) {
             $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
             $dates              = array_keys( $data_8dates );
             $date_from          = $dates[ count( $dates ) - 2 ];
-            // echo '<pre>'; var_dump($date_from); echo '</pre>'; exit;
             $date_until         = end( $dates );
-            // echo '<pre>'; var_dump($date_until); echo '</pre>'; exit;
-            $types              = bp_get_types();
             $graph_type         = false;
             $grouped_data       = [];
             $is_graph_page      = false;
             $is_dashboard       = true;
             $show_asset_types   = false;
-            $show_all           = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
             $show_diff          = false;
             $show_graph         = false;
             $show_graph_options = false;
             $show_total         = false;
-            $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
+            
             if ( ! empty( $_POST ) ) {
                 if ( isset( $_POST[ 'bp_date' ] ) ) {
                     if ( isset( $_POST[ 'update_data' ] ) ) {
@@ -54,9 +44,7 @@
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $show_all );
-                // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
-                // $grouped_data = array_reverse( $grouped_data );
+                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type );
                 $show_diff    = true;
                 $show_total   = true;
 

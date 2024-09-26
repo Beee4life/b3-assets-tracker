@@ -9,7 +9,6 @@
         
         $stored_date_format = get_option( 'bp_assets_date_format' );
         $stored_currency    = get_option( 'bp_currency' );
-        $stored_decimal     = get_option( 'bp_decimals' );
 
         $currencies = [
             '€',
@@ -25,10 +24,9 @@
             'j-n',
             'j-n-y',
             'j-n-Y',
+            'j F',
             'j F, Y',
         ];
-
-        $decimals = [ 2, 3 ];
 
         ?>
 
@@ -72,7 +70,7 @@
                                 <label>
                                     <select name="bp_assets_date_format">
                                         <?php foreach( $date_formats as $format ) { ?>
-                                            <?php echo sprintf( '<option value="%s" %s>%s (%s)</option>', $format, selected( $format, $stored_date_format ), $format, gmdate( $format, time() ) ); ?>
+                                            <?php echo sprintf( '<option value="%s" %s>%s</option>', $format, selected( $format, $stored_date_format ), gmdate( $format, time() ) ); ?>
                                         <?php } ?>
                                     </select>
                                 </label>

@@ -74,17 +74,17 @@
              * Add admin page
              */
             public function bp_admin_pages() {
-                include 'dashboard.php';
+                include 'admin/dashboard.php';
                 add_menu_page( 'A$$et$', 'A$$et$', 'manage_options', 'bp-assets-dashboard', 'bp_assets_dashboard', 'dashicons-chart-pie', '3' );
-                include 'data.php';
+                include 'admin/data.php';
                 add_submenu_page( 'options.php', 'Data', 'Data', 'manage_options', 'bp-assets-data', 'bp_assets_data' );
-                include 'add-data.php';
+                include 'admin/add-data.php';
                 add_submenu_page( 'options.php', 'Add data', 'Add data', 'manage_options', 'bp-assets-add-data', 'bp_assets_add_data' );
-                include 'add-type.php';
+                include 'admin/add-type.php';
                 add_submenu_page( 'options.php', 'Types', 'Types', 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
-                include 'graphs.php';
+                include 'admin/graphs.php';
                 add_submenu_page( 'options.php', 'Graphs', 'Graphs', 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
-                include 'settings.php';
+                include 'admin/settings.php';
                 add_submenu_page( 'options.php', 'Settings', 'Settings', 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
             }
 
@@ -99,23 +99,19 @@
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
                 
                 if ( isset( $_POST[ 'stats_until' ] ) ) {
-                    // @TODO: validate form fields in function
                     $validated = b3_validate_graph_fields( $_POST );
-                    // echo '<pre>'; var_dump($validated); echo '</pre>'; exit;
                     
                     if ( $validated ) {
                         $asset_type   = 'all';
-                        $show_all     = isset( $_POST[ 'show_all' ] ) ? '1' : '';
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
-                        // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
+                        $range        = $_POST[ 'view_range' ];
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $range );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-                        $show_all     = isset( $_POST[ 'show_all' ] ) ? '1' : '';
                         
                         if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $show_all );
-                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
+
                             $chart_args = [
                                 'data'       => $processed_data,
                                 'asset_type' => $asset_type,

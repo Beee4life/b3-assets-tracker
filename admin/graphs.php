@@ -17,19 +17,17 @@
         $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
         $date_until         = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
         $is_dashboard       = false;
+        $is_graph_page      = true;
         $last_date          = end( $dates );
         $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data       = [];
-        $show_all           = isset( $_POST[ 'show_all' ] ) ? '1' : '';
         $show_asset_types   = true;
-        // $show_graph         = true;
-        $is_graph_page      = true;
         $show_graph_options = true;
-        $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
         $types              = bp_get_types();
+        $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
 
         $range              = [
-            'all'       => 'All dates',
+            '1'       => 'All dates',
             'begin_end' => 'Begin/end',
         ];
         
@@ -60,7 +58,11 @@
 
             <div id="data-input">
                 <?php include 'includes/from-till-form.php'; ?>
-                <?php do_action( 'add_graph', $add_graph ); ?>
+                <?php if ( empty( $_POST ) ) { ?>
+                    <?php include 'includes/graphs-help.php'; ?>
+                <?php } else { ?>
+                    <?php do_action( 'add_graph', $add_graph ); ?>
+                <?php } ?>
             </div>
         </div>
     <?php }

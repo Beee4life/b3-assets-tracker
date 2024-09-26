@@ -24,16 +24,7 @@
         }
         
         if ( isset( $post_data[ 'show_graph' ] ) ) {
-            // graph validation only
-            // echo '<pre>'; var_dump($post_data); echo '</pre>'; exit;
-            if ( empty( $post_data[ 'graph_type' ] ) ) {
-                if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
-                    return false;
-                }
-            }
-    
-            if ( 'all' !== $post_data[ 'asset_type' ] ) {
+            if ( 'all' !== $post_data[ 'asset_type' ] && 'total' === $post_data[ 'graph_type' ] ) {
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
                 }

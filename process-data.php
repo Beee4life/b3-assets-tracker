@@ -123,11 +123,13 @@
      * @param array $data
      * @param string|bool $asset_type
      * @param string|bool $graph_type
-     * @param string|bool $show_all
+     * @param string|bool $range
      *
      * @return array|false
      */
-    function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false, $show_all = false ) {
+    function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false, $range = false ) {
+        $top_row = false;
+        
         if ( 'line' === $graph_type ) {
             $top_row = [ 'Week', 'Euro' ];
             
@@ -162,22 +164,22 @@
      *
      * combochart: https://developers.google.com/chart/interactive/docs/gallery/combochart
      *
-     * @param array $data
-     * @param bool $asset_type
+     * @param $data
+     * @param $asset_type
+     * @param $graph_type
+     * @param $range
      *
      * @return array|false
      */
-    function bp_process_data_for_chart( $data, $asset_type = false, $graph_type = false, $show_all = false ) {
+    function bp_process_data_for_chart( $data, $asset_type = false, $graph_type = false, $range = false ) {
         if ( ! is_array( $data ) ) {
             return false;
         }
         
-        $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $show_all );
-        // echo '<pre>'; var_dump($all_rows); echo '</pre>'; exit;
+        $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $range );
         
         if ( 'line' === $graph_type ) {
             foreach( $data as $date_entries ) {
-                // echo '<pre>'; var_dump($date_entries); echo '</pre>'; exit;
                 $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
                 $total_value = bp_get_value_on_date( $date_entries );
                 $all_rows[]  = [ $date, $total_value ];
@@ -185,18 +187,6 @@
             
         } elseif ( 'total' === $graph_type ) {
             if ( 'all' == $asset_type ) {
-                // echo '<pre>'; var_dump($data); echo '</pre>'; exit;
-                $data = end($data);
-                foreach( $data as $asset_row ) {
-                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
-                        continue;
-                    }
-                    
-                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
-                    $all_rows[] = $entry_row;
-                }
-            } else {
-                echo '<pre>'; var_dump($data); echo '</pre>'; exit;
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                         continue;
