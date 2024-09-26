@@ -62,7 +62,7 @@
             <?php } ?>
             <td class="checkbox">
                 <label>
-                    <input type="checkbox" name="show_all" value="1" <?php checked( $show_all ); ?>/>
+                    <input type="checkbox" name="show_all" value="1" <?php checked( $show_all, '1' ); ?>/>
                 </label>
             </td>
             <?php if ( $show_graph && $show_graph_options ) { ?>
