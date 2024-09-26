@@ -128,13 +128,14 @@
      * @return array|false
      */
     function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false, $show_all = false ) {
-        if ( 'pie' === $graph_type ) {
-            $top_row = [ 'Asset', '&euro;' ];
-            
-        } elseif ( 'line' === $graph_type ) {
+        if ( 'line' === $graph_type ) {
             $top_row = [ 'Week', 'Euro' ];
             
+        } elseif ( 'pie' === $graph_type ) {
+            $top_row = [ 'Asset', '&euro;' ];
+            
         } else {
+            error_log(sprintf('Catch %s', $graph_type ));
             $top_row = [ 'Week' ];
             
             if ( $asset_type ) {
@@ -181,37 +182,34 @@
             }
             
         } elseif ( 'pie' === $graph_type ) {
-            foreach( $data as $entry_row ) {
-                $entry_row  = [ bp_get_type_by_id( $entry_row->type ), (float) $entry_row->value ];
-                $all_rows[] = $entry_row;
+            if ( 'all' !== $asset_type ) {
+                if ( function_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_not_possible', esc_html( __( 'Pie charts are not individual assets (yet).', 'assets' ) ) );
+                    return;
+                }
+                
+            } else {
+                foreach( $data as $date => $entry_row ) {
+                    $entry_row  = [ bp_format_value( $date, 'date' ), bp_get_value_on_date( $entry_row, $entry_row[0] ) ];
+                    $all_rows[] = $entry_row;
+                }
             }
             
         } else {
             foreach( $data as $date => $date_entries ) {
                 $entry_row = [ $date ];
-                foreach( bp_get_types() as $type ) {
-                    if ( $asset_type ) {
-                        if ( $asset_type != $type->id ) {
-                            continue;
-                        }
-                    } else {
-                        if ( 1 == (int) $type->hide ) {
-                            continue;
-                        }
+                $total_value = 0;
+                
+                foreach( $date_entries as $asset_row ) {
+                    // get total value
+                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                        continue;
                     }
                     
-                    $key = bp_find_id_in_values( $date_entries, $type->id );
-                    if ( false === $key ) {
-                        $entry_row[] = (float) '0.00';
-                    } else {
-                        foreach( $date_entries as $type_entry ) {
-                            if ( $type->id == $type_entry->type ) {
-                                $entry_row[] = (float) $type_entry->value;
-                                break;
-                            }
-                        }
-                    }
+                    $total_value = $total_value + $asset_row->value;
                 }
+                $entry_row[] = $total_value;
+                
                 $all_rows[] = $entry_row;
             }
         }
