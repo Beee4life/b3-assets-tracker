@@ -104,6 +104,9 @@
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
                         }
                     } else {
+                        
+                        // @TODO: validate form fields in function
+                        
                         $asset_type     = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : false;
                         $date_from      = $_POST[ 'stats_from' ];
                         $date_till      = $_POST[ 'stats_until' ];
@@ -115,13 +118,8 @@
                             $all_dates    = array_values( bp_get_dates() );
                             $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
                             
-                        } elseif ( 'pie' === $graph_type ) {
-                            $all_dates    = array_values( bp_get_dates() );
-                            $grouped_data = bp_get_results_range( $date_till, false, $asset_type, $show_all );
-    
                         } elseif ( $graph_type ) {
-                            error_log(sprintf('Catch: %s', $graph_type ));
-                            $grouped_data   = bp_get_results_range( $_POST[ 'stats_from' ], $_POST[ 'stats_until' ], $asset_type, $show_all );
+                            $grouped_data   = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
                         }
     
                         if ( ! empty( $grouped_data ) ) {
