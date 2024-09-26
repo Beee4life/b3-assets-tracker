@@ -1,3 +1,4 @@
+<?php $all_dates = array_values( bp_get_dates() ); ?>
 <form name="" action="" method="post">
     <?php if ( $is_graph_page && $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
