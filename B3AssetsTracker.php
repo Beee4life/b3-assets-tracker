@@ -100,30 +100,32 @@
                 
                 if ( isset( $_POST[ 'stats_from' ] ) && isset( $_POST[ 'stats_until' ] ) ) {
                     if ( isset( $_POST[ 'show_graph' ] ) && ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) ) {
-                        if ( class_exists( 'bp_errors' ) ) {
+                        if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
                         }
                     } else {
                         $asset_type     = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : false;
                         $date_from      = $_POST[ 'stats_from' ];
                         $date_till      = $_POST[ 'stats_until' ];
+                        $grouped_data   = [];
                         $graph_type     = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : false;
-                        $show_all       = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
+                        $show_all       = isset( $_POST[ 'show_all' ] ) ? true : false;
                         
-                        if ( 'all' === $asset_type ) {
+                        if ( 'line' === $graph_type ) {
+                            $all_dates    = array_values( bp_get_dates() );
                             $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
                             
                         } elseif ( 'pie' === $graph_type ) {
                             $all_dates    = array_values( bp_get_dates() );
-                            $date_until   = end( $all_dates );
-                            $grouped_data = bp_get_results_range( $date_until, false, 'total' );
+                            $grouped_data = bp_get_results_range( $date_till, false, $asset_type, $show_all );
     
                         } elseif ( $graph_type ) {
+                            error_log(sprintf('Catch: %s', $graph_type ));
                             $grouped_data   = bp_get_results_range( $_POST[ 'stats_from' ], $_POST[ 'stats_until' ], $asset_type, $show_all );
                         }
     
-                        if ( isset( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( array_reverse( $grouped_data ), $asset_type, $graph_type );
+                        if ( ! empty( $grouped_data ) ) {
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $show_all );
                             $chart_args = [
                                 'data'       => $processed_data,
                                 'asset_type' => $asset_type,
