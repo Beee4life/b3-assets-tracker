@@ -15,7 +15,7 @@
                 <th>Asset type</th>
             <?php } ?>
             <?php if ( $is_graph_page ) { ?>
-                <th class="">Show dates</th>
+                <th class="">Range</th>
             <?php } ?>
             <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <th>Graph type</th>
