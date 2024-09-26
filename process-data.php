@@ -173,11 +173,9 @@
         }
         
         $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $show_all );
-        // echo '<pre>'; var_dump($all_rows); echo '</pre>'; exit;
         
         if ( 'line' === $graph_type ) {
             foreach( $data as $date_entries ) {
-                // echo '<pre>'; var_dump($date_entries); echo '</pre>'; exit;
                 $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
                 $total_value = bp_get_value_on_date( $date_entries );
                 $all_rows[]  = [ $date, $total_value ];
@@ -185,18 +183,7 @@
             
         } elseif ( 'total' === $graph_type ) {
             if ( 'all' == $asset_type ) {
-                // echo '<pre>'; var_dump($data); echo '</pre>'; exit;
                 $data = end($data);
-                foreach( $data as $asset_row ) {
-                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
-                        continue;
-                    }
-                    
-                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
-                    $all_rows[] = $entry_row;
-                }
-            } else {
-                echo '<pre>'; var_dump($data); echo '</pre>'; exit;
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                         continue;

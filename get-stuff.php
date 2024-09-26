@@ -77,13 +77,13 @@
 
         if ( $from && $until ) {
             if ( 'all' === $asset_type ) {
-                if ( $show_all ) {
+                if ( '1' === $show_all ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 } else {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
                 }
             } else {
-                if ( $show_all ) {
+                if ( '1' === $show_all ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
                 } else {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND ( date = '%s' OR date = '%s' ) ORDER BY date ASC", (int) $asset_type, $from, $until );
@@ -100,7 +100,7 @@
                 $grouped_data[ $row->date ][] = $row;
             }
 
-            if ( ! $show_all ) {
+            if ( '1' !== $show_all ) {
                 // extract first and last item
                 $first_item = array_slice( $grouped_data, 0, 1 );
                 $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );

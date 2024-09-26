@@ -11,9 +11,9 @@
         $data_8dates = bp_get_data();
         $types       = bp_get_types();
         
-        $range              = [
-            'all'       => 'All dates',
-            'begin_end' => 'Begin/end',
+        $range = [
+            '1'   => 'Begin/end',
+            'all' => 'All dates',
         ];
         
         if ( ! empty( $data_8dates ) ) {
@@ -35,6 +35,7 @@
             $show_graph_options = false;
             $show_total         = false;
             $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
+            
             if ( ! empty( $_POST ) ) {
                 if ( isset( $_POST[ 'bp_date' ] ) ) {
                     if ( isset( $_POST[ 'update_data' ] ) ) {

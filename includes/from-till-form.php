@@ -14,7 +14,9 @@
             <?php if ( $show_asset_types ) { ?>
                 <th>Asset type</th>
             <?php } ?>
-            <th class="">Show dates</th>
+            <?php if ( $is_graph_page ) { ?>
+                <th class="">Show dates</th>
+            <?php } ?>
             <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <th>Graph type</th>
             <?php } ?>
@@ -60,20 +62,23 @@
                     </label>
                 </td>
             <?php } ?>
-            <td class="">
-                <label>
-                    <select name="show_what">
-                        <?php foreach( $range as $id => $label ) { ?>
-                            <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $show_what, $id ), $label ); ?>
-                        <?php } ?>
-                    </select>
-                </label>
-            </td>
+            <?php if ( $is_dashboard ) { ?>
+                <input type="hidden" name="show_all" value="1" />
+            <?php } else { ?>
+                <td class="">
+                    <label>
+                        <select name="show_all">
+                            <?php foreach( $range as $id => $label ) { ?>
+                                <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $show_all, $id ), $label ); ?>
+                            <?php } ?>
+                        </select>
+                    </label>
+                </td>
+            <?php } ?>
             <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <td>
                     <label>
                         <select name="graph_type">
-                            <option value="">Graph type</option>
                             <?php foreach( $graph_options as $id => $label ) { ?>
                                 <option value="<?php echo $id; ?>" <?php selected( $graph_type, $id ); ?>><?php echo $label; ?></option>
                             <?php } ?>
