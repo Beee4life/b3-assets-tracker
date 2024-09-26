@@ -17,7 +17,7 @@
         $last_date          = end( $dates );
         $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data       = [];
-        $show_all           = false;
+        $show_all           = isset( $_POST[ 'show_all' ] ) ? '1' : '';
         $show_asset_types   = true;
         $show_graph         = true;
         $show_graph_options = true;
