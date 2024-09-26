@@ -12,7 +12,6 @@
         $all_data           = bp_get_data();
         $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
         $asset_type         = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? 'all' : $asset_type;
-        $data_range         = isset( $_POST[ 'data_range' ] ) ? $_POST[ 'data_range' ] : '';
         $dates              = array_keys( $all_data );
         $date_from          = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
         $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
@@ -61,26 +60,7 @@
             <div id="data-input">
                 <?php include 'includes/from-till-form.php'; ?>
                 <?php if ( empty( $_POST ) ) { ?>
-                    <div>
-                        Help info filters
-                        
-                        <ul>
-                            <li>
-                                Line chart
-                                <ul>
-                                    <li>Start and end date are required</li>
-                                </ul>
-                            </li>
-                            <li>
-                                Total chart
-                                <ul>
-                                    <li>End date is required</li>
-                                    <li>Asset type is ignored</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        
-                    </div>
+                    <?php include 'includes/graphs-help.php'; ?>
                 <?php } else { ?>
                     <?php do_action( 'add_graph', $add_graph ); ?>
                 <?php } ?>

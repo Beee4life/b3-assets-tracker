@@ -109,3 +109,37 @@
         }
     }
 }
+
+
+.graphs-help {
+    margin-top: 2rem;
+}
+
+.graphs-help h3 {
+    font-size: 1.15rem;
+    margin: 0 0 1rem 0;
+}
+
+.graphs-help ul li {
+    margin: 0;
+}
+
+.graphs-help ul li.graph-info {
+    ul {
+        margin-top: 0.25rem;
+    }
+
+    + li {
+        margin-top: 1rem;
+    }
+}
+
+.graphs-help ul ul {
+    list-style: disc;
+    padding-left: 1rem;
+}
+
+.graph-info__header {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
