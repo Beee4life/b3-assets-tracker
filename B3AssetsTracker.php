@@ -74,17 +74,17 @@
              * Add admin page
              */
             public function bp_admin_pages() {
-                include 'dashboard.php';
+                include 'admin/dashboard.php';
                 add_menu_page( 'A$$et$', 'A$$et$', 'manage_options', 'bp-assets-dashboard', 'bp_assets_dashboard', 'dashicons-chart-pie', '3' );
-                include 'data.php';
+                include 'admin/data.php';
                 add_submenu_page( 'options.php', 'Data', 'Data', 'manage_options', 'bp-assets-data', 'bp_assets_data' );
-                include 'add-data.php';
+                include 'admin/add-data.php';
                 add_submenu_page( 'options.php', 'Add data', 'Add data', 'manage_options', 'bp-assets-add-data', 'bp_assets_add_data' );
-                include 'add-type.php';
+                include 'admin/add-type.php';
                 add_submenu_page( 'options.php', 'Types', 'Types', 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
-                include 'graphs.php';
+                include 'admin/graphs.php';
                 add_submenu_page( 'options.php', 'Graphs', 'Graphs', 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
-                include 'settings.php';
+                include 'admin/settings.php';
                 add_submenu_page( 'options.php', 'Settings', 'Settings', 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
             }
 
