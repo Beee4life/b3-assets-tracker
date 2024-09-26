@@ -35,6 +35,9 @@
                     $show_diff  = true;
                     $show_total = true;
                 }
+            } else {
+                // default view
+                $grouped_data = array_reverse( $grouped_data );
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
