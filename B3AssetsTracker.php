@@ -102,7 +102,7 @@
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_type   = 'all';
+                        $asset_type   = $_POST[ 'asset_type' ];
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
                         $range        = $_POST[ 'view_range' ];
@@ -111,6 +111,7 @@
                         
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
+                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                             $chart_args = [
                                 'data'       => $processed_data,
