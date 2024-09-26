@@ -45,8 +45,9 @@
              * Function which runs upon plugin activation
              */
             public function bp_plugin_activation() {
-                update_option( 'bp_assets_date_format', 'd-m-y' );
+                update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
+                update_option( 'bp_date_separator', '-' );
             }
 
 
@@ -54,7 +55,8 @@
              * Function which runs upon plugin deactivation
              */
             public function bp_plugin_deactivation() {
-                delete_option( 'bp_assets_date_format' );
+                delete_option( 'bp_date_format' );
+                delete_option( 'bp_date_separator' );
                 delete_option( 'bp_currency' );
             }
 
