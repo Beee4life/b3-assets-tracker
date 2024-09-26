@@ -86,7 +86,7 @@
         $table = $wpdb->prefix . 'asset_data';
 
         if ( $from && $until ) {
-            if ( 'all' === $asset_type ) {
+            if ( in_array( $asset_type, [ 'all', 'all_ind' ] ) ) {
                 if ( '1' === $range ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 } else {
