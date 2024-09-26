@@ -98,41 +98,33 @@
                 
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
                 
-                if ( isset( $_POST[ 'stats_from' ] ) && isset( $_POST[ 'stats_until' ] ) ) {
-                    if ( isset( $_POST[ 'show_graph' ] ) && ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) ) {
-                        if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
-                        }
-                    } else {
+                if ( isset( $_POST[ 'stats_until' ] ) ) {
+                    // @TODO: validate form fields in function
+                    $validated = b3_validate_graph_fields( $_POST );
+                    // echo '<pre>'; var_dump($validated); echo '</pre>'; exit;
+                    
+                    if ( $validated ) {
+                        $asset_type   = 'all';
+                        $show_all     = isset( $_POST[ 'show_all' ] ) ? '1' : '';
+                        $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
+                        $date_till    = $_POST[ 'stats_until' ];
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
+                        // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
+                        $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
+                        $show_all     = isset( $_POST[ 'show_all' ] ) ? '1' : '';
                         
-                        // @TODO: validate form fields in function
-                        
-                        $asset_type     = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : false;
-                        $date_from      = $_POST[ 'stats_from' ];
-                        $date_till      = $_POST[ 'stats_until' ];
-                        $grouped_data   = [];
-                        $graph_type     = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : false;
-                        $show_all       = isset( $_POST[ 'show_all' ] ) ? true : false;
-                        
-                        if ( 'line' === $graph_type ) {
-                            $all_dates    = array_values( bp_get_dates() );
-                            $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
-                            
-                        } elseif ( $graph_type ) {
-                            $grouped_data   = bp_get_results_range( $date_from, $date_till, $asset_type, $show_all );
-                        }
-    
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $show_all );
+                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
                             $chart_args = [
                                 'data'       => $processed_data,
                                 'asset_type' => $asset_type,
                                 'graph_type' => $graph_type,
                             ];
-        
+                            
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
-    
+                        
                         $in_footer = false;
                         wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', $in_footer );
                     }

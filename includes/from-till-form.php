@@ -1,5 +1,5 @@
 <form name="" action="" method="post">
-    <?php if ( $show_graph && $show_graph_options ) { ?>
+    <?php if ( $is_graph_page && $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
     <?php } ?>
     <table class="data-input">
@@ -14,8 +14,8 @@
             <?php if ( $show_asset_types ) { ?>
                 <th>Asset type</th>
             <?php } ?>
-            <th class="checkbox">All</th>
-            <?php if ( $show_graph && $show_graph_options ) { ?>
+            <th class="">Show dates</th>
+            <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <th>Graph type</th>
             <?php } ?>
             <th>&nbsp;</th>
@@ -25,7 +25,7 @@
         <tr>
             <td>
                 <label>
-                    <select name="stats_from" required>
+                    <select name="stats_from">
                         <?php echo sprintf( '<option value="">%s</option>', 'Start' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
                             <?php $show_day = 2 == gmdate( 'N', strtotime( $date ) ) ? sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) : false; ?>
@@ -60,12 +60,16 @@
                     </label>
                 </td>
             <?php } ?>
-            <td class="checkbox">
+            <td class="">
                 <label>
-                    <input type="checkbox" name="show_all" value="1" <?php checked( $show_all, '1' ); ?>/>
+                    <select name="show_what">
+                        <?php foreach( $range as $id => $label ) { ?>
+                            <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $show_what, $id ), $label ); ?>
+                        <?php } ?>
+                    </select>
                 </label>
             </td>
-            <?php if ( $show_graph && $show_graph_options ) { ?>
+            <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <td>
                     <label>
                         <select name="graph_type">

@@ -117,6 +117,12 @@
 
             return $grouped_data;
         
+        } elseif ( $until ) {
+            // get pie chart for totals on this date
+            $query        = $wpdb->prepare( "SELECT * from $table WHERE date = '%s'", $until );
+            $grouped_data = $wpdb->get_results( $query );
+
+            return $grouped_data;
         }
         
         return [];

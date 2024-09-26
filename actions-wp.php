@@ -51,17 +51,6 @@
                         };
                         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-                    } else if ( chart_vars.graph_type === 'pie' ) {
-                        var options = {
-                            title : 'Assets value per type',
-                            is3D : true,
-                            // pieHole : 0.1,
-                            // pieSliceText: 'label',
-                            width: 700,
-                            height: 500
-                        };
-                        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-
                     } else if ( chart_vars.graph_type === 'line' ) {
                         var options = {
                             title : 'Week diff',
@@ -74,6 +63,17 @@
                             height: 500
                         };
                         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+                    } else if ( chart_vars.graph_type === 'total' ) {
+                        var options = {
+                            title : 'Assets per type',
+                            is3D : true,
+                            // pieHole : 0.1,
+                            pieSliceText: 'label',
+                            width: 800,
+                            height: 500
+                        };
+                        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                         
                     } else {
                         var options = {

@@ -10,35 +10,38 @@
         $add_graph          = false;
         $all_dates          = array_values( bp_get_dates() );
         $all_data           = bp_get_data();
-        $asset_type         = ! empty( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
+        $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
+        $asset_type         = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? 'all' : $asset_type;
         $dates              = array_keys( $all_data );
         $date_from          = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
+        $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
         $date_until         = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
+        $is_dashboard       = false;
         $last_date          = end( $dates );
         $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data       = [];
         $show_all           = isset( $_POST[ 'show_all' ] ) ? '1' : '';
         $show_asset_types   = true;
-        $show_graph         = true;
+        // $show_graph         = true;
+        $is_graph_page      = true;
         $show_graph_options = true;
+        $show_what          = isset( $_POST[ 'show_what' ] ) ? $_POST[ 'show_what' ] : '';
         $types              = bp_get_types();
-        
+
+        $range              = [
+            'all'       => 'All dates',
+            'begin_end' => 'Begin/end',
+        ];
         
         $graph_options = [
             // 'bar'   => 'BarChart',
             'line'  => 'LineChart',
             // 'pie'   => 'PieChart',
-            // 'total' => 'Total (PieChart)',
+            'total' => 'Total (PieChart)',
         ];
         
-        if ( ! empty( $_POST ) ) {
-            if ( ! isset( $_POST[ 'graph_type' ] ) || empty( $_POST[ 'graph_type' ] ) ) {
-                if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_no_type', esc_html( __( 'No graph type selected.', 'assets' ) ) );
-                }
-            } else {
-                $add_graph  = true;
-            }
+        if ( b3_validate_graph_fields( $_POST ) ) {
+            $add_graph = true;
         }
     ?>
 
