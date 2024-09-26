@@ -27,7 +27,7 @@
         $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
 
         $range              = [
-            '1'       => 'All dates',
+            '1'         => 'All dates',
             'begin_end' => 'Begin/end',
         ];
         
