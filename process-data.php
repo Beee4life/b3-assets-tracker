@@ -132,19 +132,7 @@
             $top_row = [ 'Asset', '&euro;' ];
             
         } elseif ( 'line' === $graph_type ) {
-            $top_row = [ 'Week' ];
-            
-            if ( $show_all ) {
-                foreach( bp_get_types() as $type ) {
-                    if ( bp_is_type_hidden( $type->id ) ) {
-                        continue;
-                    }
-                    $name      = bp_get_type_by_id( $type->id );
-                    $top_row[] = $name;
-                }
-            } elseif ( $asset_type ) {
-                $top_row[] = 'Euro';
-            }
+            $top_row = [ 'Week', 'Euro' ];
             
         } else {
             $top_row = [ 'Week' ];
@@ -185,26 +173,13 @@
         
         $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $show_all );
         
-        if ( 'all' === $asset_type ) {
-            foreach( $data as $entry_row ) {
-                $date        = bp_format_value( $entry_row[ 0 ]->date, 'date' );
-                $total_value = bp_get_value_on_date( $entry_row );
+        if ( 'line' === $graph_type ) {
+            foreach( $data as $date_entries ) {
+                $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
+                $total_value = bp_get_value_on_date( $date_entries );
                 $all_rows[]  = [ $date, $total_value ];
             }
-
-        } elseif ( 'line' === $graph_type ) {
-            if ( $show_all ) {
-                foreach( $data as $entry_row ) {
-                    $entry_row  = [ bp_get_type_by_id( $entry_row->type ), (float) $entry_row->value ];
-                    $all_rows[] = $entry_row;
-                }
-            } else {
-                foreach( $data as $entry_row ) {
-                    $entry_row  = [ bp_format_value( $entry_row[0]->date, 'date' ), (float) $entry_row[0]->value ];
-                    $all_rows[] = $entry_row;
-                }
-            }
-
+            
         } elseif ( 'pie' === $graph_type ) {
             foreach( $data as $entry_row ) {
                 $entry_row  = [ bp_get_type_by_id( $entry_row->type ), (float) $entry_row->value ];
