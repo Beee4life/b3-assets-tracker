@@ -2,14 +2,14 @@
     function process_input_forms() {
         if ( isset( $_POST[ 'add_type_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_type_nonce' ], 'add-type-nonce' ) ) {
-                if ( class_exists( 'bp_errors' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
                 }
                 
             } else {
                 if ( isset( $_POST[ 'bp_type' ] ) ) {
                     if ( empty( $_POST[ 'bp_type' ] ) ) {
-                        if ( class_exists( 'bp_errors' ) ) {
+                        if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets' ) ) );
                         }
                     } else {
@@ -31,7 +31,7 @@
                                 '%d',
                             ];
                             $updated = $wpdb->update( $table, $data, $where, $format );
-                            if ( $updated && class_exists( 'bp_errors' ) ) {
+                            if ( $updated && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'assets' ) ) );
                             }
 
@@ -47,7 +47,7 @@
                             }
                             
                             $return = $wpdb->insert( $table, $data );
-                            if ( $return && class_exists( 'bp_errors' ) ) {
+                            if ( $return && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'assets' ) ) );
                             }
                         }
@@ -59,7 +59,7 @@
         // add/update data
         if ( isset( $_POST[ 'add_data_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_data_nonce' ], 'add-data-nonce' ) ) {
-                if ( class_exists( 'bp_errors' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
                 }
                 
@@ -111,7 +111,7 @@
 
                         }
                         
-                        if ( class_exists( 'bp_errors' ) ) {
+                        if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'success_type_updated', esc_html( __( 'Values updated.', 'assets' ) ) );
                         }
                         
@@ -125,11 +125,11 @@
                             ];
                             $wpdb->insert( $table, $data );
                         }
-                        if ( class_exists( 'bp_errors' ) ) {
+                        if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'success_type_inserted', esc_html( __( 'Values inserted.', 'assets' ) ) );
                         }
                     }
-                } elseif ( class_exists( 'bp_errors' ) ) {
+                } elseif ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( $validated_fields[ 'code' ], __( $validated_fields[ 'message' ], 'assets' ) );
                 }
             }
@@ -137,7 +137,7 @@
         
         if ( isset( $_POST[ 'assets_settings_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'assets_settings_nonce' ], 'assets-settings-nonce' ) ) {
-                if ( class_exists( 'bp_errors' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
                 }
                 
@@ -157,7 +157,7 @@
                 } else {
                     update_option( 'bp_decimals', 2 );
                 }
-                if ( class_exists( 'bp_errors' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets' ) ) );
                 }
             }
@@ -175,7 +175,7 @@
                 $query = $wpdb->prepare( "DELETE FROM $table WHERE date = '%s'", $date );
                 $deleted = $wpdb->query($query);
 
-                if ( $deleted && is_int( $deleted ) && class_exists( 'bp_errors' ) ) {
+                if ( $deleted && is_int( $deleted ) && function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_date_removed', esc_html( __( 'Date removed.', 'assets' ) ) );
                 }
             }
