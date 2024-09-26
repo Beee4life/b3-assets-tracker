@@ -183,7 +183,6 @@
             
         } elseif ( 'total' === $graph_type ) {
             if ( 'all' == $asset_type ) {
-                $data = end($data);
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                         continue;
