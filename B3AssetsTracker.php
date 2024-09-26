@@ -105,7 +105,7 @@
                         $asset_type   = 'all';
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $range        = $_POST[ 'show_all' ];
+                        $range        = $_POST[ 'view_range' ];
                         $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $range );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
                         

@@ -63,13 +63,13 @@
                 </td>
             <?php } ?>
             <?php if ( $is_dashboard ) { ?>
-                <input type="hidden" name="show_all" value="1" />
+                <input type="hidden" name="view_range" value="1" />
             <?php } else { ?>
                 <td class="">
                     <label>
-                        <select name="show_all">
+                        <select name="view_range">
                             <?php foreach( $range as $id => $label ) { ?>
-                                <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $show_all, $id ), $label ); ?>
+                                <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $view_range, $id ), $label ); ?>
                             <?php } ?>
                         </select>
                     </label>

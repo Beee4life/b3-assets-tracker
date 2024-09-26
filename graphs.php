@@ -17,15 +17,14 @@
         $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
         $date_until         = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
         $is_dashboard       = false;
+        $is_graph_page      = true;
         $last_date          = end( $dates );
         $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data       = [];
-        $show_all           = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
         $show_asset_types   = true;
-        // $show_graph         = true;
-        $is_graph_page      = true;
         $show_graph_options = true;
         $types              = bp_get_types();
+        $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
 
         $range              = [
             '1'       => 'All dates',

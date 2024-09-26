@@ -29,7 +29,7 @@
             $is_graph_page      = false;
             $is_dashboard       = true;
             $show_asset_types   = false;
-            $range              = isset( $_POST[ 'show_all' ] ) ? $_POST[ 'show_all' ] : false;
+            $range              = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
             $show_diff          = false;
             $show_graph         = false;
             $show_graph_options = false;
