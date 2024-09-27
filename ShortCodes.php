@@ -48,9 +48,11 @@
                 ob_start();
                 $amount_columns = $grouped_data[ 0 ];
                 $post           = get_post( get_the_ID() );
-                $scroll_class   = 6 == count( $amount_columns ) ? 'tablescroll' : '';
+                
+                if ( 6 < count( $amount_columns ) ) {
+                    echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
+                }
 
-                echo sprintf( '<div class="shortcode-notice %s">%s</div>', $scroll_class, 'Table scrolls horizontally.' );
 
                 include 'admin/includes/data-output.php';
                 
