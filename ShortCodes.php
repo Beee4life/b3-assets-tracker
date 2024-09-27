@@ -48,11 +48,11 @@
                 ob_start();
                 $amount_columns = $grouped_data[ 0 ];
                 $post           = get_post( get_the_ID() );
+                $scroll_class   = 15 < $amount_columns ? ' tablescroll' : '';
                 
                 if ( ! is_admin() && 6 < count( $amount_columns ) ) {
                     echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
                 } elseif ( is_admin() && 15 < count( $amount_columns ) ) {
-                    $scroll_class = 15 < $amount_cols ? ' tablescroll' : '';
                 }
 
 
