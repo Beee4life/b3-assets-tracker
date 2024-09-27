@@ -58,7 +58,10 @@
     }
 
     table.data-output {
-        margin-top: 2rem;
+        margin-top:  2rem;
+        display:     block;
+        overflow-x:  auto;
+        white-space: nowrap;
 
         th,
         td {

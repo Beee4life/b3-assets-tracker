@@ -9,6 +9,7 @@
         
         $all_dates    = array_values( bp_get_dates() );
         $grouped_data = bp_get_data();
+        $scroll_class = false;
         $types        = bp_get_types();
 
         if ( $grouped_data ) {
@@ -76,6 +77,9 @@
                 </div>
 
                 <div id="data-output">
+                    <?php if ( 15 < count( $grouped_data[ 0 ] ) ) { ?>
+                        <?php echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' ); ?>
+                    <?php } ?>
                     <?php include 'includes/data-output.php'; ?>
                 </div>
             <?php } ?>

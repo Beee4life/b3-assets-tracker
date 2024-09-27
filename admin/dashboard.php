@@ -19,6 +19,7 @@
             $grouped_data       = [];
             $is_graph_page      = false;
             $is_dashboard       = true;
+            $scroll_class       = false;
             $show_asset_types   = false;
             $show_diff          = false;
             $show_graph         = false;
