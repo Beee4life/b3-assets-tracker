@@ -100,7 +100,7 @@
                 
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
                 
-                if ( isset( $_POST[ 'stats_until' ] ) ) {
+                if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
