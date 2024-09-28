@@ -113,7 +113,6 @@
                         
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
-                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                             $chart_args = [
                                 'data'       => $processed_data,
