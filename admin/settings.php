@@ -8,7 +8,6 @@
         }
         
         $stored_date_format    = get_option( 'bp_date_format' );
-        $stored_date_separator = get_option( 'bp_date_separator', '-' );
         $stored_currency       = get_option( 'bp_currency' );
         
         $currencies = [
@@ -16,12 +15,6 @@
             '$',
             '£',
             '¥',
-        ];
-
-        $date_separators = [
-            '-',
-            '.',
-            '/',
         ];
 
         $date_formats = [
@@ -69,20 +62,6 @@
                                 </label>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>-->
-<!--                                Date separator-->
-<!--                            </th>-->
-<!--                            <td>-->
-<!--                                <label>-->
-<!--                                    <select name="bp_date_separator">-->
-<!--                                        --><?php //foreach( $date_separators as $separator ) { ?>
-<!--                                            --><?php //echo sprintf( '<option value="%s" %s>%s</option>', $separator, selected( $separator, $stored_date_separator ), $separator ); ?>
-<!--                                        --><?php //} ?>
-<!--                                    </select>-->
-<!--                                </label>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                         <tr>
                             <th>
                                 Date format

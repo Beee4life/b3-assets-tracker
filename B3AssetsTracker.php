@@ -47,7 +47,6 @@
             public function bp_plugin_activation() {
                 update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
-                update_option( 'bp_date_separator', '-' );
             }
 
 
@@ -56,7 +55,6 @@
              */
             public function bp_plugin_deactivation() {
                 delete_option( 'bp_date_format' );
-                delete_option( 'bp_date_separator' );
                 delete_option( 'bp_currency' );
             }
 

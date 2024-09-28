@@ -154,11 +154,6 @@
                 } else {
                     update_option( 'bp_date_format', 'd-m-y' );
                 }
-                if ( ! empty( $_POST[ 'bp_date_separator' ] ) ) {
-                    update_option( 'bp_date_separator', $_POST[ 'bp_date_separator' ] );
-                } else {
-                    update_option( 'bp_date_separator', '-' );
-                }
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets' ) ) );
                 }
