@@ -75,7 +75,7 @@
                     
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
-                        // @TODO: ,only for me
+                        // @TODO: only for me
                         if ( ! empty( $values[3] ) && ! empty( $values[5] ) ) {
                             $total_degiro = $values[ 3 ];
                             $total_etf    = $values[ 5 ];
