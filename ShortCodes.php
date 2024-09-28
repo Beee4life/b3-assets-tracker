@@ -46,13 +46,14 @@
             
             if ( ! is_admin() && is_array( $grouped_data ) ) {
                 ob_start();
-                $amount_columns = $grouped_data[ 0 ];
-                $post           = get_post( get_the_ID() );
-                $scroll_class   = 15 < $amount_columns ? ' tablescroll' : '';
+                $amount_columns   = $grouped_data[ 0 ];
+                $scroll_class     = 15 < $amount_columns ? ' tablescroll' : '';
+                $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
                 
                 if ( ! is_admin() && 6 < count( $amount_columns ) ) {
-                    echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
+                    echo $shortcode_notice;
                 } elseif ( is_admin() && 15 < count( $amount_columns ) ) {
+                    echo $shortcode_notice;
                 }
 
 
@@ -63,6 +64,7 @@
                     if ( $page_id ) {
                         $message = sprintf( 'This data comes from a WordPress %s I created to track my assets and easily share it within the site.', sprintf( '<a href="%s">%s</a>', '/assets-tracker/', 'plugin' ) );
                     } else {
+                        $post    = get_post( get_the_ID() );
                         $post_ts = gmdate( 'U', strtotime( $post->post_date ) );
                         if ( 1726701314 <= (int) $post_ts ) {
                             $message = 'Deze data komt uit een WordPress plugin die ik zelf geschreven heb om mijn assets te kunnen tracken en sharen.';

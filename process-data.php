@@ -181,7 +181,6 @@
         if ( 'line' === $graph_type ) {
             if ( 'all_ind' == $asset_type ) {
                 // @TODO: create line chart split per asset
-                // echo '<pre>'; var_dump($data); echo '</pre>'; exit;
             } else {
                 foreach( $data as $date_entries ) {
                     $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
