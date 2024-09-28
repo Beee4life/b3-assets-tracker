@@ -177,6 +177,24 @@
                 }
             }
         }
+        
+        if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
+            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                }
+            } else {
+                if ( is_array( $_POST[ 'delete_types' ] ) && ! empty( $_POST[ 'delete_types' ] ) ) {
+                    global $wpdb;
+                    foreach( $_POST[ 'delete_types' ] as $type ) {
+                        // delete type
+                        $wpdb->delete( $wpdb->prefix . 'asset_types', [ 'type' => $type ], [ '%d' ] );
+                        // delete entries with type
+                        $wpdb->delete( $wpdb->prefix . 'asset_data', [ 'type' => $type ], [ '%d' ] );
+                    }
+                }
+            }
+        }
     }
     add_action( 'admin_init', 'process_input_forms' );
 
