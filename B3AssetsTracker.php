@@ -45,8 +45,9 @@
              * Function which runs upon plugin activation
              */
             public function bp_plugin_activation() {
-                update_option( 'bp_assets_date_format', 'd-m-y' );
+                update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
+                update_option( 'bp_date_separator', '-' );
             }
 
 
@@ -54,7 +55,8 @@
              * Function which runs upon plugin deactivation
              */
             public function bp_plugin_deactivation() {
-                delete_option( 'bp_assets_date_format' );
+                delete_option( 'bp_date_format' );
+                delete_option( 'bp_date_separator' );
                 delete_option( 'bp_currency' );
             }
 
@@ -98,11 +100,11 @@
                 
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
                 
-                if ( isset( $_POST[ 'stats_until' ] ) ) {
+                if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_type   = 'all';
+                        $asset_type   = $_POST[ 'asset_type' ];
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
                         $range        = $_POST[ 'view_range' ];

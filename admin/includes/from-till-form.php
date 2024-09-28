@@ -53,6 +53,7 @@
                     <label>
                         <select name="asset_type">
                             <option value="all">All (total)</option>
+<!--                            <option value="all_ind">All (indiv.)</option>-->
                             <?php foreach( $types as $id => $type ) { ?>
                                 <?php if ( bp_is_type_hidden( $type->id ) ) { ?>
                                     <?php continue; ?>

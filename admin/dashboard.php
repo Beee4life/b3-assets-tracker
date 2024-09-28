@@ -19,6 +19,7 @@
             $grouped_data       = [];
             $is_graph_page      = false;
             $is_dashboard       = true;
+            $scroll_class       = false;
             $show_asset_types   = false;
             $show_diff          = false;
             $show_graph         = false;
@@ -44,7 +45,7 @@
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type );
+                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, '1' );
                 $show_diff    = true;
                 $show_total   = true;
 

@@ -3,10 +3,10 @@
         if ( $type ) {
             switch ( $type ) {
                 case 'date':
-                    $value = gmdate( get_option( 'bp_assets_date_format' ), strtotime( $value ) );
+                    $value = gmdate( get_option( 'bp_date_format' ), strtotime( $value ) );
                     break;
                 case 'percent':
-                    $value = sprintf( '%s %%', number_format( $value, get_option( 'bp_decimals' ), ',', '.' ) );
+                    $value = sprintf( '%s %%', number_format( $value, 2, ',', '.' ) );
                     break;
                 case 'price':
                     $value = sprintf( '%s %s', get_option( 'bp_currency' ), number_format( $value, 2, ',', '.' ) );

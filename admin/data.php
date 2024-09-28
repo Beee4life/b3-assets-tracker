@@ -9,6 +9,7 @@
         
         $all_dates    = array_values( bp_get_dates() );
         $grouped_data = bp_get_data();
+        $scroll_class = false;
         $types        = bp_get_types();
 
         if ( $grouped_data ) {
@@ -35,6 +36,9 @@
                     $show_diff  = true;
                     $show_total = true;
                 }
+            } else {
+                // default view
+                $grouped_data = array_reverse( $grouped_data );
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
@@ -73,6 +77,9 @@
                 </div>
 
                 <div id="data-output">
+                    <?php if ( 15 < count( $grouped_data[ 0 ] ) ) { ?>
+                        <?php echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' ); ?>
+                    <?php } ?>
                     <?php include 'includes/data-output.php'; ?>
                 </div>
             <?php } ?>

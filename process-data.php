@@ -179,10 +179,14 @@
         $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $range );
         
         if ( 'line' === $graph_type ) {
-            foreach( $data as $date_entries ) {
-                $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
-                $total_value = bp_get_value_on_date( $date_entries );
-                $all_rows[]  = [ $date, $total_value ];
+            if ( 'all_ind' == $asset_type ) {
+                // @TODO: create line chart split per asset
+            } else {
+                foreach( $data as $date_entries ) {
+                    $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
+                    $total_value = bp_get_value_on_date( $date_entries );
+                    $all_rows[]  = [ $date, $total_value ];
+                }
             }
             
         } elseif ( 'total' === $graph_type ) {

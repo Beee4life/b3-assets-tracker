@@ -7,9 +7,10 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         
-        $stored_date_format = get_option( 'bp_assets_date_format' );
-        $stored_currency    = get_option( 'bp_currency' );
-
+        $stored_date_format    = get_option( 'bp_date_format' );
+        $stored_date_separator = get_option( 'bp_date_separator', '-' );
+        $stored_currency       = get_option( 'bp_currency' );
+        
         $currencies = [
             '€',
             '$',
@@ -17,13 +18,19 @@
             '¥',
         ];
 
+        $date_separators = [
+            '-',
+            '.',
+            '/',
+        ];
+
         $date_formats = [
-            'd-m',
-            'd-m-y',
-            'd-m-Y',
-            'j-n',
-            'j-n-y',
-            'j-n-Y',
+            sprintf( 'd%sm', $stored_date_separator ),
+            sprintf( 'd%sm%sy', $stored_date_separator, $stored_date_separator ),
+            sprintf( 'd%sm%sY', $stored_date_separator, $stored_date_separator ),
+            sprintf( 'j%sn', $stored_date_separator ),
+            sprintf( 'j%sn%sy', $stored_date_separator, $stored_date_separator ),
+            sprintf( 'j%sn%sY', $stored_date_separator, $stored_date_separator ),
             'j F',
             'j F, Y',
         ];
@@ -62,13 +69,27 @@
                                 </label>
                             </td>
                         </tr>
+<!--                        <tr>-->
+<!--                            <th>-->
+<!--                                Date separator-->
+<!--                            </th>-->
+<!--                            <td>-->
+<!--                                <label>-->
+<!--                                    <select name="bp_date_separator">-->
+<!--                                        --><?php //foreach( $date_separators as $separator ) { ?>
+<!--                                            --><?php //echo sprintf( '<option value="%s" %s>%s</option>', $separator, selected( $separator, $stored_date_separator ), $separator ); ?>
+<!--                                        --><?php //} ?>
+<!--                                    </select>-->
+<!--                                </label>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         <tr>
                             <th>
                                 Date format
                             </th>
                             <td>
                                 <label>
-                                    <select name="bp_assets_date_format">
+                                    <select name="bp_date_format">
                                         <?php foreach( $date_formats as $format ) { ?>
                                             <?php echo sprintf( '<option value="%s" %s>%s</option>', $format, selected( $format, $stored_date_format ), gmdate( $format, time() ) ); ?>
                                         <?php } ?>

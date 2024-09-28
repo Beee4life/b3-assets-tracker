@@ -147,15 +147,15 @@
                 } else {
                     update_option( 'bp_currency', '&euro;' );
                 }
-                if ( ! empty( $_POST[ 'bp_assets_date_format' ] ) ) {
-                    update_option( 'bp_assets_date_format', $_POST[ 'bp_assets_date_format' ] );
+                if ( ! empty( $_POST[ 'bp_date_format' ] ) ) {
+                    update_option( 'bp_date_format', $_POST[ 'bp_date_format' ] );
                 } else {
-                    update_option( 'bp_assets_date_format', 'd-m-y' );
+                    update_option( 'bp_date_format', 'd-m-y' );
                 }
-                if ( ! empty( $_POST[ 'bp_decimals' ] ) ) {
-                    update_option( 'bp_decimals', $_POST[ 'bp_decimals' ] );
+                if ( ! empty( $_POST[ 'bp_date_separator' ] ) ) {
+                    update_option( 'bp_date_separator', $_POST[ 'bp_date_separator' ] );
                 } else {
-                    update_option( 'bp_decimals', 2 );
+                    update_option( 'bp_date_separator', '-' );
                 }
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets' ) ) );

@@ -60,7 +60,9 @@
                     $edit_url = admin_url( sprintf( 'admin.php?page=bp-assets-add-data&date=%s', $value ) );
                     if ( $show_diff && $show_total ) {
                         if ( $column_counter < ( $amount_cols - 2 ) ) {
-                            $value = bp_format_value( $value, 'date' );
+                            $week_day = gmdate( 'l', strtotime( $value ) );
+                            $value    = bp_format_value( $value, 'date' );
+
                             if ( current_user_can( 'manage_options' ) ) {
                                 echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
                             } else {
@@ -86,7 +88,9 @@
                         if ( $column_counter == $amount_cols ) {
                             echo 'Total %';
                         } else {
-                            $value = bp_format_value( $value, 'date' );
+                            $week_day = gmdate( 'D', strtotime( $value ) );
+                            $value    = bp_format_value( $value, 'date' );
+
                             if ( current_user_can( 'manage_options' ) ) {
                                 echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
                             } else {
