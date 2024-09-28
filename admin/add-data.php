@@ -7,16 +7,14 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         $action       = admin_url( 'admin.php?page=bp-assets-dashboard' );
-        $edit_date    = '';
+        $edit_date    = isset( $_GET[ 'date' ] ) ? $_GET[ 'date' ] : '';
         $grouped_data = [];
         $max_date     = gmdate( 'Y-m-d', ( time() + WEEK_IN_SECONDS ) );
         $types        = bp_get_types();
-        $get_date     = isset( $_GET[ 'date' ] ) ? $_GET[ 'date' ] : '';
         
-        if ( $get_date ) {
-            $data         = bp_get_data( $get_date );
+        if ( $edit_date ) {
+            $data         = bp_get_data( $edit_date );
             $grouped_data = $data;
-            $edit_date    = $get_date;
 
         } elseif ( ! empty( $data ) ) {
             foreach( $data as $row ) {
@@ -31,7 +29,7 @@
         <div id="wrap">
 
             <h1>
-                Add data
+                <?php echo get_admin_page_title(); ?>
             </h1>
 
             <?php
@@ -46,8 +44,8 @@
                 <div id="data-input">
                     <form name="add-data" action="<?php echo $action; ?>" method="post">
                         <input name="add_data_nonce" type="hidden" value="<?php echo wp_create_nonce( 'add-data-nonce' ); ?>" />
-                        <?php if ( $get_date ) { ?>
-                            <input name="update_data" type="hidden" value="<?php echo $get_date; ?>" />
+                        <?php if ( $edit_date ) { ?>
+                            <input name="update_data" type="hidden" value="<?php echo $edit_date; ?>" />
                         <?php } ?>
                         <table class="add-data">
                             <tr>
@@ -69,7 +67,7 @@
                                         <label>
                                             <?php
                                                 $value = '';
-                                                if ( $get_date && $grouped_data ) {
+                                                if ( $edit_date && $grouped_data ) {
                                                     foreach( $grouped_data as $item ) {
                                                         if ( $type->id == $item->type ) {
                                                             if ( '0.00' !== $item->value ) {
