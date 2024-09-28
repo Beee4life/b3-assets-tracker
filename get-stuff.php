@@ -125,8 +125,6 @@
                 } else {
                     $grouped_data = array_merge( $first_item, $last_item );
                 }
-            } else {
-                error_log('Show all, so probably no edits needed');
             }
 
             return $grouped_data;
