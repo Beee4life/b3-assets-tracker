@@ -75,10 +75,12 @@
                     
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
+                        // @TODO: ,only for me
                         if ( ! empty( $values[3] ) && ! empty( $values[5] ) ) {
-                            $dg_total  = $values[ 3 ];
-                            $dg_etf    = $values[ 5 ];
-                            $values[4] = $dg_total - $dg_etf;
+                            $total_degiro = $values[ 3 ];
+                            $total_etf    = $values[ 5 ];
+                            $total_stocks = $total_degiro - $total_etf;
+                            $values[4]    = (string) $total_stocks;
                         }
 
                         foreach( $values as $type => $value ) {
