@@ -38,7 +38,7 @@
                 }
             } else {
                 // default view
-                $grouped_data = array_reverse( $data_8dates );
+                $grouped_data = $data_8dates;
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
