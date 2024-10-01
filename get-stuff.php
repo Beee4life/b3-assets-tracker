@@ -55,6 +55,16 @@
         
         return $wpdb->get_results( $query );
     }
+    
+    
+    function bp_get_preset_types() {
+        $preset_types = [
+            '21' => 'Coinbase',
+            '22' => 'DeGiro',
+        ];
+        
+        return [];
+    }
 
     
     function bp_get_type_by_id( $type ) {
