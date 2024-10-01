@@ -4,6 +4,27 @@
         <?php if ( $current_type ) { ?>
             <input name="update_type" type="hidden" value="<?php echo $current_type; ?>" />
         <?php } ?>
+        
+        <?php if ( $preset_types ) { ?>
+            <h2>Preset choices</h2>
+            <table class="data-input">
+                <?php foreach( $preset_types as $id => $label ) { ?>
+                    <tr>
+                        <td><?php echo $label; ?></td>
+                        <td>
+                            <label>
+                                <?php echo sprintf( '<input name="%d" type="checkbox" value="1" %s/>', $id, checked( $id, in_array( $id, [] ) ) ); ?>
+                            </label>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } ?>
+        
+        <?php if ( $preset_types ) { ?>
+            <h2>Free choices</h2>
+        <?php } ?>
+
         <table class="data-input">
             <thead>
             <tr>
