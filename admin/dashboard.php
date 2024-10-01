@@ -7,6 +7,7 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         
+        $all_dates   = array_values( bp_get_dates() );
         $data_8dates = bp_get_data();
         $types       = bp_get_types();
         

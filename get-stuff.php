@@ -55,6 +55,16 @@
         
         return $wpdb->get_results( $query );
     }
+    
+    
+    function bp_get_preset_types() {
+        $preset_types = [
+            '21' => 'Coinbase',
+            '22' => 'DeGiro',
+        ];
+        
+        return [];
+    }
 
     
     function bp_get_type_by_id( $type ) {
@@ -125,8 +135,6 @@
                 } else {
                     $grouped_data = array_merge( $first_item, $last_item );
                 }
-            } else {
-                error_log('Show all, so probably no edits needed');
             }
 
             return $grouped_data;

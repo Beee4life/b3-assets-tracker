@@ -10,6 +10,13 @@
     margin-top: 1rem;
 }
 
+#data-input {
+    h2 {
+        margin-top:    0;
+        margin-bottom: 0.5rem;
+    }
+}
+
 #data-input,
 #data-output {
     form {
@@ -120,7 +127,7 @@
 
 .graphs-help h3 {
     font-size: 1.15rem;
-    margin: 0 0 1rem 0;
+    margin:    0 0 1rem 0;
 }
 
 .graphs-help ul li {
@@ -138,11 +145,11 @@
 }
 
 .graphs-help ul ul {
-    list-style: disc;
+    list-style:   disc;
     padding-left: 1rem;
 }
 
 .graph-info__header {
-    font-size: 1.1rem;
+    font-size:   1.1rem;
     font-weight: 500;
 }

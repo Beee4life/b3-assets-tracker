@@ -11,7 +11,6 @@
     }
     
     delete_option( 'bp_date_format' );
-    delete_option( 'bp_date_separator' );
     delete_option( 'bp_currency' );
     
     global $wpdb;

@@ -6,18 +6,19 @@
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
-        $current_type = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '';
-        $types        = bp_get_types();
+        $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
+        $asset_types  = bp_get_types();
+        $preset_types = bp_get_preset_types();
         $order_value  = '';
         $hide_value   = '';
         $type_value   = '';
         
         if ( $current_type ) {
-            $columns   = array_column( $types, 'id' );
+            $columns   = array_column( $asset_types, 'id' );
             $types_key = array_search( $current_type, $columns );
 
             if ( false !== $types_key ) {
-                $type        = $types[ $types_key ];
+                $type        = $asset_types[ $types_key ];
                 $type_value  = $type->name;
                 $order_value = $type->ordering;
                 $hide_value  = $type->hide;
@@ -40,7 +41,7 @@
                 
                 include 'includes/types-input.php';
     
-                if ( $types ) {
+                if ( $asset_types ) {
                     include 'includes/types-output.php';
                 }
             ?>

@@ -7,6 +7,8 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         
+        // @TODO: prefill first/last dates
+        
         $add_graph          = false;
         $all_dates          = array_values( bp_get_dates() );
         $all_data           = bp_get_data();
@@ -45,7 +47,7 @@
 
         <div id="wrap">
             <h1>
-                Graphs
+                <?php echo get_admin_page_title(); ?>
             </h1>
 
             <?php

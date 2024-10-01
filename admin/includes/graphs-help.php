@@ -14,7 +14,6 @@
             <ul>
                 <li>End date is required</li>
                 <li>Asset type is ignored</li>
-                <li>Range is ignored</li>
             </ul>
         </li>
     </ul>

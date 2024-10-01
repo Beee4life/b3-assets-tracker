@@ -8,12 +8,12 @@
         }
         
         $all_dates    = array_values( bp_get_dates() );
-        $grouped_data = bp_get_data();
+        $data_8dates  = bp_get_data();
         $scroll_class = false;
         $types        = bp_get_types();
 
-        if ( $grouped_data ) {
-            $dates      = array_keys( $grouped_data );
+        if ( $data_8dates ) {
+            $dates      = array_keys( $data_8dates );
             $date_range = false;
             $months     = [];
             $show_diff  = false;
@@ -38,7 +38,7 @@
                 }
             } else {
                 // default view
-                $grouped_data = array_reverse( $grouped_data );
+                $grouped_data = $data_8dates;
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );

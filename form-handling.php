@@ -75,10 +75,12 @@
                     
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
+                        // @TODO: only for me
                         if ( ! empty( $values[3] ) && ! empty( $values[5] ) ) {
-                            $dg_total  = $values[ 3 ];
-                            $dg_etf    = $values[ 5 ];
-                            $values[4] = $dg_total - $dg_etf;
+                            $total_degiro = $values[ 3 ];
+                            $total_etf    = $values[ 5 ];
+                            $total_stocks = $total_degiro - $total_etf;
+                            $values[4]    = (string) $total_stocks;
                         }
 
                         foreach( $values as $type => $value ) {
@@ -152,11 +154,6 @@
                 } else {
                     update_option( 'bp_date_format', 'd-m-y' );
                 }
-                if ( ! empty( $_POST[ 'bp_date_separator' ] ) ) {
-                    update_option( 'bp_date_separator', $_POST[ 'bp_date_separator' ] );
-                } else {
-                    update_option( 'bp_date_separator', '-' );
-                }
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets' ) ) );
                 }
@@ -177,6 +174,24 @@
 
                 if ( $deleted && is_int( $deleted ) && function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_date_removed', esc_html( __( 'Date removed.', 'assets' ) ) );
+                }
+            }
+        }
+        
+        if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
+            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                }
+            } else {
+                if ( is_array( $_POST[ 'delete_types' ] ) && ! empty( $_POST[ 'delete_types' ] ) ) {
+                    global $wpdb;
+                    foreach( $_POST[ 'delete_types' ] as $type ) {
+                        // delete type
+                        $wpdb->delete( $wpdb->prefix . 'asset_types', [ 'type' => $type ], [ '%d' ] );
+                        // delete entries with type
+                        $wpdb->delete( $wpdb->prefix . 'asset_data', [ 'type' => $type ], [ '%d' ] );
+                    }
                 }
             }
         }

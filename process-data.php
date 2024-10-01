@@ -11,7 +11,7 @@
         $date_from     = $first_item[ 0 ]->date;
         $last_item     = end( $grouped_data );
         $date_until    = $last_item[ 0 ]->date;
-        $top_row       = [ 'Week' ];
+        $top_row       = [ 'Asset' ];
         $start_value   = bp_get_value_on_date( $first_item );
         $end_value     = bp_get_value_on_date( $last_item );
         $total_counter = 0;

@@ -1,5 +1,5 @@
-<?php $all_dates = array_values( bp_get_dates() ); ?>
 <form name="" action="" method="post">
+    <input type="hidden" name="view_range" value="1" />
     <?php if ( $is_graph_page && $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
     <?php } ?>
@@ -14,9 +14,6 @@
             </th>
             <?php if ( $show_asset_types ) { ?>
                 <th>Asset type</th>
-            <?php } ?>
-            <?php if ( $is_graph_page ) { ?>
-                <th class="">Range</th>
             <?php } ?>
             <?php if ( $is_graph_page && $show_graph_options ) { ?>
                 <th>Graph type</th>
@@ -59,19 +56,6 @@
                                     <?php continue; ?>
                                 <?php } ?>
                                 <?php echo sprintf( '<option value="%s" %s>%s</option>', $type->id, selected( $type->id, $asset_type ), $type->name ); ?>
-                            <?php } ?>
-                        </select>
-                    </label>
-                </td>
-            <?php } ?>
-            <?php if ( $is_dashboard ) { ?>
-                <input type="hidden" name="view_range" value="1" />
-            <?php } else { ?>
-                <td class="">
-                    <label>
-                        <select name="view_range">
-                            <?php foreach( $range as $id => $label ) { ?>
-                                <?php echo sprintf( '<option value="%s" %s>%s</option>', $id, selected( $view_range, $id ), $label ); ?>
                             <?php } ?>
                         </select>
                     </label>
