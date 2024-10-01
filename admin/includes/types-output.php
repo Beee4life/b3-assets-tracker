@@ -2,7 +2,7 @@
     <br>
     <h2>All types</h2>
     
-    <?php if ( $types ) { ?>
+    <?php if ( $asset_types ) { ?>
         <form name="" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
             <input type="hidden" name="delete_types_nonce" value="<?php echo wp_create_nonce( 'delete-types-nonce' ); ?>" />
             <table class="data-types">
@@ -26,10 +26,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach( $types as $type ) { ?>
+                    <?php foreach( $asset_types as $type ) { ?>
                         <tr>
                             <td>
-                                <a href="<?php echo sprintf(admin_url( 'admin.php?page=bp-assets-types&id=%s' ), $type->id ); ?>">
+                                <a href="<?php echo sprintf(admin_url( 'admin.php?page=bp-assets-types&type_id=%s' ), $type->id ); ?>">
                                     <?php echo $type->ordering; ?>
                                 </a>
                             </td>
