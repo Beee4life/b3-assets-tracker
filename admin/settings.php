@@ -33,7 +33,6 @@
                 sprintf( 'd%sm%sy', $date_separator, $date_separator ),
                 sprintf( 'j%sn', $date_separator ),
                 sprintf( 'j%sn%sy', $date_separator, $date_separator ),
-                'j F',
             ];
         }
         ?>
