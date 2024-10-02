@@ -12,8 +12,7 @@
         $add_graph          = false;
         $all_dates          = array_values( bp_get_dates() );
         $all_data           = bp_get_data();
-        $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
-        $asset_type         = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? 'all' : $asset_type;
+        $asset_types        = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
         $dates              = array_keys( $all_data );
         $date_from          = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
         $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
@@ -28,11 +27,6 @@
         $types              = bp_get_types();
         $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
 
-        $range              = [
-            '1'         => 'All dates',
-            'begin_end' => 'Begin/end',
-        ];
-        
         $graph_options = [
             // 'bar'   => 'BarChart',
             'line'  => 'LineChart',
