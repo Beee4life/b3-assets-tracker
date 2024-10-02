@@ -211,6 +211,8 @@
 
                         if ( is_int( $key ) ) {
                             $entry_row[] = (float) $date_entries[$key]->value;
+                        } else {
+                            $entry_row[] = (float) '0';
                         }
                     }
                     $all_rows[] = $entry_row;
