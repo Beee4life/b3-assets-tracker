@@ -30,7 +30,7 @@
             $totals[ $total_counter ] = $totals[ $total_counter ] + $total_value_on_date;
         }
         
-        if ( in_array( $show_diff, [ 'dashboard', 'front' ] ) ) {
+        if ( $show_diff ) {
             $top_row[]  = sprintf( 'Diff in %s', get_option( 'bp_currency' ) );
             $top_row[]  = 'Diff in %';
         }

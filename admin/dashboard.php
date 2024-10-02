@@ -33,7 +33,7 @@
                 if ( isset( $_POST[ 'bp_date' ] ) ) {
                     if ( isset( $_POST[ 'update_data' ] ) ) {
                         // view after update
-                        $show_diff = isset( $dates[ 1 ] ) ? 'dashboard' : false;
+                        $show_diff = isset( $dates[ 1 ] ) ? true : false;
                     } else {
                         // view after insert
                     }

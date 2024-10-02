@@ -35,7 +35,7 @@
                 }
             }
             
-            $show_diff    = 'front';
+            $show_diff    = true;
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
             $range        = 'begin_end';
