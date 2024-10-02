@@ -49,7 +49,7 @@
                 }
 
                 &.minus {
-                    background: pink;
+                    background: #ffbfba;
                 }
             }
             &.diff-percent,
