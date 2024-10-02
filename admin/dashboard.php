@@ -22,6 +22,8 @@
             $is_dashboard       = true;
             $scroll_class       = false;
             $show_asset_types   = false;
+            $show_all_option    = true;
+            $show_all           = isset( $_POST[ 'show_all' ] ) ? true : false;
             $show_diff          = false;
             $show_graph         = false;
             $show_graph_options = false;
@@ -46,7 +48,9 @@
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, '1' );
+                // echo '<pre>'; var_dump($_POST); echo '</pre>'; exit;
+                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $show_all );
+                // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                 $show_diff    = true;
                 $show_total   = true;
 

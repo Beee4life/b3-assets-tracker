@@ -22,13 +22,22 @@
         if ( empty( $post_data ) ) {
             return false;
         }
-        
-        if ( isset( $post_data[ 'show_graph' ] ) ) {
-            if ( 'all' !== $post_data[ 'asset_type' ] && 'total' === $post_data[ 'graph_type' ] ) {
+
+        if ( ! isset( $post_data[ 'asset_type' ] ) ) {
+            if ( 'total' !== $post_data[ 'graph_type' ] ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
+                    bp_errors()->add( 'error_no_type', esc_html( __( 'You did not select a type.', 'assets' ) ) );
+                    return;
                 }
             }
+        }
+        
+        if ( isset( $post_data[ 'show_graph' ] ) ) {
+            // if ( 'all' !== $post_data[ 'asset_type' ] && 'total' === $post_data[ 'graph_type' ] ) {
+            //     if ( function_exists( 'bp_errors' ) ) {
+            //         bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
+            //     }
+            // }
             
             if ( 'line' === $post_data[ 'graph_type' ] ) {
                 if ( empty( $post_data[ 'stats_from' ] ) ) {

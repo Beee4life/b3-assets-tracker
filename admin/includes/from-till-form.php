@@ -1,28 +1,41 @@
 <form name="" action="" method="post">
-    <input type="hidden" name="view_range" value="1" />
     <?php if ( $is_graph_page && $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
     <?php } ?>
     <table class="data-input">
         <thead>
         <tr>
+            <?php if ( $is_graph_page && $show_graph_options ) { ?>
+                <th>Graph type</th>
+            <?php } ?>
             <th>
                 From
             </th>
             <th>
                 Till
             </th>
-            <?php if ( $show_asset_types ) { ?>
-                <th>Asset type</th>
+            <?php if ( $show_all_option ) { ?>
+                <th class="checkbox">Show all</th>
             <?php } ?>
-            <?php if ( $is_graph_page && $show_graph_options ) { ?>
-                <th>Graph type</th>
+            <?php if ( $show_asset_types ) { ?>
+                <th class="asset-types">Asset type(s)</th>
             <?php } ?>
             <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <tr>
+            <?php if ( $is_graph_page && $show_graph_options ) { ?>
+                <td>
+                    <label>
+                        <select name="graph_type">
+                            <?php foreach( $graph_options as $id => $label ) { ?>
+                                <option value="<?php echo $id; ?>" <?php selected( $graph_type, $id ); ?>><?php echo $label; ?></option>
+                            <?php } ?>
+                        </select>
+                    </label>
+                </td>
+            <?php } ?>
             <td>
                 <label>
                     <select name="stats_from">
@@ -45,31 +58,34 @@
                     </select>
                 </label>
             </td>
-            <?php if ( $show_asset_types && $types ) { ?>
-                <td>
+            <?php if ( $show_all_option ) { ?>
+                <td class="checkbox">
                     <label>
-                        <select name="asset_type">
-                            <option value="all">All (total)</option>
-<!--                            <option value="all_ind">All (indiv.)</option>-->
+                        <input type="checkbox" name="show_all" value="1">
+                    </label>
+                </td>
+            <?php } ?>
+            <?php if ( $show_asset_types && $types ) { ?>
+                <td class="asset-types">
+                    <div id="list1" class="dropdown-check-list" tabindex="100">
+                        <div class="anchor">Select Type(s) &darr;</div>
+                        <ul class="items">
                             <?php foreach( $types as $id => $type ) { ?>
                                 <?php if ( bp_is_type_hidden( $type->id ) ) { ?>
                                     <?php continue; ?>
                                 <?php } ?>
-                                <?php echo sprintf( '<option value="%s" %s>%s</option>', $type->id, selected( $type->id, $asset_type ), $type->name ); ?>
+                                <li>
+                                    <label>
+                                        <?php $checked = ''; ?>
+                                        <?php if ( is_array( $asset_types ) && in_array( $type->id, $asset_types ) ) { ?>
+                                            <?php $checked = ' checked="checked"'; ?>
+                                        <?php } ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="asset_type[]" value="%s" %s>%s</input>', $type->id, $checked, $type->name ); ?>
+                                    </label>
+                                </li>
                             <?php } ?>
-                        </select>
-                    </label>
-                </td>
-            <?php } ?>
-            <?php if ( $is_graph_page && $show_graph_options ) { ?>
-                <td>
-                    <label>
-                        <select name="graph_type">
-                            <?php foreach( $graph_options as $id => $label ) { ?>
-                                <option value="<?php echo $id; ?>" <?php selected( $graph_type, $id ); ?>><?php echo $label; ?></option>
-                            <?php } ?>
-                        </select>
-                    </label>
+                        </ul>
+                    </div>
                 </td>
             <?php } ?>
             <td>

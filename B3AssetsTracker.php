@@ -102,19 +102,20 @@
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_type   = $_POST[ 'asset_type' ];
+                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $range        = $_POST[ 'view_range' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $range );
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types );
+                        // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
                         
                         if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $graph_type );
+                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                             $chart_args = [
                                 'data'       => $processed_data,
-                                'asset_type' => $asset_type,
+                                'asset_type' => $asset_types,
                                 'graph_type' => $graph_type,
                             ];
                             

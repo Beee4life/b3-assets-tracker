@@ -90,24 +90,28 @@
      *
      * @return array|object|stdClass[]|null
      */
-    function bp_get_results_range( $from, $until, string|array $asset_type ) {
+    function bp_get_results_range( $from, $until, string|array $asset_type, $show_all = false ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_data';
 
         if ( $from && $until ) {
-            if ( is_string( $asset_type ) ) {
-                if ( in_array( $asset_type, [ 'all', 'all_ind' ] ) ) {
+            // echo '<pre>'; var_dump($asset_type); echo '</pre>'; exit;
+            if ( 'all' == $asset_type ) {
+                if ( $show_all ) {
+                    // die('OK');
                     $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
-
                 } else {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
+                    // die('NOT OK');
+                    $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 }
             
             } elseif ( is_array( $asset_type ) ) {
                 $query = $wpdb->prepare( "SELECT * from $table WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
             }
+            // echo '<pre>'; var_dump($query); echo '</pre>'; exit;
             
             $results = $wpdb->get_results( $query );
+            // echo '<pre>'; var_dump($results); echo '</pre>'; exit;
             
             $grouped_data = [];
             foreach( $results as $row ) {
@@ -116,6 +120,7 @@
                 }
                 $grouped_data[ $row->date ][] = $row;
             }
+            // echo '<pre>'; var_dump($results); echo '</pre>'; exit;
 
             return $grouped_data;
         

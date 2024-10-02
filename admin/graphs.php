@@ -23,9 +23,9 @@
         $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data       = [];
         $show_asset_types   = true;
+        $show_all_option    = false;
         $show_graph_options = true;
         $types              = bp_get_types();
-        $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
 
         $graph_options = [
             // 'bar'   => 'BarChart',
