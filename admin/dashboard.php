@@ -44,7 +44,7 @@
                 }
             } else {
                 // default view
-                $show_diff = isset( $dates[ 1 ] ) ? 'dashboard' : false;
+                $show_diff = isset( $dates[ 1 ] ) ? true : false;
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {

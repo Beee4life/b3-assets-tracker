@@ -70,7 +70,7 @@
                 }
 
                 $end_value_row = $value;
-                if ( in_array( $show_diff, [ 'dashboard', 'front' ] ) && $total_columns == $date_counter ) {
+                if ( $show_diff && $total_columns == $date_counter ) {
                     $diff          = bp_calculate_diff( $date_from, $date_until, $type->id );
                     $entry_row[]   = bp_format_value( (float) $diff );
                     $total_diff    = $total_diff + $diff;
