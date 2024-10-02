@@ -34,6 +34,11 @@
                 <th>
                     Order
                 </th>
+                <?php if ( ! empty( $asset_groups ) ) { ?>
+                    <th class="asset-group">
+                        Group
+                    </th>
+                <?php } ?>
                 <th class="hide-type">
                     Hide
                 </th>
@@ -52,6 +57,18 @@
                         <input name="bp_order" type="number" value="<?php echo $order_value; ?>" />
                     </label>
                 </td>
+                <?php if ( ! empty( $asset_groups ) ) { ?>
+                    <td class="asset-group">
+                        <label>
+                            <select name="bp_asset_group">
+                                <option value="">Group</option>
+                                <?php foreach( $asset_groups as $group ) { ?>
+                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', $group->id, selected( $group->id ), $group->name ); ?>
+                                <?php } ?>
+                            </select>
+                        </label>
+                    </td>
+                <?php } ?>
                 <td class="hide-type">
                     <label>
                         <input name="bp_hide" type="checkbox" value="1" <?php checked( $hide_value ); ?> />

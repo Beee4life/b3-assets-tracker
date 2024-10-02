@@ -43,7 +43,7 @@
         
         $total_columns = count( $data );
 
-        foreach( bp_get_types() as $type ) {
+        foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
 
             if ( bp_is_type_hidden( $type->id ) ) {
@@ -101,17 +101,16 @@
         foreach( $totals as $counter => $total ) {
             $total_row[] = bp_format_value( $total );
         }
-        if ( $show_diff || $show_diff && $show_total ) {
+        if ( $show_diff ) {
             $diff_percent = ( $total_diff / $start_value ) * 100;
             $total_row[]  = bp_format_value( $total_diff );
             $total_row[]  = bp_format_value( $diff_percent, 'percent' );
-            $total_row[]  = '100 %';
-            $all_rows[]   = $total_row;
-
-        } elseif ( $show_total ) {
-            $total_row[] = '100 %';
-            $all_rows[]  = $total_row;
         }
+
+        if ( $show_total ) {
+            $total_row[] = '100 %';
+        }
+        $all_rows[]  = $total_row;
 
         return $all_rows;
     }
@@ -160,7 +159,7 @@
                 }
                 
             } else {
-                foreach( bp_get_types() as $type ) {
+                foreach( bp_get_asset_types() as $type ) {
                     if ( bp_is_type_hidden( $type->id ) ) {
                         continue;
                     }

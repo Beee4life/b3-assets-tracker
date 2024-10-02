@@ -48,7 +48,16 @@
     }
     
     
-    function bp_get_types() {
+    function bp_get_asset_groups() {
+        global $wpdb;
+        $table = $wpdb->prefix . 'asset_groups';
+        $query = "SELECT * FROM $table ORDER BY name";
+        
+        return $wpdb->get_results( $query );
+    }
+    
+    
+    function bp_get_asset_types() {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_types';
         $query = "SELECT * FROM $table ORDER BY ordering";
@@ -64,6 +73,20 @@
         ];
         
         return [];
+    }
+
+    
+    function bp_get_group_by_id( $group_id ) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'asset_groups';
+        $query = "SELECT * FROM $table WHERE id = '$group_id'";
+        $result = $wpdb->get_results( $query );
+        
+        if ( isset( $result[0]->name ) ) {
+            return $result[0]->name;
+        }
+
+        return false;
     }
 
     

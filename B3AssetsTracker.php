@@ -37,6 +37,7 @@
                 add_action( 'admin_enqueue_scripts',    [ $this, 'bp_add_css_admin' ] );
 
                 include 'actions.php';
+                include 'data.php';
                 include 'functions.php';
             }
 
@@ -47,6 +48,14 @@
             public function bp_plugin_activation() {
                 update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
+                
+                global $wpdb;
+                $table = $wpdb->prefix . 'asset_groups';
+                
+                foreach( b3_get_default_groups() as $id => $name ) {
+                    $data = [ 'id' => $id, 'name' => $name ];
+                    $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                }
             }
 
 
@@ -146,6 +155,7 @@
                     id int(6) unsigned NOT NULL auto_increment,
                     name varchar(50) NOT NULL,
                     ordering int(2) NOT NULL,
+                    asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
                     PRIMARY KEY  (id)
                     )
@@ -167,6 +177,18 @@
                     <?php
                     $sql2 = ob_get_clean();
                     dbDelta( $sql2 );
+                    
+                    ob_start();
+                    ?>
+                    CREATE TABLE <?php echo $wpdb->prefix; ?>asset_groups (
+                    id int(6) unsigned NOT NULL auto_increment,
+                    name varchar(50) NOT NULL,
+                    PRIMARY KEY  (id)
+                    )
+                    COLLATE <?php echo $wpdb->collate; ?>;
+                    <?php
+                    $sql3 = ob_get_clean();
+                    dbDelta( $sql3 );
                     // update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
             }

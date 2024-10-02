@@ -41,7 +41,6 @@
                     <select name="stats_from">
                         <?php echo sprintf( '<option value="">%s</option>', 'Start' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
-                            <?php $show_day = 2 == gmdate( 'N', strtotime( $date ) ) ? sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) : false; ?>
                             <?php echo sprintf( '<option value="%s" %s>%s%s</option>', $date, selected( $date_from, $date ), bp_format_value( $date, 'date' ), sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) ); ?>
                         <?php } ?>
                     </select>
@@ -52,7 +51,6 @@
                     <select name="stats_until" required>
                         <?php echo sprintf( '<option value="">%s</option>', 'End' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
-                            <?php $show_day = 2 == gmdate( 'N', strtotime( $date ) ) ? ' *' : false; ?>
                             <?php echo sprintf( '<option value="%s" %s>%s%s</option>', $date, selected( $date_until, $date ), bp_format_value( $date, 'date' ), sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) ); ?>
                         <?php } ?>
                     </select>

@@ -18,6 +18,9 @@
                             ID
                         </th>
                         <th>
+                            Group
+                        </th>
+                        <th>
                             Hide
                         </th>
                         <th>
@@ -38,6 +41,9 @@
                             </td>
                             <td class="data-id">
                                 <?php echo $type->id; ?>
+                            </td>
+                            <td class="">
+                                <?php echo bp_get_group_by_id( $type->asset_group ); ?>
                             </td>
                             <td>
                                 <?php echo $type->hide ? 'X' : ''; ?>

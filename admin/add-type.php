@@ -7,7 +7,8 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
-        $asset_types  = bp_get_types();
+        $asset_groups = bp_get_asset_groups();
+        $asset_types  = bp_get_asset_types();
         $preset_types = bp_get_preset_types();
         $order_value  = '';
         $hide_value   = '';

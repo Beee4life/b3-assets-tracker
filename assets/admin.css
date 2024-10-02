@@ -118,6 +118,10 @@
             padding: 0.25rem 1rem 0.25rem 0;
         }
     }
+
+    input[name="bp_order"] {
+        width: 4rem;
+    }
 }
 
 

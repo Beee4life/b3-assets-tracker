@@ -9,7 +9,7 @@
         
         $all_dates   = array_values( bp_get_dates() );
         $data_8dates = bp_get_data();
-        $types       = bp_get_types();
+        $types       = bp_get_asset_types();
         
         if ( ! empty( $data_8dates ) ) {
             $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';

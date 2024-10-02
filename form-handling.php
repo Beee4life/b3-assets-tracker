@@ -18,15 +18,17 @@
                         
                         if ( isset( $_POST[ 'update_type' ] ) ) {
                             $data = [
-                                'name'     => sanitize_text_field( $_POST[ 'bp_type' ] ),
-                                'ordering' => ! empty( $_POST[ 'bp_order' ] ) ? $_POST[ 'bp_order' ] : 1,
-                                'hide'     => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
+                                'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
+                                'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? $_POST[ 'bp_order' ] : 1,
+                                'asset_group' => ! empty( $_POST[ 'bp_asset_group' ] ) ? $_POST[ 'bp_asset_group' ] : 0,
+                                'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
                             ];
                             $where = [
                                 'id' => $_POST[ 'update_type' ],
                             ];
                             $format = [
                                 '%s',
+                                '%d',
                                 '%d',
                                 '%d',
                             ];
@@ -39,9 +41,14 @@
                             // insert
                             $type  = $_POST[ 'bp_type' ];
                             $order = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : false;
+                            $group = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
+                            
                             $data  = [
                                 'name' => $type,
                             ];
+                            if ( $group ) {
+                                $data[ 'asset_group' ] = $group;
+                            }
                             if ( $order ) {
                                 $data[ 'ordering' ] = $order;
                             }

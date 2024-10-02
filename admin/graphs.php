@@ -25,7 +25,7 @@
         $show_asset_types   = true;
         $show_all_option    = false;
         $show_graph_options = true;
-        $types              = bp_get_types();
+        $types              = bp_get_asset_types();
 
         $graph_options = [
             // 'bar'   => 'BarChart',

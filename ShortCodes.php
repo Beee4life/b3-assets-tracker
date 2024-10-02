@@ -42,7 +42,7 @@
             $grouped_data = bp_get_results_range( $date_from, $date_until, 'all' );
             $show_total   = true;
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
-            $types        = bp_get_types();
+            $types        = bp_get_asset_types();
             
             if ( ! is_admin() && is_array( $grouped_data ) ) {
                 ob_start();
