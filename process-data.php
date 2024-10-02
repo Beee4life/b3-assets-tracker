@@ -121,17 +121,26 @@
      * Prepare top row for charts
      *
      * @param array $data
-     * @param string|bool $asset_type
+     * @param array $asset_type
      * @param string|bool $graph_type
-     * @param string|bool $range
      *
      * @return array|false
      */
-    function bp_get_chart_toprow( $data, $asset_type = false, $graph_type = false, $range = false ) {
+    function bp_get_chart_toprow( $data, $asset_types = [], $graph_type = false ) {
         $top_row = false;
         
         if ( 'line' === $graph_type ) {
-            $top_row = [ 'Week', 'Euro' ];
+            if ( is_array( $asset_types ) ) {
+                $top_row = [ 'Week' ];
+                foreach( $asset_types as $type ) {
+                    if ( bp_is_type_hidden( $type ) ) {
+                        continue;
+                    }
+                    $top_row[] = bp_get_type_by_id( $type );
+                }
+            } else {
+                $top_row = [ 'Week', 'Euro' ];
+            }
             
         } elseif ( 'total' === $graph_type ) {
             $top_row = [ 'Asset', '&euro;' ];
@@ -141,8 +150,14 @@
             $top_row = [ 'Week' ];
             
             if ( $asset_type ) {
-                $type      = bp_get_type_by_id( $asset_type );
-                $top_row[] = $type;
+                if ( is_string( $asset_type ) ) {
+
+                } elseif( is_array( $asset_type ) ) {
+                    foreach( $asset_type as $asset ) {
+                        $type      = bp_get_type_by_id( $asset );
+                        $top_row[] = $type;
+                    }
+                }
                 
             } else {
                 foreach( bp_get_types() as $type ) {
@@ -165,32 +180,45 @@
      * combochart: https://developers.google.com/chart/interactive/docs/gallery/combochart
      *
      * @param $data
-     * @param $asset_type
+     * @param $asset_types
      * @param $graph_type
-     * @param $range
      *
      * @return array|false
      */
-    function bp_process_data_for_chart( $data, $asset_type = false, $graph_type = false, $range = false ) {
-        if ( ! is_array( $data ) ) {
+    function bp_process_data_for_chart( $data, string|array $asset_types, $graph_type = false ) {
+        if ( ! is_array( $data ) || ! isset( $asset_types ) ) {
             return false;
         }
         
-        $all_rows[] = bp_get_chart_toprow( $data, $asset_type, $graph_type, $range );
+        $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $graph_type );
         
         if ( 'line' === $graph_type ) {
-            if ( 'all_ind' == $asset_type ) {
+            if ( 'all_ind' == $asset_types ) {
                 // @TODO: create line chart split per asset
             } else {
-                foreach( $data as $date_entries ) {
-                    $date        = bp_format_value( $date_entries[ 0 ]->date, 'date' );
-                    $total_value = bp_get_value_on_date( $date_entries );
-                    $all_rows[]  = [ $date, $total_value ];
+                foreach( $data as $date => $date_entries ) {
+                    $entry_row   = [];
+                    $date        = bp_format_value( $date, 'date' );
+                    $entry_row[] = $date;
+
+                    foreach( $asset_types as $asset_type ) {
+                        if ( bp_is_type_hidden( $asset_type ) ) {
+                            continue;
+                        }
+
+                        $types_colummn = array_column( $date_entries, 'type' );
+                        $key           = array_search( $asset_type, $types_colummn );
+
+                        if ( is_int( $key ) ) {
+                            $entry_row[] = (float) $date_entries[$key]->value;
+                        }
+                    }
+                    $all_rows[] = $entry_row;
                 }
             }
             
         } elseif ( 'total' === $graph_type ) {
-            if ( 'all' == $asset_type ) {
+            if ( 'all' == $asset_types ) {
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                         continue;
