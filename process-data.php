@@ -192,30 +192,26 @@
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $graph_type );
         
         if ( 'line' === $graph_type ) {
-            if ( 'all_ind' == $asset_types ) {
-                // @TODO: create line chart split per asset
-            } else {
-                foreach( $data as $date => $date_entries ) {
-                    $entry_row   = [];
-                    $date        = bp_format_value( $date, 'date' );
-                    $entry_row[] = $date;
+            foreach( $data as $date => $date_entries ) {
+                $entry_row   = [];
+                $date        = bp_format_value( $date, 'date' );
+                $entry_row[] = $date;
 
-                    foreach( $asset_types as $asset_type ) {
-                        if ( bp_is_type_hidden( $asset_type ) ) {
-                            continue;
-                        }
-
-                        $types_colummn = array_column( $date_entries, 'type' );
-                        $key           = array_search( $asset_type, $types_colummn );
-
-                        if ( is_int( $key ) ) {
-                            $entry_row[] = (float) $date_entries[$key]->value;
-                        } else {
-                            $entry_row[] = (float) '0';
-                        }
+                foreach( $asset_types as $asset_type ) {
+                    if ( bp_is_type_hidden( $asset_type ) ) {
+                        continue;
                     }
-                    $all_rows[] = $entry_row;
+
+                    $types_colummn = array_column( $date_entries, 'type' );
+                    $key           = array_search( $asset_type, $types_colummn );
+
+                    if ( is_int( $key ) ) {
+                        $entry_row[] = (float) $date_entries[$key]->value;
+                    } else {
+                        $entry_row[] = (float) '0';
+                    }
                 }
+                $all_rows[] = $entry_row;
             }
             
         } elseif ( 'total' === $graph_type ) {

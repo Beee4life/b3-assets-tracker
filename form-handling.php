@@ -19,8 +19,8 @@
                         if ( isset( $_POST[ 'update_type' ] ) ) {
                             $data = [
                                 'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
-                                'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? $_POST[ 'bp_order' ] : 1,
-                                'asset_group' => ! empty( $_POST[ 'bp_asset_group' ] ) ? $_POST[ 'bp_asset_group' ] : 0,
+                                'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
+                                'asset_group' => ! empty( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : 0,
                                 'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
                             ];
                             $where = [

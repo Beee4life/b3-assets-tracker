@@ -139,7 +139,6 @@
                 }
                 $grouped_data[ $row->date ][] = $row;
             }
-            // echo '<pre>'; var_dump($results); echo '</pre>'; exit;
 
             return $grouped_data;
         

@@ -115,12 +115,10 @@
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
                         $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types );
-                        // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
                         
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $graph_type );
-                            // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                             $chart_args = [
                                 'data'       => $processed_data,

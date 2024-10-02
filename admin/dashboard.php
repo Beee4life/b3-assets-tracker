@@ -48,9 +48,7 @@
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                // echo '<pre>'; var_dump($_POST); echo '</pre>'; exit;
                 $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $show_all );
-                // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                 $show_diff    = true;
                 $show_total   = true;
 
