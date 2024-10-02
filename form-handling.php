@@ -75,12 +75,15 @@
                     
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
-                        // @TODO: only for me
-                        if ( ! empty( $values[3] ) && ! empty( $values[5] ) ) {
-                            $total_degiro = $values[ 3 ];
-                            $total_etf    = $values[ 5 ];
-                            $total_stocks = $total_degiro - $total_etf;
-                            $values[4]    = (string) $total_stocks;
+                        if ( getenv( 'ASSETS' ) ) {
+                            $assets = explode( ',', getenv( 'ASSETS' ) );
+                            
+                            if ( ! empty( $values[ $assets[ 0 ] ] ) && ! empty( $values[ $assets[ 1 ] ] ) ) {
+                                $total_degiro = $values[ $assets[ 0 ] ];
+                                $total_etf    = $values[ $assets[ 1 ] ];
+                                $total_stocks = $total_degiro - $total_etf;
+                                $values[ 4 ]  = (string) $total_stocks;
+                            }
                         }
 
                         foreach( $values as $type => $value ) {
