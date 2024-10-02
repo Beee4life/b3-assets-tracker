@@ -87,27 +87,24 @@
      * @param $from
      * @param $until
      * @param $asset_type
-     * @param $range
      *
      * @return array|object|stdClass[]|null
      */
-    function bp_get_results_range( $from, $until, $asset_type = null, $range = false ) {
+    function bp_get_results_range( $from, $until, string|array $asset_type ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_data';
 
         if ( $from && $until ) {
-            if ( in_array( $asset_type, [ 'all', 'all_ind' ] ) ) {
-                if ( '1' === $range ) {
+            if ( is_string( $asset_type ) ) {
+                if ( in_array( $asset_type, [ 'all', 'all_ind' ] ) ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
+
                 } else {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
-                }
-            } else {
-                if ( '1' === $range ) {
                     $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
-                } else {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND ( date = '%s' OR date = '%s' ) ORDER BY date ASC", (int) $asset_type, $from, $until );
                 }
+            
+            } elseif ( is_array( $asset_type ) ) {
+                $query = $wpdb->prepare( "SELECT * from $table WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
             }
             
             $results = $wpdb->get_results( $query );
@@ -118,23 +115,6 @@
                     $grouped_data[ $row->date ] = [];
                 }
                 $grouped_data[ $row->date ][] = $row;
-            }
-
-            if ( '1' !== $range ) {
-                // extract first and last item
-                $first_item = array_slice( $grouped_data, 0, 1 );
-                $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );
-
-                if ( 'all' !== $asset_type ) {
-                    if ( isset( $first_item[ 0 ]->date ) && isset( $last_item[ 0 ]->date ) ) {
-                        $grouped_data = [
-                            $first_item[ 0 ]->date => $first_item[ 0 ]->value,
-                            $last_item[ 0 ]->date  => $last_item[ 0 ]->value,
-                        ];
-                    }
-                } else {
-                    $grouped_data = array_merge( $first_item, $last_item );
-                }
             }
 
             return $grouped_data;
