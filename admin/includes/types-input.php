@@ -63,7 +63,7 @@
                             <select name="bp_asset_group">
                                 <option value="">Group</option>
                                 <?php foreach( $asset_groups as $group ) { ?>
-                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', $group->id, selected( $group->id ), $group->name ); ?>
+                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', $group->id, selected( $group->id, $group_value ), $group->name ); ?>
                                 <?php } ?>
                             </select>
                         </label>
