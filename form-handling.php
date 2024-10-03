@@ -214,7 +214,7 @@
             }
         }
     }
-    add_action( 'admin_init', 'process_input_forms' );
+    add_action( 'init', 'process_input_forms' );
 
     
     function bp_validate_form_input( $post_data = [] ) {
