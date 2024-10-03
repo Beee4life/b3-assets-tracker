@@ -12,6 +12,10 @@
                         if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets' ) ) );
                         }
+                    } elseif ( empty( $_POST[ 'bp_asset_group' ] ) ) {
+                        if ( function_exists( 'bp_errors' ) ) {
+                            bp_errors()->add( 'error_no_group', esc_html( __( 'No group selected.', 'assets' ) ) );
+                        }
                     } else {
                         global $wpdb;
                         $table = $wpdb->prefix . 'asset_types';
