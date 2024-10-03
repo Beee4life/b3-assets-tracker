@@ -58,7 +58,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" />
+            <input type="submit" class="admin-button admin-button-small" value="Delete" />
         </form>
     <?php } ?>
 

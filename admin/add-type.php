@@ -9,6 +9,7 @@
         $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
         $asset_groups = bp_get_asset_groups();
         $asset_types  = bp_get_asset_types();
+        $button_label = isset( $_GET[ 'type_id' ] ) ? 'Update' : 'Add';
         $preset_types = bp_get_preset_types();
         $order_value  = '';
         $hide_value   = '';

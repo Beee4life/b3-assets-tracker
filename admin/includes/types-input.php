@@ -75,7 +75,7 @@
                     </label>
                 </td>
                 <td>
-                    <input type="submit" class="admin-button admin-button-small" />
+                    <input type="submit" class="admin-button admin-button-small" value="<?php echo $button_label; ?>" />
                 </td>
             </tr>
             </tbody>
