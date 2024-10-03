@@ -24,7 +24,7 @@
                             $data = [
                                 'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
                                 'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
-                                'asset_group' => ! empty( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : 0,
+                                'asset_group' => (int) $_POST[ 'bp_asset_group' ],
                                 'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
                             ];
                             $where = [
@@ -43,9 +43,10 @@
 
                         } else {
                             // insert
-                            $type  = $_POST[ 'bp_type' ];
-                            $order = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : false;
+                            $type  = sanitize_text_field( $_POST[ 'bp_type' ] );
+                            $order = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
                             $group = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
+                            $hide  = isset( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '';
                             
                             $data  = [
                                 'name' => $type,
@@ -55,6 +56,9 @@
                             }
                             if ( $order ) {
                                 $data[ 'ordering' ] = $order;
+                            }
+                            if ( $hide ) {
+                                $data[ 'hide' ] = $hide;
                             }
                             
                             $return = $wpdb->insert( $table, $data );
