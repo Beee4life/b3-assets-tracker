@@ -120,12 +120,13 @@
      * Prepare top row for charts
      *
      * @param array $data
-     * @param array $asset_type
+     * @param string|array $asset_type
+     * @param array $asset_groups
      * @param string|bool $graph_type
      *
      * @return array|false
      */
-    function bp_get_chart_toprow( $data, $asset_types = [], $graph_type = false ) {
+    function bp_get_chart_toprow( $data, $asset_types = [], $asset_groups = [], $graph_type = false ) {
         $top_row = false;
         
         if ( 'line' === $graph_type ) {
@@ -137,6 +138,13 @@
                     }
                     $top_row[] = bp_get_type_by_id( $type );
                 }
+
+            } elseif ( is_array( $asset_groups ) ) {
+                $top_row = [ 'Week' ];
+                foreach( $asset_groups as $group_id ) {
+                    $top_row[] = bp_get_group_by_id( $group_id );
+                }
+
             } else {
                 $top_row = [ 'Week', 'Euro' ];
             }
@@ -181,34 +189,58 @@
      * @param $data
      * @param $asset_types
      * @param $graph_type
+     * @param $graph_groups
      *
      * @return array|false
      */
-    function bp_process_data_for_chart( $data, string|array $asset_types, $graph_type = false ) {
+    function bp_process_data_for_chart( $data, string|array $asset_types, array $asset_groups, $graph_type = false ) {
         if ( ! is_array( $data ) || ! isset( $asset_types ) ) {
             return false;
         }
         
-        $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $graph_type );
+        $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
         
         if ( 'line' === $graph_type ) {
             foreach( $data as $date => $date_entries ) {
                 $entry_row   = [];
                 $date        = bp_format_value( $date, 'date' );
                 $entry_row[] = $date;
-
-                foreach( $asset_types as $asset_type ) {
-                    if ( bp_is_type_hidden( $asset_type ) ) {
-                        continue;
+                
+                if ( ! empty( $asset_types ) ) {
+                    foreach( $asset_types as $asset_type ) {
+                        if ( bp_is_type_hidden( $asset_type ) ) {
+                            continue;
+                        }
+    
+                        $types_colummn = array_column( $date_entries, 'type' );
+                        $key           = array_search( $asset_type, $types_colummn );
+    
+                        if ( is_int( $key ) ) {
+                            $entry_row[] = (float) $date_entries[$key]->value;
+                        } else {
+                            $entry_row[] = (float) '0';
+                        }
                     }
-
-                    $types_colummn = array_column( $date_entries, 'type' );
-                    $key           = array_search( $asset_type, $types_colummn );
-
-                    if ( is_int( $key ) ) {
-                        $entry_row[] = (float) $date_entries[$key]->value;
-                    } else {
-                        $entry_row[] = (float) '0';
+                } elseif ( ! empty( $asset_groups ) ) {
+                    if ( 1 == count( $asset_groups ) ) {
+                        $day_value = 0;
+                        foreach( $date_entries as $asset_row ) {
+                            $day_value = $day_value + $asset_row->value;
+                        }
+                        $entry_row[] = (float) $day_value;
+                    } elseif ( 1 < count( $asset_groups ) ) {
+                        $day_values = [];
+                        foreach( $asset_groups as $asset_group_id ) {
+                            if ( ! in_array( (int) $asset_group_id, $day_values ) ) {
+                                $day_values[$asset_group_id] = 0;
+                            }
+                            foreach( $date_entries as $asset_row ) {
+                                if ( $asset_group_id == $asset_row->asset_group ) {
+                                    $day_values[$asset_group_id] = $day_values[$asset_group_id] + $asset_row->value;
+                                }
+                            }
+                        }
+                        $entry_row = array_merge( $entry_row, $day_values );
                     }
                 }
                 $all_rows[] = $entry_row;

@@ -46,6 +46,7 @@
              * Function which runs upon plugin activation
              */
             public function bp_plugin_activation() {
+                $this->bp_check_table();
                 update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
                 
@@ -111,19 +112,22 @@
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
+                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
+                        $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
+                        $asset_types  = empty( $asset_groups ) ? 'all' : $asset_types;
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types );
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
                         
                         if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $graph_type );
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                             $chart_args = [
-                                'data'       => $processed_data,
-                                'asset_type' => $asset_types,
-                                'graph_type' => $graph_type,
+                                'data'        => $processed_data,
+                                'asset_group' => $asset_groups,
+                                'asset_type'  => $asset_types,
+                                'graph_type'  => $graph_type,
                             ];
                             
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );

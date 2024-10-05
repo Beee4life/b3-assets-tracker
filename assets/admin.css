@@ -187,6 +187,7 @@
     padding:       0.3rem 0.5rem;
 }
 
+td.asset-groups,
 td.asset-types {
     position: relative;
 }
