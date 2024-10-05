@@ -180,7 +180,10 @@
                         $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_types ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY type ASC", $from, $until );
     
                     } elseif ( 1 < count( $asset_group ) ) {
-                        $query = $wpdb->prepare( "SELECT * FROM $table_assets INNER JOIN $table_types ON bpnl_asset_data.type = bpnl_asset_types.id WHERE type IN (" . implode( ',' , $asset_types ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                        $query = $wpdb->prepare( "SELECT * FROM $table_assets INNER JOIN $table_types ON $table_assets.type = $table_types.id WHERE type IN (" . implode( ',' , $asset_types ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                        if ( 'development' === WP_ENV ) {
+                            error_log($query);
+                        }
                     }
                 }
             }
