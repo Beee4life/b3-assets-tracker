@@ -86,7 +86,7 @@
                 }
 
                 &.minus {
-                    background: pink;
+                    background: #ffbfba;
                 }
             }
 
@@ -109,6 +109,11 @@
         td {
             border-bottom: 1px solid #ccc;
             padding:       0.25rem 1rem 0.25rem 0;
+
+            &.hide-asset,
+            &.delete-asset {
+                text-align: center;
+            }
         }
     }
 
@@ -117,6 +122,10 @@
         td {
             padding: 0.25rem 1rem 0.25rem 0;
         }
+    }
+
+    input[name="bp_order"] {
+        width: 4rem;
     }
 }
 
@@ -152,4 +161,42 @@
 .graph-info__header {
     font-size:   1.1rem;
     font-weight: 500;
+}
+
+/* https://stackoverflow.com/questions/19206919/how-to-create-checkbox-inside-dropdown */
+.dropdown-check-list .anchor:active:after {
+    /*right: 8px;*/
+    /*top:   21%;*/
+}
+
+.dropdown-check-list ul.items {
+    padding: 0.25rem;
+    display: none;
+    margin:  0;
+    border:  1px solid #ccc;
+}
+
+.dropdown-check-list ul.items li {
+    list-style: none;
+}
+
+.dropdown-check-list .anchor {
+    background:    white;
+    border:        1px solid #8c8f94;
+    border-radius: 3px;
+    padding:       0.3rem 0.5rem;
+}
+
+td.asset-groups,
+td.asset-types {
+    position: relative;
+}
+
+.dropdown-check-list.visible .items {
+    display:    block;
+    background: white;
+    position:   absolute;
+    top:        2.5rem;
+    width:      300px;
+    z-index:    20;
 }

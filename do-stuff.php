@@ -24,9 +24,19 @@
         }
         
         if ( isset( $post_data[ 'show_graph' ] ) ) {
-            if ( 'all' !== $post_data[ 'asset_type' ] && 'total' === $post_data[ 'graph_type' ] ) {
+            if ( ! isset( $post_data[ 'asset_type' ] ) && ! isset( $post_data[ 'asset_group' ] )  ) {
+                if ( 'total' !== $post_data[ 'graph_type' ] ) {
+                    if ( function_exists( 'bp_errors' ) ) {
+                        bp_errors()->add( 'error_no_type', esc_html( __( 'You did not select an asset type or group.', 'assets' ) ) );
+                        return;
+                    }
+                }
+            }
+            
+            if ( isset( $post_data[ 'asset_type' ] ) && isset( $post_data[ 'asset_group' ] )  ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
+                    bp_errors()->add( 'error_type_group', esc_html( __( 'You need to select an an asset type OR group, not both.', 'assets' ) ) );
+                    return;
                 }
             }
             
@@ -42,6 +52,12 @@
                 if ( ! empty( $post_data[ 'stats_from' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'warning_no_start_date_needed', esc_html( __( 'You don\'t need a start date for a total. The until date is used for that.', 'assets' ) ) );
+                    }
+                }
+                
+                if ( 'all' !== $post_data[ 'asset_type' ] ) {
+                    if ( function_exists( 'bp_errors' ) ) {
+                        bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
                     }
                 }
             }

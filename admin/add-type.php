@@ -7,10 +7,13 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
         }
         $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
-        $asset_types  = bp_get_types();
+        $asset_groups = bp_get_asset_groups();
+        $asset_types  = bp_get_asset_types();
+        $button_label = isset( $_GET[ 'type_id' ] ) ? 'Update' : 'Add';
         $preset_types = bp_get_preset_types();
-        $order_value  = '';
+        $group_value  = '';
         $hide_value   = '';
+        $order_value  = '';
         $type_value   = '';
         
         if ( $current_type ) {
@@ -19,9 +22,10 @@
 
             if ( false !== $types_key ) {
                 $type        = $asset_types[ $types_key ];
-                $type_value  = $type->name;
-                $order_value = $type->ordering;
+                $group_value = $type->asset_group;
                 $hide_value  = $type->hide;
+                $order_value = $type->ordering;
+                $type_value  = $type->name;
             }
         }
         ?>

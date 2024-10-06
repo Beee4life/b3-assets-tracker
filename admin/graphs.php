@@ -9,29 +9,26 @@
         
         // @TODO: prefill first/last dates
         
-        $add_graph          = false;
-        $all_dates          = array_values( bp_get_dates() );
-        $all_data           = bp_get_data();
-        $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
-        $asset_type         = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? 'all' : $asset_type;
-        $dates              = array_keys( $all_data );
-        $date_from          = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-        $date_from          = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
-        $date_until         = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
-        $is_dashboard       = false;
-        $is_graph_page      = true;
-        $last_date          = end( $dates );
-        $graph_type         = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-        $grouped_data       = [];
-        $show_asset_types   = true;
-        $show_graph_options = true;
-        $types              = bp_get_types();
-        $view_range         = isset( $_POST[ 'view_range' ] ) ? $_POST[ 'view_range' ] : false;
-
-        $range              = [
-            '1'         => 'All dates',
-            'begin_end' => 'Begin/end',
-        ];
+        $add_graph             = false;
+        $all_dates             = array_values( bp_get_dates() );
+        $all_data              = bp_get_data();
+        $asset_groups          = bp_get_asset_groups();
+        $asset_types           = bp_get_asset_types();
+        $dates                 = array_keys( $all_data );
+        $date_from             = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
+        $date_from             = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
+        $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
+        $is_dashboard          = false;
+        $is_graph_page         = true;
+        $last_date             = end( $dates );
+        $graph_type            = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
+        $grouped_data          = [];
+        $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
+        $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
+        $show_asset_groups     = true;
+        $show_asset_types      = true;
+        $show_all_option       = false;
+        $show_graph_options    = true;
         
         $graph_options = [
             // 'bar'   => 'BarChart',

@@ -35,14 +35,14 @@
                 }
             }
             
-            $show_diff    = 'front';
+            $show_diff    = true;
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
             $range        = 'begin_end';
-            $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', $range );
+            $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
             $show_total   = true;
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
-            $types        = bp_get_types();
+            $types        = bp_get_asset_types();
             
             if ( ! is_admin() && is_array( $grouped_data ) ) {
                 ob_start();

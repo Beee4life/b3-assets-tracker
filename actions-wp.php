@@ -39,7 +39,7 @@
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable(chart_vars.data);
            
-                    if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all'  ) {
+                    if ( chart_vars.graph_type === 'line' && chart_vars.asset_types === 'all' ) {
                         var options = {
                             title : 'Totals',
                             vAxis: {title: 'Value'},
@@ -54,11 +54,11 @@
                     } else if ( chart_vars.graph_type === 'line' ) {
                         var options = {
                             title : 'Week diff',
-                            // vAxis: {title: 'Value'},
-                            // hAxis: {title: 'Week'},
+                            vAxis: {title: 'Value'},
+                            hAxis: {title: 'Week'},
                             curveType: 'function',
                             legend: { position: 'right' },
-                            // series: {5: {type: 'line'}},
+                            series: {5: {type: 'line'}},
                             width: 1200,
                             height: 500
                         };

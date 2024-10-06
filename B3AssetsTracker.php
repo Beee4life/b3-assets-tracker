@@ -37,6 +37,7 @@
                 add_action( 'admin_enqueue_scripts',    [ $this, 'bp_add_css_admin' ] );
 
                 include 'actions.php';
+                include 'data.php';
                 include 'functions.php';
             }
 
@@ -45,8 +46,17 @@
              * Function which runs upon plugin activation
              */
             public function bp_plugin_activation() {
+                $this->bp_check_table();
                 update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
+                
+                global $wpdb;
+                $table = $wpdb->prefix . 'asset_groups';
+                
+                foreach( b3_get_default_groups() as $id => $name ) {
+                    $data = [ 'id' => $id, 'name' => $name ];
+                    $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                }
             }
 
 
@@ -102,20 +112,22 @@
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_type   = $_POST[ 'asset_type' ];
+                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
+                        $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
+                        $asset_types  = empty( $asset_groups ) ? 'all' : $asset_types;
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $range        = $_POST[ 'view_range' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_type, $range );
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
                         
                         if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_type, $graph_type, $range );
+                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                             $chart_args = [
-                                'data'       => $processed_data,
-                                'asset_type' => $asset_type,
-                                'graph_type' => $graph_type,
+                                'data'        => $processed_data,
+                                'asset_group' => $asset_groups,
+                                'asset_type'  => $asset_types,
+                                'graph_type'  => $graph_type,
                             ];
                             
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
@@ -145,6 +157,7 @@
                     id int(6) unsigned NOT NULL auto_increment,
                     name varchar(50) NOT NULL,
                     ordering int(2) NOT NULL,
+                    asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
                     PRIMARY KEY  (id)
                     )
@@ -166,6 +179,18 @@
                     <?php
                     $sql2 = ob_get_clean();
                     dbDelta( $sql2 );
+                    
+                    ob_start();
+                    ?>
+                    CREATE TABLE <?php echo $wpdb->prefix; ?>asset_groups (
+                    id int(6) unsigned NOT NULL auto_increment,
+                    name varchar(50) NOT NULL,
+                    PRIMARY KEY  (id)
+                    )
+                    COLLATE <?php echo $wpdb->collate; ?>;
+                    <?php
+                    $sql3 = ob_get_clean();
+                    dbDelta( $sql3 );
                     // update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
             }

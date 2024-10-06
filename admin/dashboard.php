@@ -9,9 +9,10 @@
         
         $all_dates   = array_values( bp_get_dates() );
         $data_8dates = bp_get_data();
-        $types       = bp_get_types();
+        $types       = bp_get_asset_types();
         
         if ( ! empty( $data_8dates ) ) {
+            $asset_group        = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
             $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
             $dates              = array_keys( $data_8dates );
             $date_from          = $dates[ count( $dates ) - 2 ];
@@ -21,6 +22,9 @@
             $is_graph_page      = false;
             $is_dashboard       = true;
             $scroll_class       = false;
+            $show_all_option    = true;
+            $show_all           = isset( $_POST[ 'show_all' ] ) ? true : false;
+            $show_asset_groups  = false;
             $show_asset_types   = false;
             $show_diff          = false;
             $show_graph         = false;
@@ -31,7 +35,7 @@
                 if ( isset( $_POST[ 'bp_date' ] ) ) {
                     if ( isset( $_POST[ 'update_data' ] ) ) {
                         // view after update
-                        $show_diff = isset( $dates[ 1 ] ) ? 'dashboard' : false;
+                        $show_diff = isset( $dates[ 1 ] ) ? true : false;
                     } else {
                         // view after insert
                     }
@@ -42,11 +46,11 @@
                 }
             } else {
                 // default view
-                $show_diff = isset( $dates[ 1 ] ) ? 'dashboard' : false;
+                $show_diff = isset( $dates[ 1 ] ) ? true : false;
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
-                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, '1' );
+                $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_type, $asset_group, $show_all );
                 $show_diff    = true;
                 $show_total   = true;
 

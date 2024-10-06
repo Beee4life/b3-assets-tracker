@@ -48,7 +48,16 @@
     }
     
     
-    function bp_get_types() {
+    function bp_get_asset_groups() {
+        global $wpdb;
+        $table = $wpdb->prefix . 'asset_groups';
+        $query = "SELECT * FROM $table ORDER BY name";
+        
+        return $wpdb->get_results( $query );
+    }
+    
+    
+    function bp_get_asset_types() {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_types';
         $query = "SELECT * FROM $table ORDER BY ordering";
@@ -67,10 +76,30 @@
     }
 
     
-    function bp_get_type_by_id( $type ) {
+    function bp_get_group_by_id( $group_id, $return = 'name' ) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'asset_groups';
+        $query = "SELECT * FROM $table WHERE id = '$group_id'";
+        $result = $wpdb->get_results( $query );
+        
+        if ( 'name' === $return ) {
+            if ( isset( $result[ 0 ]->name ) ) {
+                return $result[ 0 ]->name;
+            }
+        } elseif ( 'id' === $return ) {
+            if ( isset( $result[ 0 ]->id ) ) {
+                return (int) $result[ 0 ]->id;
+            }
+        }
+
+        return false;
+    }
+
+    
+    function bp_get_type_by_id( $type_id ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_types';
-        $query = "SELECT * FROM $table WHERE id = '$type'";
+        $query = "SELECT * FROM $table WHERE id = '$type_id'";
         $result = $wpdb->get_results( $query );
         
         if ( isset( $result[0]->name ) ) {
@@ -84,29 +113,52 @@
     /**
      * Get results, optional from a specific range
      *
-     * @param $from
-     * @param $until
-     * @param $asset_type
-     * @param $range
+     * @param string $from
+     * @param string $until
+     * @param string|array $asset_type
+     * @param array $asset_group
+     * @param bool $show_all
      *
      * @return array|object|stdClass[]|null
      */
-    function bp_get_results_range( $from, $until, $asset_type = null, $range = false ) {
+    function bp_get_results_range( string $from, string $until, string|array $asset_type, array $asset_group = [], $show_all = false ) {
         global $wpdb;
-        $table = $wpdb->prefix . 'asset_data';
+        $table_assets = $wpdb->prefix . 'asset_data';
+        $table_groups = $wpdb->prefix . 'asset_groups';
+        $table_types  = $wpdb->prefix . 'asset_types';
 
         if ( $from && $until ) {
-            if ( in_array( $asset_type, [ 'all', 'all_ind' ] ) ) {
-                if ( '1' === $range ) {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
+            if ( 'all' == $asset_type ) {
+                // weekly stats/shortcode
+                if ( $show_all ) {
+                    // dashboard
+                    $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 } else {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
+                    $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
                 }
-            } else {
-                if ( '1' === $range ) {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND date BETWEEN '%s' AND '%s' ORDER BY date ASC", (int) $asset_type, $from, $until );
-                } else {
-                    $query = $wpdb->prepare( "SELECT * from $table WHERE type = '%d' AND ( date = '%s' OR date = '%s' ) ORDER BY date ASC", (int) $asset_type, $from, $until );
+            
+            } elseif ( is_array( $asset_type ) ) {
+                // only for graphs
+                $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+
+            } elseif ( is_array( $asset_group ) ) {
+                // only for graphs
+                $types = $wpdb->get_results( "SELECT id FROM $table_types WHERE asset_group IN (" . implode( ',' , $asset_group ) . ")" );
+                if ( ! empty( $types ) ) {
+                    foreach( $types as $type ) {
+                        $asset_types[] = (int) $type->id;
+                    }
+                }
+                if ( ! empty( $asset_types ) ) {
+                    if ( 1 == count( $asset_group ) ) {
+                        $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_types ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY type ASC", $from, $until );
+    
+                    } elseif ( 1 < count( $asset_group ) ) {
+                        $query = $wpdb->prepare( "SELECT * FROM $table_assets INNER JOIN $table_types ON $table_assets.type = $table_types.id WHERE type IN (" . implode( ',' , $asset_types ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                        if ( 'development' === WP_ENV ) {
+                            error_log($query);
+                        }
+                    }
                 }
             }
             
@@ -120,28 +172,11 @@
                 $grouped_data[ $row->date ][] = $row;
             }
 
-            if ( '1' !== $range ) {
-                // extract first and last item
-                $first_item = array_slice( $grouped_data, 0, 1 );
-                $last_item  = array_slice( $grouped_data, count( $grouped_data ) - 1, 1 );
-
-                if ( 'all' !== $asset_type ) {
-                    if ( isset( $first_item[ 0 ]->date ) && isset( $last_item[ 0 ]->date ) ) {
-                        $grouped_data = [
-                            $first_item[ 0 ]->date => $first_item[ 0 ]->value,
-                            $last_item[ 0 ]->date  => $last_item[ 0 ]->value,
-                        ];
-                    }
-                } else {
-                    $grouped_data = array_merge( $first_item, $last_item );
-                }
-            }
-
             return $grouped_data;
         
         } elseif ( $until ) {
             // get pie chart for totals on this date
-            $query        = $wpdb->prepare( "SELECT * from $table WHERE date = '%s'", $until );
+            $query        = $wpdb->prepare( "SELECT * from $table_assets WHERE date = '%s'", $until );
             $grouped_data = $wpdb->get_results( $query );
 
             return $grouped_data;
@@ -179,9 +214,9 @@
     }
 
     
-    function bp_find_id_in_values( $values, $type ) {
+    function bp_find_id_in_values( $values, $type, $column_key = 'type' ) {
         if ( $values && $type ) {
-            $columns = array_column( $values, 'type' );
+            $columns = array_column( $values, $column_key );
             return array_search( $type, $columns, true );
         }
         

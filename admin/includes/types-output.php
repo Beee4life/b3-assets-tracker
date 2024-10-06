@@ -3,7 +3,7 @@
     <h2>All types</h2>
     
     <?php if ( $asset_types ) { ?>
-        <form name="" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
+        <form name="delete-assets" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
             <input type="hidden" name="delete_types_nonce" value="<?php echo wp_create_nonce( 'delete-types-nonce' ); ?>" />
             <table class="data-types">
                 <thead>
@@ -17,10 +17,13 @@
                         <th class="data-id">
                             ID
                         </th>
-                        <th>
+                        <th class="asset-group">
+                            Group
+                        </th>
+                        <th class="hide-asset">
                             Hide
                         </th>
-                        <th>
+                        <th class="delete-asset">
                             Delete
                         </th>
                     </tr>
@@ -39,10 +42,13 @@
                             <td class="data-id">
                                 <?php echo $type->id; ?>
                             </td>
-                            <td>
+                            <td class="asset-group">
+                                <?php echo bp_get_group_by_id( $type->asset_group ); ?>
+                            </td>
+                            <td class="hide-asset">
                                 <?php echo $type->hide ? 'X' : ''; ?>
                             </td>
-                            <td>
+                            <td class="delete-asset">
                                 <label>
                                     <?php echo sprintf( '<input type="checkbox" name="bp_delete_type[]" value="%s" />', $type->id ); ?>
                                 </label>
@@ -52,7 +58,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" />
+            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) asset(s)" />
         </form>
     <?php } ?>
 

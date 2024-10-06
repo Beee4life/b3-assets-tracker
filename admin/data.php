@@ -10,7 +10,7 @@
         $all_dates    = array_values( bp_get_dates() );
         $data_8dates  = bp_get_data();
         $scroll_class = false;
-        $types        = bp_get_types();
+        $types        = bp_get_asset_types();
 
         if ( $data_8dates ) {
             $dates      = array_keys( $data_8dates );
