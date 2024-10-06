@@ -76,36 +76,6 @@
     }
 
     
-    function bp_get_group_by_type_id( $type_id, $return = 'id' ) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'asset_types';
-        $query = "SELECT * FROM $table WHERE id = '$type_id'";
-        $result = $wpdb->get_results( $query );
-        
-        if ( 'name' === $return ) {
-            if ( isset( $result[ 0 ]->name ) ) {
-                return $result[ 0 ]->name;
-            }
-        } elseif ( 'id' === $return ) {
-            if ( isset( $result[ 0 ]->asset_group ) ) {
-                return (int) $result[ 0 ]->asset_group;
-            }
-        }
-        
-        return false;
-    }
-
-    
-    function bp_get_types_by_group_id( $group_id ) {
-        global $wpdb;
-        $table   = $wpdb->prefix . 'asset_types';
-        $query   = "SELECT * FROM $table WHERE id = '$group_id'";
-        $results = $wpdb->get_results( $query );
-        
-        return $results;
-    }
-
-    
     function bp_get_group_by_id( $group_id, $return = 'name' ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_groups';
@@ -158,17 +128,20 @@
 
         if ( $from && $until ) {
             if ( 'all' == $asset_type ) {
+                // weekly stats/shortcode
                 if ( $show_all ) {
+                    // dashboard
                     $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE date BETWEEN '%s' AND '%s' ORDER BY date ASC", $from, $until );
                 } else {
                     $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
                 }
             
             } elseif ( is_array( $asset_type ) ) {
-                // graphs only
+                // only for graphs
                 $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
 
             } elseif ( is_array( $asset_group ) ) {
+                // only for graphs
                 $types = $wpdb->get_results( "SELECT id FROM $table_types WHERE asset_group IN (" . implode( ',' , $asset_group ) . ")" );
                 if ( ! empty( $types ) ) {
                     foreach( $types as $type ) {
@@ -240,9 +213,9 @@
     }
 
     
-    function bp_find_id_in_values( $values, $type ) {
+    function bp_find_id_in_values( $values, $type, $column_key = 'type' ) {
         if ( $values && $type ) {
-            $columns = array_column( $values, 'type' );
+            $columns = array_column( $values, $column_key );
             return array_search( $type, $columns, true );
         }
         
