@@ -115,12 +115,13 @@
      *
      * @param $from
      * @param $until
-     * @param $asset_type
-     * @param $asset_group
+     * @param string|array $asset_type
+     * @param array $asset_group
+     * @param $show_all
      *
      * @return array|object|stdClass[]|null
      */
-    function bp_get_results_range( $from, $until, string|array $asset_type, array $asset_group, $show_all = false ) {
+    function bp_get_results_range( $from, $until, string|array $asset_type, array $asset_group = [], $show_all = false ) {
         global $wpdb;
         $table_assets = $wpdb->prefix . 'asset_data';
         $table_groups = $wpdb->prefix . 'asset_groups';
