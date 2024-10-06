@@ -1,5 +1,11 @@
 <?php
     function process_input_forms() {
+        global $wpdb;
+        $table_data   = $wpdb->prefix . 'asset_data';
+        $table_groups = $wpdb->prefix . 'asset_groups';
+        $table_types  = $wpdb->prefix . 'asset_types';
+
+        // add types form
         if ( isset( $_POST[ 'add_type_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_type_nonce' ], 'add-type-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
@@ -13,9 +19,6 @@
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets' ) ) );
                         }
                     } else {
-                        global $wpdb;
-                        $table = $wpdb->prefix . 'asset_types';
-                        
                         if ( isset( $_POST[ 'update_type' ] ) ) {
                             $data = [
                                 'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
@@ -32,7 +35,7 @@
                                 '%d',
                                 '%d',
                             ];
-                            $updated = $wpdb->update( $table, $data, $where, $format );
+                            $updated = $wpdb->update( $table_types, $data, $where, $format );
                             if ( $updated && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'assets' ) ) );
                             }
@@ -57,11 +60,29 @@
                                 $data[ 'hide' ] = $hide;
                             }
                             
-                            $return = $wpdb->insert( $table, $data );
+                            $return = $wpdb->insert( $table_types, $data );
                             if ( $return && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'assets' ) ) );
                             }
                         }
+                    }
+                }
+            }
+        }
+        
+        // delete types form
+        if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
+            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                }
+            } else {
+                if ( is_array( $_POST[ 'delete_types' ] ) && ! empty( $_POST[ 'delete_types' ] ) ) {
+                    foreach( $_POST[ 'delete_types' ] as $type ) {
+                        // delete type
+                        $wpdb->delete( $table_types, [ 'type' => $type ], [ '%d' ] );
+                        // delete entries with type
+                        $wpdb->delete( $table_data, [ 'type' => $type ], [ '%d' ] );
                     }
                 }
             }
@@ -78,10 +99,8 @@
                 $validated_fields = bp_validate_form_input( $_POST );
                 
                 if ( true === $validated_fields ) {
-                    global $wpdb;
                     unset( $_POST[ 'add_data_nonce' ] );
                     $input  = $_POST;
-                    $table  = $wpdb->prefix . 'asset_data';
                     $values = is_array( $input[ 'bp_value' ] ) ? $input[ 'bp_value' ] : [];
                     
                     if ( isset( $input[ 'update_data' ] ) ) {
@@ -110,7 +129,7 @@
                             ];
                             
                             // check if exists
-                            $query = $wpdb->prepare( "SELECT * FROM $table WHERE type = '%d' and date = '%s'", (int) $type, $input[ 'update_data' ] );
+                            $query = $wpdb->prepare( "SELECT * FROM $table_data WHERE type = '%d' and date = '%s'", (int) $type, $input[ 'update_data' ] );
                             $row   = $wpdb->get_row( $query );
 
                             if ( null == $row ) {
@@ -119,10 +138,10 @@
                                     'date'  => $input[ 'update_data' ],
                                     'type'  => $type,
                                 ];
-                                $wpdb->insert( $table, $data );
+                                $wpdb->insert( $table_data, $data );
                                 
                             } else {
-                                $wpdb->update( $table, $data, $where, $format );
+                                $wpdb->update( $table_data, $data, $where, $format );
                             }
 
                         }
@@ -139,7 +158,7 @@
                                 'type'  => $type,
                                 'value' => ! empty( $value ) ? $value : '0.00',
                             ];
-                            $wpdb->insert( $table, $data );
+                            $wpdb->insert( $table_data, $data );
                         }
                         if ( function_exists( 'bp_errors' ) ) {
                             bp_errors()->add( 'success_type_inserted', esc_html( __( 'Values inserted.', 'assets' ) ) );
@@ -151,6 +170,7 @@
             }
         }
         
+        // settings page
         if ( isset( $_POST[ 'assets_settings_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'assets_settings_nonce' ], 'assets-settings-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
@@ -174,38 +194,20 @@
             }
         }
         
+        // remove data form
         if ( isset( $_POST[ 'bp_remove_date' ] ) ) {
             global $wpdb;
-            $date  = $_POST[ 'bp_remove_date' ];
-            $table = $wpdb->prefix . 'asset_data';
+            $date = $_POST[ 'bp_remove_date' ];
             
             if ( 'all' === $date ) {
-                $wpdb->query( "TRUNCATE TABLE $table" );
+                $wpdb->query( "TRUNCATE TABLE $table_data" );
 
             } else {
-                $query = $wpdb->prepare( "DELETE FROM $table WHERE date = '%s'", $date );
+                $query = $wpdb->prepare( "DELETE FROM $table_data WHERE date = '%s'", $date );
                 $deleted = $wpdb->query($query);
 
                 if ( $deleted && is_int( $deleted ) && function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'success_date_removed', esc_html( __( 'Date removed.', 'assets' ) ) );
-                }
-            }
-        }
-        
-        if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
-            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
-                if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
-                }
-            } else {
-                if ( is_array( $_POST[ 'delete_types' ] ) && ! empty( $_POST[ 'delete_types' ] ) ) {
-                    global $wpdb;
-                    foreach( $_POST[ 'delete_types' ] as $type ) {
-                        // delete type
-                        $wpdb->delete( $wpdb->prefix . 'asset_types', [ 'type' => $type ], [ '%d' ] );
-                        // delete entries with type
-                        $wpdb->delete( $wpdb->prefix . 'asset_data', [ 'type' => $type ], [ '%d' ] );
-                    }
                 }
             }
         }
