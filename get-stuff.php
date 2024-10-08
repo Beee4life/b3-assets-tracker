@@ -96,6 +96,20 @@
     }
 
     
+    function bp_get_group_by_type_id( $type_id ) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'asset_types';
+        $query = "SELECT * FROM $table WHERE id = '$type_id'";
+        $result = $wpdb->get_results( $query );
+        
+        if ( isset( $result[ 0 ]->asset_group ) ) {
+            return $result[ 0 ]->asset_group;
+        }
+
+        return false;
+    }
+
+    
     function bp_get_type_by_id( $type_id ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_types';

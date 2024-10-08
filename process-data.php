@@ -149,8 +149,11 @@
                 $top_row = [ 'Week', 'Euro' ];
             }
             
-        } elseif ( 'total' === $graph_type ) {
+        } elseif ( 'total_type' === $graph_type ) {
             $top_row = [ 'Asset', '&euro;' ];
+            
+        } elseif ( 'total_group' === $graph_type ) {
+            $top_row = [ 'Group', '&euro;' ];
             
         } else {
             // non defined graphs
@@ -249,7 +252,46 @@
                 $all_rows[] = $entry_row;
             }
             
-        } elseif ( 'total' === $graph_type ) {
+        } elseif ( 'total_type' === $graph_type ) {
+            if ( 'all' == $asset_types ) {
+                foreach( $data as $asset_row ) {
+                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                        continue;
+                    }
+                    
+                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
+                    $all_rows[] = $entry_row;
+                }
+            }
+
+        } elseif ( 'total_group' === $graph_type ) {
+            $groups = [];
+            foreach( $data as $asset_row ) {
+                if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                    continue;
+                }
+                
+                $group_id = bp_get_group_by_type_id( $asset_row->type, 'id' );
+                $group_name = bp_get_group_by_id( $group_id, 'name' );
+                if ( ! array_key_exists( $group_name, $groups ) ) {
+                    $groups[ $group_name ] = [];
+                }
+                $groups[ $group_name ][] = $asset_row->value;
+            }
+            
+            $total = 0;
+            foreach( $groups as $group_name => $group_values ) {
+                $total_in_group = 0;
+                
+                foreach( $group_values as $value ) {
+                    $total          = $total + $value;
+                    $total_in_group = $total_in_group + $value;
+                }
+                $entry_row   = [ $group_name, (float) $total_in_group ];
+                $all_rows[]  = $entry_row;
+            }
+            
+        } elseif ( str_starts_with( $graph_type, 'total_' ) ) {
             if ( 'all' == $asset_types ) {
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {

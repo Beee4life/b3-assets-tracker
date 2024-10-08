@@ -64,7 +64,7 @@
                         };
                         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-                    } else if ( chart_vars.graph_type === 'total' ) {
+                    } else if ( chart_vars.graph_type === 'total_type' ) {
                         var options = {
                             title : 'Assets per type',
                             is3D : true,
@@ -75,7 +75,19 @@
                         };
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                         
+                    } else if ( chart_vars.graph_type === 'total_group' ) {
+                        var options = {
+                            title : 'Assets per group',
+                            is3D : true,
+                            // pieHole : 0.1,
+                            pieSliceText: 'label',
+                            width: 800,
+                            height: 500
+                        };
+                        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                        
                     } else {
+                        // combo chart
                         var options = {
                             title : 'Total value per type',
                             vAxis: {title: 'Value'},
