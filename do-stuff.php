@@ -25,7 +25,7 @@
         
         if ( isset( $post_data[ 'show_graph' ] ) ) {
             if ( ! isset( $post_data[ 'asset_type' ] ) && ! isset( $post_data[ 'asset_group' ] )  ) {
-                if ( strpos( $post_data[ 'graph_type' ], 'total' ) === false ) {
+                if ( strpos( $post_data[ 'graph_type' ], 'total_' ) === false ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'error_no_type', esc_html( __( 'You did not select an asset type or group.', 'assets' ) ) );
                         return;
