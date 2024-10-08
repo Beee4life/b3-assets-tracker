@@ -41,4 +41,8 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
-08.10.24 - First release 1.0.0
+1.1.0 - xx.10.24
+* add closed status
+
+1.0.0 - 08.10.24
+First release
