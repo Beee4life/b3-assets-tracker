@@ -11,6 +11,7 @@
         $asset_types  = bp_get_asset_types();
         $button_label = isset( $_GET[ 'type_id' ] ) ? 'Update' : 'Add';
         $preset_types = bp_get_preset_types();
+        $closed_value = '';
         $group_value  = '';
         $hide_value   = '';
         $order_value  = '';
@@ -21,11 +22,12 @@
             $types_key = array_search( $current_type, $columns );
 
             if ( false !== $types_key ) {
-                $type        = $asset_types[ $types_key ];
-                $group_value = $type->asset_group;
-                $hide_value  = $type->hide;
-                $order_value = $type->ordering;
-                $type_value  = $type->name;
+                $type         = $asset_types[ $types_key ];
+                $closed_value = $type->closed;
+                $group_value  = $type->asset_group;
+                $hide_value   = $type->hide;
+                $order_value  = $type->ordering;
+                $type_value   = $type->name;
             }
         }
         ?>

@@ -74,8 +74,8 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.0',
-                    'version'    => '1.0',
+                    'db_version' => '1.1',
+                    'version'    => '1.1.0',
                 ];
             }
 
@@ -159,6 +159,7 @@
                     ordering int(2) NOT NULL,
                     asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
+                    closed int(1) unsigned NULL,
                     PRIMARY KEY  (id)
                     )
                     COLLATE <?php echo $wpdb->collate; ?>;
@@ -191,7 +192,7 @@
                     <?php
                     $sql3 = ob_get_clean();
                     dbDelta( $sql3 );
-                    // update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
+                    update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
             }
             
