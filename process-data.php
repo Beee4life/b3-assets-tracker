@@ -49,6 +49,10 @@
             if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
+            if ( bp_is_type_closed( $type->id, $data ) ) {
+                continue;
+            }
+            
             $entry_row[]  = $type->name;
             $date_counter = 1;
 
