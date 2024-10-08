@@ -26,8 +26,12 @@ jQuery(document).ready(function () {
 
     jQuery('body').on('click',function(event){
         if(!jQuery(event.target).is('.anchor')){
-            jQuery("#asset-groups").removeClass("visible");
-            jQuery("#asset-types").removeClass("visible");
+            if ( asset_group ) {
+                jQuery("#asset-groups").removeClass("visible");
+            }
+            if ( asset_type ) {
+                jQuery("#asset-types").removeClass("visible");
+            }
         }
     });
 });
