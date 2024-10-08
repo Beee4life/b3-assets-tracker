@@ -16,7 +16,7 @@
         $asset_types           = bp_get_asset_types();
         $dates                 = array_keys( $all_data );
         $date_from             = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-        $date_from             = isset( $_POST[ 'graph_type' ] ) && 'total' === $_POST[ 'graph_type' ] ? '' : $date_from;
+        $date_from             = isset( $_POST[ 'graph_type' ] ) && str_starts_with( $_POST[ 'graph_type' ], 'total' ) ? '' : $date_from;
         $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
         $is_dashboard          = false;
         $is_graph_page         = true;
@@ -34,7 +34,8 @@
             // 'bar'   => 'BarChart',
             'line'  => 'LineChart',
             // 'pie'   => 'PieChart',
-            'total' => 'Total (PieChart)',
+            'total_type' => 'Per type (PieChart)',
+            'total_group' => 'Per group (PieChart)',
         ];
         
         if ( b3_validate_graph_fields( $_POST ) ) {
