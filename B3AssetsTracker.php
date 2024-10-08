@@ -159,7 +159,7 @@
                     ordering int(2) NOT NULL,
                     asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
-                    closed int(1) unsigned NULL,
+                    closed DATE NULL,
                     PRIMARY KEY  (id)
                     )
                     COLLATE <?php echo $wpdb->collate; ?>;
