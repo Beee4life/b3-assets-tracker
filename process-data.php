@@ -202,9 +202,11 @@
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
         
         if ( 'line' === $graph_type ) {
+            // @TODO: check if range spans NYE
+            $a_lot = 10 < count( $data ) ? false : true;
             foreach( $data as $date => $date_entries ) {
                 $entry_row   = [];
-                $date        = bp_format_value( $date, 'date' );
+                $date        = $a_lot ? bp_format_value( $date, 'date' ) : gmdate( 'd-m', strtotime( $date ) );
                 $entry_row[] = $date;
                 
                 if ( ! empty( $asset_types ) ) {
