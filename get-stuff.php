@@ -110,14 +110,22 @@
     }
 
     
-    function bp_get_type_by_id( $type_id ) {
+    function bp_get_type_by_id( $type_id, $return = 'name' ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_types';
         $query = "SELECT * FROM $table WHERE id = '$type_id'";
         $result = $wpdb->get_results( $query );
         
-        if ( isset( $result[0]->name ) ) {
-            return $result[0]->name;
+        if ( 'name' === $return ) {
+            if ( isset( $result[0]->name ) ) {
+                return $result[0]->name;
+            }
+        } elseif ( 'all' === $return ) {
+            return $result;
+        } elseif ( 'closed' === $return ) {
+            if ( isset( $result[0]->closed ) ) {
+                return $result[0]->closed;
+            }
         }
 
         return false;
