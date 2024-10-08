@@ -20,20 +20,34 @@
                         }
                     } else {
                         if ( isset( $_POST[ 'update_type' ] ) ) {
+                            $type_id    = $_POST[ 'update_type' ];
+                            $close_date = bp_get_type_by_id( $type_id, 'closed' );
+                            $closed     = ! empty( $_POST[ 'bp_closed' ] ) ? true : false;
+                            
+                            if ( $closed && ! $close_date || '0000-00-00' === $close_date ) {
+                                $close_date = gmdate( 'Y-m-d', time() );
+
+                            } elseif ( '0000-00-00' !== $close_date ) {
+                                $close_date = '';
+                            }
+                            
                             $data = [
                                 'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
                                 'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
                                 'asset_group' => (int) $_POST[ 'bp_asset_group' ],
                                 'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
+                                'closed'      => $close_date,
                             ];
+
                             $where = [
-                                'id' => $_POST[ 'update_type' ],
+                                'id' => $type_id,
                             ];
                             $format = [
                                 '%s',
                                 '%d',
                                 '%d',
                                 '%d',
+                                '%s',
                             ];
                             $updated = $wpdb->update( $table_types, $data, $where, $format );
                             if ( $updated && function_exists( 'bp_errors' ) ) {
@@ -42,14 +56,18 @@
 
                         } else {
                             // insert
-                            $type  = sanitize_text_field( $_POST[ 'bp_type' ] );
-                            $order = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
-                            $group = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
-                            $hide  = isset( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '';
+                            $type   = sanitize_text_field( $_POST[ 'bp_type' ] );
+                            $closed = isset( $_POST[ 'bp_closed' ] ) ? gmdate( 'Y-m-d', time() ) : '0000-00-00';
+                            $group  = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
+                            $hide   = isset( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '';
+                            $order  = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
                             
                             $data  = [
                                 'name' => $type,
                             ];
+                            if ( $closed ) {
+                                $data[ 'closed' ] = $closed;
+                            }
                             if ( $group ) {
                                 $data[ 'asset_group' ] = $group;
                             }
