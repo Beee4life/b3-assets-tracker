@@ -56,7 +56,6 @@
                     echo $shortcode_notice;
                 }
 
-
                 include 'admin/includes/data-output.php';
                 
                 if ( 'true' == $attributes[ 'footer' ] ) {
