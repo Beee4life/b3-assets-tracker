@@ -55,7 +55,7 @@
                     }
                 }
                 
-                if ( 'all' !== $post_data[ 'asset_type' ] ) {
+                if ( isset( $post_data[ 'asset_type' ] ) && 'all' !== $post_data[ 'asset_type' ] ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
                     }
