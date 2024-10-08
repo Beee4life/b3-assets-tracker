@@ -149,12 +149,16 @@
                 
                 if ( ! empty( $asset_types ) ) {
                     foreach( $asset_types as $asset_type ) {
-                        if ( bp_is_type_hidden( $asset_type ) ) {
+                        if ( bp_is_type_hidden( (int) $asset_type ) ) {
+                            continue;
+                        }
+
+                        if ( bp_is_type_closed( (int) $asset_type, $data ) ) {
                             continue;
                         }
     
                         $types_colummn = array_column( $date_entries, 'type' );
-                        $key           = array_search( $asset_type, $types_colummn );
+                        $key           = array_search( (int) $asset_type, $types_colummn );
     
                         if ( is_int( $key ) ) {
                             $entry_row[] = (float) $date_entries[$key]->value;
