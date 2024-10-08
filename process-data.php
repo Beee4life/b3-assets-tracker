@@ -117,72 +117,6 @@
     
     
     /**
-     * Prepare top row for charts
-     *
-     * @param array $data
-     * @param string|array $asset_type
-     * @param array $asset_groups
-     * @param string|bool $graph_type
-     *
-     * @return array|false
-     */
-    function bp_get_chart_toprow( $data, $asset_types = [], $asset_groups = [], $graph_type = false ) {
-        $top_row = false;
-        
-        if ( 'line' === $graph_type ) {
-            if ( is_array( $asset_types ) ) {
-                $top_row = [ 'Week' ];
-                foreach( $asset_types as $type ) {
-                    if ( bp_is_type_hidden( $type ) ) {
-                        continue;
-                    }
-                    $top_row[] = bp_get_type_by_id( $type );
-                }
-
-            } elseif ( is_array( $asset_groups ) ) {
-                $top_row = [ 'Week' ];
-                foreach( $asset_groups as $group_id ) {
-                    $top_row[] = bp_get_group_by_id( $group_id );
-                }
-
-            } else {
-                $top_row = [ 'Week', 'Euro' ];
-            }
-            
-        } elseif ( 'total' === $graph_type ) {
-            $top_row = [ 'Asset', '&euro;' ];
-            
-        } else {
-            // non defined graphs
-            error_log(sprintf('Catch %s', $graph_type ));
-            $top_row = [ 'Week' ];
-            
-            if ( $asset_type ) {
-                if ( is_string( $asset_type ) ) {
-
-                } elseif( is_array( $asset_type ) ) {
-                    foreach( $asset_type as $asset ) {
-                        $type      = bp_get_type_by_id( $asset );
-                        $top_row[] = $type;
-                    }
-                }
-                
-            } else {
-                foreach( bp_get_asset_types() as $type ) {
-                    if ( bp_is_type_hidden( $type->id ) ) {
-                        continue;
-                    }
-                    $name      = bp_get_type_by_id( $type->id );
-                    $top_row[] = $name;
-                }
-            }
-        }
-        
-        return $top_row;
-    }
-    
-    
-    /**
      * Prepare data for charts
      *
      * combochart: https://developers.google.com/chart/interactive/docs/gallery/combochart
@@ -202,9 +136,11 @@
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
         
         if ( 'line' === $graph_type ) {
+            // @TODO: check if range spans NYE
+            $a_lot = 10 < count( $data ) ? false : true;
             foreach( $data as $date => $date_entries ) {
                 $entry_row   = [];
-                $date        = bp_format_value( $date, 'date' );
+                $date        = $a_lot ? bp_format_value( $date, 'date' ) : gmdate( 'd-m', strtotime( $date ) );
                 $entry_row[] = $date;
                 
                 if ( ! empty( $asset_types ) ) {
@@ -247,7 +183,46 @@
                 $all_rows[] = $entry_row;
             }
             
-        } elseif ( 'total' === $graph_type ) {
+        } elseif ( 'total_type' === $graph_type ) {
+            if ( 'all' == $asset_types ) {
+                foreach( $data as $asset_row ) {
+                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                        continue;
+                    }
+                    
+                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
+                    $all_rows[] = $entry_row;
+                }
+            }
+
+        } elseif ( 'total_group' === $graph_type ) {
+            $groups = [];
+            foreach( $data as $asset_row ) {
+                if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                    continue;
+                }
+                
+                $group_id = bp_get_group_by_type_id( $asset_row->type, 'id' );
+                $group_name = bp_get_group_by_id( $group_id, 'name' );
+                if ( ! array_key_exists( $group_name, $groups ) ) {
+                    $groups[ $group_name ] = [];
+                }
+                $groups[ $group_name ][] = $asset_row->value;
+            }
+            
+            $total = 0;
+            foreach( $groups as $group_name => $group_values ) {
+                $total_in_group = 0;
+                
+                foreach( $group_values as $value ) {
+                    $total          = $total + $value;
+                    $total_in_group = $total_in_group + $value;
+                }
+                $entry_row   = [ $group_name, (float) $total_in_group ];
+                $all_rows[]  = $entry_row;
+            }
+            
+        } elseif ( str_starts_with( $graph_type, 'total_' ) ) {
             if ( 'all' == $asset_types ) {
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {

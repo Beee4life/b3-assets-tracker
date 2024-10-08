@@ -103,18 +103,19 @@
                     $input  = $_POST;
                     $values = is_array( $input[ 'bp_value' ] ) ? $input[ 'bp_value' ] : [];
                     
+                    if ( getenv( 'ASSETS' ) ) {
+                        $assets = explode( ',', getenv( 'ASSETS' ) );
+                        
+                        if ( ! empty( $values[ $assets[ 0 ] ] ) && ! empty( $values[ $assets[ 1 ] ] ) ) {
+                            $total_degiro = $values[ $assets[ 0 ] ];
+                            $total_etf    = $values[ $assets[ 1 ] ];
+                            $total_stocks = $total_degiro - $total_etf;
+                            $values[ 4 ]  = (string) $total_stocks;
+                        }
+                    }
+
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
-                        if ( getenv( 'ASSETS' ) ) {
-                            $assets = explode( ',', getenv( 'ASSETS' ) );
-                            
-                            if ( ! empty( $values[ $assets[ 0 ] ] ) && ! empty( $values[ $assets[ 1 ] ] ) ) {
-                                $total_degiro = $values[ $assets[ 0 ] ];
-                                $total_etf    = $values[ $assets[ 1 ] ];
-                                $total_stocks = $total_degiro - $total_etf;
-                                $values[ 4 ]  = (string) $total_stocks;
-                            }
-                        }
 
                         foreach( $values as $type => $value ) {
                             $data = [
