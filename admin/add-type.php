@@ -23,7 +23,7 @@
 
             if ( false !== $types_key ) {
                 $type         = $asset_types[ $types_key ];
-                $closed_value = $type->closed;
+                $closed_value = ! empty( $type->closed ) && '0000-00-00' !== $type->closed ? true : false;
                 $group_value  = $type->asset_group;
                 $hide_value   = $type->hide;
                 $order_value  = $type->ordering;
