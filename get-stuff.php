@@ -271,3 +271,72 @@
 
         return $uniques;
     }
+    
+    
+    /**
+     * Get top row for charts
+     *
+     * @param array $data
+     * @param string|array $asset_type
+     * @param array $asset_groups
+     * @param string|bool $graph_type
+     *
+     * @return array|false
+     */
+    function bp_get_chart_toprow( $data, $asset_types = [], $asset_groups = [], $graph_type = false ) {
+        $top_row = false;
+        
+        if ( 'line' === $graph_type ) {
+            if ( is_array( $asset_types ) ) {
+                $top_row = [ 'Week' ];
+                foreach( $asset_types as $type ) {
+                    if ( bp_is_type_hidden( $type ) ) {
+                        continue;
+                    }
+                    $top_row[] = bp_get_type_by_id( $type );
+                }
+                
+            } elseif ( is_array( $asset_groups ) ) {
+                $top_row = [ 'Week' ];
+                foreach( $asset_groups as $group_id ) {
+                    $top_row[] = bp_get_group_by_id( $group_id );
+                }
+                
+            } else {
+                $top_row = [ 'Week', 'Euro' ];
+            }
+            
+        } elseif ( 'total_type' === $graph_type ) {
+            $top_row = [ 'Asset', '&euro;' ];
+            
+        } elseif ( 'total_group' === $graph_type ) {
+            $top_row = [ 'Group', '&euro;' ];
+            
+        } else {
+            // non defined graphs
+            error_log(sprintf('Catch %s', $graph_type ));
+            $top_row = [ 'Week' ];
+            
+            if ( $asset_type ) {
+                if ( is_string( $asset_type ) ) {
+                
+                } elseif( is_array( $asset_type ) ) {
+                    foreach( $asset_type as $asset ) {
+                        $type      = bp_get_type_by_id( $asset );
+                        $top_row[] = $type;
+                    }
+                }
+                
+            } else {
+                foreach( bp_get_asset_types() as $type ) {
+                    if ( bp_is_type_hidden( $type->id ) ) {
+                        continue;
+                    }
+                    $name      = bp_get_type_by_id( $type->id );
+                    $top_row[] = $name;
+                }
+            }
+        }
+        
+        return $top_row;
+    }
