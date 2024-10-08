@@ -20,6 +20,9 @@
                         <th class="asset-group">
                             Group
                         </th>
+                        <th class="closed">
+                            Closed
+                        </th>
                         <th class="hide-asset">
                             Hide
                         </th>
@@ -44,6 +47,9 @@
                             </td>
                             <td class="asset-group">
                                 <?php echo bp_get_group_by_id( $type->asset_group ); ?>
+                            </td>
+                            <td class="closed">
+                                <?php echo isset( $type->closed ) && '0000-00-00' !== $type->closed ? bp_format_value( $type->closed, 'date' ) : ''; ?>
                             </td>
                             <td class="hide-asset">
                                 <?php echo $type->hide ? 'X' : ''; ?>
