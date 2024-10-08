@@ -57,6 +57,9 @@
                                         <input name="bp_date" type="date" class="" min="2024-07-30" value="<?php echo $edit_date; ?>" max="<?php echo $max_date; ?>" required />
                                     </label>
                                 </td>
+                                <td>
+                                    Hidden ?
+                                </td>
                             </tr>
                             <?php foreach( $types as $type ) { ?>
                                 <tr>
@@ -82,7 +85,7 @@
                                         </label>
                                     </td>
                                     <td>
-                                        <?php echo ! empty( $type->hide ) ? 'Hidden' : ''; ?>
+                                        <?php echo ! empty( $type->hide ) ? 'X' : ''; ?>
                                     </td>
                                 </tr>
                             <?php } ?>
