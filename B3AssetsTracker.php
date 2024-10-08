@@ -2,7 +2,7 @@
     /*
         Plugin Name: B3 : Assets Tracker
         Description: Assets storage
-        Version: 1.0
+        Version: 1.1.0
         Author: Beee
         Author URI: https://berryplasman.com
         License: GPL2

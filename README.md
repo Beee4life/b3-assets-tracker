@@ -38,3 +38,7 @@ Then run
 ```
 composer require "Beee4life/b3-assets-tracker"
 ```
+
+## CHANGELOG
+
+08.10.24 - First release 1.0.0
