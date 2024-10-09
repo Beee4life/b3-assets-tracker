@@ -38,3 +38,11 @@ Then run
 ```
 composer require "Beee4life/b3-assets-tracker"
 ```
+
+## CHANGELOG
+
+1.1.0 - 09.10.24
+* add closed status for type/position
+
+1.0.0 - 08.10.24
+First release

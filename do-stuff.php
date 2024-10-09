@@ -54,12 +54,6 @@
                         bp_errors()->add( 'warning_no_start_date_needed', esc_html( __( 'You don\'t need a start date for a total. The until date is used for that.', 'assets' ) ) );
                     }
                 }
-                
-                if ( isset( $post_data[ 'asset_type' ] ) && 'all' !== $post_data[ 'asset_type' ] ) {
-                    if ( function_exists( 'bp_errors' ) ) {
-                        bp_errors()->add( 'warning_not_possible', esc_html( __( 'Pie charts are not for individual assets (yet), so we selected "all".', 'assets' ) ) );
-                    }
-                }
             }
         }
         

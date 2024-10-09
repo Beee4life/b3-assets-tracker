@@ -2,7 +2,7 @@
     /*
         Plugin Name: B3 : Assets Tracker
         Description: Assets storage
-        Version: 1.0
+        Version: 1.1.0
         Author: Beee
         Author URI: https://berryplasman.com
         License: GPL2
@@ -51,11 +51,14 @@
                 update_option( 'bp_currency', '€' );
                 
                 global $wpdb;
-                $table = $wpdb->prefix . 'asset_groups';
-                
-                foreach( b3_get_default_groups() as $id => $name ) {
-                    $data = [ 'id' => $id, 'name' => $name ];
-                    $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                $table   = $wpdb->prefix . 'asset_groups';
+                $results = $wpdb->get_results( "SELECT * FROM $table" );
+
+                if ( empty( $results ) ) {
+                    foreach( b3_get_default_groups() as $id => $name ) {
+                        $data = [ 'id' => $id, 'name' => $name ];
+                        $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                    }
                 }
             }
 
@@ -74,8 +77,8 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.0',
-                    'version'    => '1.0',
+                    'db_version' => '1.1',
+                    'version'    => '1.1.0',
                 ];
             }
 
@@ -112,13 +115,12 @@
                     $validated = b3_validate_graph_fields( $_POST );
                     
                     if ( $validated ) {
-                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : '';
+                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : [];
                         $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
-                        $asset_types  = empty( $asset_groups ) ? 'all' : $asset_types;
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
                         
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
@@ -159,6 +161,7 @@
                     ordering int(2) NOT NULL,
                     asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
+                    closed DATE NULL,
                     PRIMARY KEY  (id)
                     )
                     COLLATE <?php echo $wpdb->collate; ?>;
@@ -191,7 +194,7 @@
                     <?php
                     $sql3 = ob_get_clean();
                     dbDelta( $sql3 );
-                    // update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
+                    update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
             }
             

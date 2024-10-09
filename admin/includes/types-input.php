@@ -39,7 +39,10 @@
                         Group
                     </th>
                 <?php } ?>
-                <th class="hide-type">
+                <th class="checkbox closed">
+                    Closed
+                </th>
+                <th class="checkbox hide-type">
                     Hide
                 </th>
                 <th>&nbsp;</th>
@@ -69,7 +72,12 @@
                         </label>
                     </td>
                 <?php } ?>
-                <td class="hide-type">
+                <td class="checkbox closed">
+                    <label>
+                        <input name="bp_closed" type="checkbox" value="1" <?php checked( $closed_value ); ?> />
+                    </label>
+                </td>
+                <td class="checkbox hide-type">
                     <label>
                         <input name="bp_hide" type="checkbox" value="1" <?php checked( $hide_value ); ?> />
                     </label>

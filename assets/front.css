@@ -5,6 +5,10 @@
         }
     }
 
+    h2 + & {
+        margin-top: 0.5rem;
+    }
+
     p + &,
     + p {
         margin-top: 1rem;

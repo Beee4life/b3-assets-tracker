@@ -23,15 +23,4 @@ jQuery(document).ready(function () {
                 asset_type.classList.remove('visible');
         }
     }
-
-    jQuery('body').on('click',function(event){
-        if(!jQuery(event.target).is('.anchor')){
-            if ( asset_group ) {
-                jQuery("#asset-groups").removeClass("visible");
-            }
-            if ( asset_type ) {
-                jQuery("#asset-types").removeClass("visible");
-            }
-        }
-    });
 });
