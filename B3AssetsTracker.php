@@ -52,10 +52,13 @@
                 
                 global $wpdb;
                 $table = $wpdb->prefix . 'asset_groups';
-                
-                foreach( b3_get_default_groups() as $id => $name ) {
-                    $data = [ 'id' => $id, 'name' => $name ];
-                    $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                $results = $wpdb->get_results( "SELECT * FROM $table" );
+
+                if ( empty( $results ) ) {
+                    foreach( b3_get_default_groups() as $id => $name ) {
+                        $data = [ 'id' => $id, 'name' => $name ];
+                        $wpdb->insert( $table, $data, [ '%d', '%s' ] );
+                    }
                 }
             }
 
