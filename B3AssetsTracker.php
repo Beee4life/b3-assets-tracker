@@ -51,7 +51,7 @@
                 update_option( 'bp_currency', '€' );
                 
                 global $wpdb;
-                $table = $wpdb->prefix . 'asset_groups';
+                $table   = $wpdb->prefix . 'asset_groups';
                 $results = $wpdb->get_results( "SELECT * FROM $table" );
 
                 if ( empty( $results ) ) {
