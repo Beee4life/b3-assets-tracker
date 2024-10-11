@@ -47,8 +47,8 @@
              */
             public function bp_plugin_activation() {
                 $this->bp_check_table();
-                update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
+                update_option( 'bp_date_format', 'd-m-y' );
 
                 global $wpdb;
                 $table   = $wpdb->prefix . 'asset_groups';
