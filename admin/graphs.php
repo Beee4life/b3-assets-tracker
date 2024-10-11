@@ -13,7 +13,8 @@
         $all_dates             = array_values( bp_get_dates() );
         $all_data              = bp_get_data();
         $asset_groups          = bp_get_asset_groups();
-        $asset_types           = bp_get_asset_types();
+        $asset_types           = bp_get_asset_types( 'id_name' );
+        $asset_types[ 'all' ]  = 'All';
         $dates                 = array_keys( $all_data );
         $date_from             = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
         $date_from             = isset( $_POST[ 'graph_type' ] ) && str_starts_with( $_POST[ 'graph_type' ], 'total' ) ? '' : $date_from;

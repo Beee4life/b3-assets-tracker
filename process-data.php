@@ -148,22 +148,40 @@
                 $entry_row[] = $date;
                 
                 if ( ! empty( $asset_types ) ) {
-                    foreach( $asset_types as $asset_type ) {
-                        if ( bp_is_type_hidden( (int) $asset_type ) ) {
-                            continue;
+                    if ( 'all' == $asset_types ) {
+                        // @TODO
+                        $day_value = 0;
+                        foreach( $date_entries as $asset_row ) {
+                            $type_id = (int) $asset_row->type;
+                            if ( bp_is_type_hidden( $type_id ) ) {
+                                continue;
+                            }
+                            
+                            if ( bp_is_type_closed( $type_id, $data ) ) {
+                                continue;
+                            }
+                            $day_value = $day_value + $asset_row->value;
                         }
-
-                        if ( bp_is_type_closed( (int) $asset_type, $data ) ) {
-                            continue;
-                        }
+                        $entry_row[] = $day_value;
+                        
+                    } else {
+                        foreach( $asset_types as $asset_type ) {
+                            if ( bp_is_type_hidden( (int) $asset_type ) ) {
+                                continue;
+                            }
     
-                        $types_colummn = array_column( $date_entries, 'type' );
-                        $key           = array_search( (int) $asset_type, $types_colummn );
-    
-                        if ( is_int( $key ) ) {
-                            $entry_row[] = (float) $date_entries[$key]->value;
-                        } else {
-                            $entry_row[] = (float) '0';
+                            if ( bp_is_type_closed( (int) $asset_type, $data ) ) {
+                                continue;
+                            }
+        
+                            $types_colummn = array_column( $date_entries, 'type' );
+                            $key           = array_search( (int) $asset_type, $types_colummn );
+        
+                            if ( is_int( $key ) ) {
+                                $entry_row[] = (float) $date_entries[$key]->value;
+                            } else {
+                                $entry_row[] = (float) '0';
+                            }
                         }
                     }
                 } elseif ( ! empty( $asset_groups ) ) {

@@ -57,12 +57,23 @@
     }
     
     
-    function bp_get_asset_types() {
+    function bp_get_asset_types( $return = 'all' ) {
         global $wpdb;
-        $table = $wpdb->prefix . 'asset_types';
-        $query = "SELECT * FROM $table ORDER BY ordering";
+        $table   = $wpdb->prefix . 'asset_types';
+        $query   = "SELECT * FROM $table ORDER BY ordering";
+        $results = $wpdb->get_results( $query );
         
-        return $wpdb->get_results( $query );
+        if ( 'all' === $return ) {
+            return $results;
+        } elseif ( 'id_name' === $return ) {
+            foreach( $results as $row ) {
+                $types[$row->id] = $row->name;
+            }
+            
+            return $types;
+        }
+        
+        return [];
     }
     
     
@@ -160,8 +171,12 @@
                 }
             
             } elseif ( is_array( $asset_type ) ) {
-                // only for graphs
-                $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                // only for graphs or all
+                if ( in_array( 'all', $asset_type ) ) {
+                    $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                } else {
+                    $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE type IN (" . implode( ',' , $asset_type ) . ") AND date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
+                }
 
             } elseif ( is_array( $asset_group ) ) {
                 // only for graphs
@@ -295,7 +310,10 @@
         $top_row = false;
         
         if ( 'line' === $graph_type ) {
-            if ( is_array( $asset_types ) ) {
+            if ( 'all' == $asset_types ) {
+                $top_row = [ 'Week', 'Value' ];
+                
+            } elseif ( is_array( $asset_types ) ) {
                 $top_row = [ 'Week' ];
                 foreach( $asset_types as $type ) {
                     if ( bp_is_type_hidden( $type ) ) {
@@ -314,11 +332,8 @@
                 $top_row = [ 'Week', 'Euro' ];
             }
             
-        } elseif ( 'total_type' === $graph_type ) {
-            $top_row = [ 'Asset', '&euro;' ];
-            
-        } elseif ( 'total_group' === $graph_type ) {
-            $top_row = [ 'Group', '&euro;' ];
+        } elseif ( in_array( $graph_type, [ 'total_group', 'total_type' ] ) ) {
+            $top_row = [ 'Asset', 'Value' ];
             
         } else {
             // non defined graphs
@@ -345,6 +360,7 @@
                 }
             }
         }
-        
+
+        // echo '<pre>'; var_dump($top_row); echo '</pre>'; exit;
         return $top_row;
     }

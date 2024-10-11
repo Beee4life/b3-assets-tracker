@@ -116,20 +116,22 @@
 
                     if ( $validated ) {
                         $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : [];
+                        $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
                         $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
+                        $show_all     = 'all' == $asset_types ? true : false;
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
 
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                             $chart_args = [
-                                'data'        => $processed_data,
                                 'asset_group' => $asset_groups,
                                 'asset_type'  => $asset_types,
                                 'graph_type'  => $graph_type,
+                                'data'        => $processed_data,
                             ];
 
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );

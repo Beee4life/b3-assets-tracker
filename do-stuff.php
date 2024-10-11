@@ -33,6 +33,15 @@
                 }
             }
             
+            if ( in_array( 'all', $post_data[ 'asset_type' ] ) ) {
+                if ( 1 < count( $post_data[ 'asset_type' ] ) ) {
+                    if ( function_exists( 'bp_errors' ) ) {
+                        bp_errors()->add( 'error_only_all', esc_html( __( 'If you select "All", you can\' select any other types.', 'assets' ) ) );
+                        return;
+                    }
+                }
+            }
+            
             if ( isset( $post_data[ 'asset_type' ] ) && isset( $post_data[ 'asset_group' ] )  ) {
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_type_group', esc_html( __( 'You need to select an an asset type OR group, not both.', 'assets' ) ) );
