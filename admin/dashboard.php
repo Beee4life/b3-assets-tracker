@@ -90,7 +90,7 @@
                 <div id="data-output">
                     <?php if ( $grouped_data ) { ?>
                         <?php include 'includes/data-output.php'; ?>
-                        <?php do_action( 'add_graph', $grouped_data ); ?>
+                        <?php //do_action( 'add_graph', $grouped_data ); ?>
                     <?php } ?>
                 </div>
             <?php } elseif ( empty( $types ) ) { ?>
