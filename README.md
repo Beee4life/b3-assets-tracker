@@ -41,6 +41,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.2.0 - 09.10.24
+* add line graph for all assets
+
 1.1.0 - 09.10.24
 * add closed status for type/position
 
