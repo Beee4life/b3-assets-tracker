@@ -210,15 +210,17 @@
             }
             
         } elseif ( 'total_type' === $graph_type ) {
-            if ( 'all' == $asset_types ) {
-                foreach( $data as $asset_row ) {
-                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
-                        continue;
-                    }
-                    
-                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
-                    $all_rows[] = $entry_row;
+            foreach( $data as $asset_row ) {
+                if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                    continue;
                 }
+                
+                if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                    continue;
+                }
+                
+                $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
+                $all_rows[] = $entry_row;
             }
 
         } elseif ( 'total_group' === $graph_type ) {
