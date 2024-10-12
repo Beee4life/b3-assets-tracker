@@ -13,7 +13,7 @@ This plugin gives you the option to input your assets and actively keep track of
 ### Manual
 * Upload the zip through WordPress plugin admin or
 * Upload the files by ftp to `wp-content/plugins`.
-* Activate the plugin `CSV to WP` through the plugins page.
+* Activate the plugin `B3 : Assets Tracker` through the plugins page.
 
 ### Composer
 Add this to your composer.json
