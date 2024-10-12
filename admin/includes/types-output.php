@@ -13,9 +13,11 @@
                         <th>
                             Name
                         </th>
-                        <th class="data-id">
-                            ID
-                        </th>
+                        <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                            <th class="data-id">
+                                ID
+                            </th>
+                        <?php } ?>
                         <th class="asset-group">
                             Group
                         </th>
@@ -41,9 +43,11 @@
                             <td>
                                 <?php echo $type->name; ?>
                             </td>
-                            <td class="data-id">
-                                <?php echo $type->id; ?>
-                            </td>
+                            <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                                <td class="data-id">
+                                    <?php echo $type->id; ?>
+                                </td>
+                            <?php } ?>
                             <td class="asset-group">
                                 <?php echo bp_get_group_by_id( $type->asset_group ); ?>
                             </td>
@@ -53,7 +57,7 @@
                             <td class="hide-asset">
                                 <?php echo $type->hide ? 'X' : ''; ?>
                             </td>
-                            <td class="delete-asset">
+                            <td class="delete-asset checkbox">
                                 <label>
                                     <?php echo sprintf( '<input type="checkbox" name="bp_delete_type[]" value="%s" />', $type->id ); ?>
                                 </label>
