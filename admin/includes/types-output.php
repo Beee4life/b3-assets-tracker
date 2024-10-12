@@ -1,7 +1,8 @@
 <div id="data-output">
-    <br>
-    <h2>All types</h2>
-    
+    <?php if ( $preset_types ) { ?>
+        <h2>All types</h2>
+    <?php } ?>
+
     <?php if ( $asset_types ) { ?>
         <form name="delete-assets" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
             <input type="hidden" name="delete_types_nonce" value="<?php echo wp_create_nonce( 'delete-types-nonce' ); ?>" />
@@ -14,9 +15,11 @@
                         <th>
                             Name
                         </th>
-                        <th class="data-id">
-                            ID
-                        </th>
+                        <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                            <th class="data-id">
+                                ID
+                            </th>
+                        <?php } ?>
                         <th class="asset-group">
                             Group
                         </th>
@@ -42,9 +45,11 @@
                             <td>
                                 <?php echo $type->name; ?>
                             </td>
-                            <td class="data-id">
-                                <?php echo $type->id; ?>
-                            </td>
+                            <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                                <td class="data-id">
+                                    <?php echo $type->id; ?>
+                                </td>
+                            <?php } ?>
                             <td class="asset-group">
                                 <?php echo bp_get_group_by_id( $type->asset_group ); ?>
                             </td>
@@ -54,7 +59,7 @@
                             <td class="hide-asset">
                                 <?php echo $type->hide ? 'X' : ''; ?>
                             </td>
-                            <td class="delete-asset">
+                            <td class="delete-asset checkbox">
                                 <label>
                                     <?php echo sprintf( '<input type="checkbox" name="bp_delete_type[]" value="%s" />', $type->id ); ?>
                                 </label>

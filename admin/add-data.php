@@ -58,7 +58,7 @@
                                     </label>
                                 </td>
                                 <td>
-                                    Hidden ?
+                                    <b>Status</b>
                                 </td>
                             </tr>
                             <?php foreach( $types as $type ) { ?>
@@ -85,7 +85,17 @@
                                         </label>
                                     </td>
                                     <td>
-                                        <?php echo ! empty( $type->hide ) ? 'X' : ''; ?>
+                                        <?php
+                                            if ( ! empty( $type->hide ) ) {
+                                                echo 'Hidden';
+                                            }
+                                            if ( ! empty( $type->hide ) && ! empty( $type->closed ) ) {
+                                                echo ' & ';
+                                            }
+                                            if ( ! empty( $type->closed ) ) {
+                                                echo 'Closed';
+                                            }
+                                        ?>
                                     </td>
                                 </tr>
                             <?php } ?>

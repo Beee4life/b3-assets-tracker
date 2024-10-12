@@ -22,7 +22,7 @@
                         default:
                             $td_class = '';
                     }
-                    
+
                 } elseif ( $show_diff ) {
                     switch($column_counter) {
                         case 1:
@@ -37,7 +37,7 @@
                         default:
                             $td_class = '';
                     }
-                    
+
                 } elseif ( $show_total ) {
                     switch($column_counter) {
                         case 1:
@@ -57,7 +57,12 @@
                 if ( 1 == $column_counter ) {
                     echo $value;
                 } elseif ( 1 < $column_counter ) {
-                    $edit_url = admin_url( sprintf( 'admin.php?page=bp-assets-add-data&date=%s', $value ) );
+                    if ( is_admin() ) {
+                        $edit_url = admin_url( sprintf( 'admin.php?page=bp-assets-add-data&date=%s', $value ) );
+                    } else {
+                        $edit_url = get_home_url( '', sprintf( 'add-data/?date=%s', $value ) );
+                    }
+
                     if ( $show_diff && $show_total ) {
                         if ( $column_counter < ( $amount_cols - 2 ) ) {
                             $week_day = gmdate( 'l', strtotime( $value ) );
@@ -71,7 +76,7 @@
                         } else {
                             echo $value;
                         }
-                    
+
                     } elseif ( $show_diff ) {
                         if ( $column_counter < ( $amount_cols - 1 ) ) {
                             $value = bp_format_value( $value, 'date' );
@@ -83,7 +88,7 @@
                         } else {
                             echo $value;
                         }
-                        
+
                     } elseif ( $show_total ) {
                         if ( $column_counter == $amount_cols ) {
                             echo 'Total %';

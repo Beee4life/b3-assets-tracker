@@ -23,7 +23,7 @@
             <?php if ( $show_asset_groups ) { ?>
                 <th class="asset-groups">Asset group(s)</th>
             <?php } ?>
-            <th>&nbsp;</th>
+            <th class="submit">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@
             <?php if ( $show_all_option ) { ?>
                 <td class="checkbox">
                     <label>
-                        <input type="checkbox" name="show_all" value="1">
+                        <input type="checkbox" name="show_all" value="1"<?php checked( $show_all ); ?>>
                     </label>
                 </td>
             <?php } ?>
@@ -71,17 +71,17 @@
                     <div id="asset-types" class="dropdown-check-list" tabindex="100">
                         <div class="anchor">Select Type(s) &darr;</div>
                         <ul class="items">
-                            <?php foreach( $asset_types as $id => $type ) { ?>
-                                <?php if ( bp_is_type_hidden( $type->id ) ) { ?>
+                            <?php foreach( $asset_types as $id => $name ) { ?>
+                                <?php if ( 'all' != $id && bp_is_type_hidden( $id ) ) { ?>
                                     <?php continue; ?>
                                 <?php } ?>
                                 <li>
                                     <label>
                                         <?php $checked = ''; ?>
-                                        <?php if ( is_array( $selected_asset_types ) && in_array( $type->id, $selected_asset_types ) ) { ?>
+                                        <?php if ( is_array( $selected_asset_types ) && in_array( $id, $selected_asset_types ) ) { ?>
                                             <?php $checked = ' checked="checked"'; ?>
                                         <?php } ?>
-                                        <?php echo sprintf( '<input type="checkbox" name="asset_type[]" value="%s" %s>%s</input>', $type->id, $checked, $type->name ); ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="asset_type[]" value="%s" %s>%s</input>', $id, $checked, $name ); ?>
                                     </label>
                                 </li>
                             <?php } ?>
@@ -109,7 +109,7 @@
                     </div>
                 </td>
             <?php } ?>
-            <td>
+            <td class="submit">
                 <input type="submit" class="admin-button admin-button-small" value="Filter" />
             </td>
         </tr>

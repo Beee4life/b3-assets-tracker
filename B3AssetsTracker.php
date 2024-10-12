@@ -2,7 +2,7 @@
     /*
         Plugin Name: B3 : Assets Tracker
         Description: Assets storage
-        Version: 1.1.0
+        Version: 1.2.0
         Author: Beee
         Author URI: https://berryplasman.com
         License: GPL2
@@ -19,8 +19,6 @@
          */
         class B3AssetsTracker {
 
-            var $settings;
-
             /**
              *  A dummy constructor to ensure plugin is only initialized once
              */
@@ -30,7 +28,7 @@
 
                 register_activation_hook( __FILE__,     [ $this, 'bp_plugin_activation' ] );
                 register_deactivation_hook( __FILE__,   [ $this, 'bp_plugin_deactivation' ] );
-                
+
                 add_action( 'admin_init',               [ $this, 'bp_check_table' ] );
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
                 add_action( 'wp_enqueue_scripts',       [ $this, 'bp_add_css_front' ] );
@@ -47,9 +45,9 @@
              */
             public function bp_plugin_activation() {
                 $this->bp_check_table();
-                update_option( 'bp_date_format', 'd-m-y' );
                 update_option( 'bp_currency', '€' );
-                
+                update_option( 'bp_date_format', 'd-m-y' );
+
                 global $wpdb;
                 $table   = $wpdb->prefix . 'asset_groups';
                 $results = $wpdb->get_results( "SELECT * FROM $table" );
@@ -108,46 +106,48 @@
             public function bp_add_css_admin() {
                 wp_register_style( 'bp-assets-admin', plugins_url( 'assets/admin.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-admin' );
-                
+
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
-                
+
                 if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
-                    
+
                     if ( $validated ) {
                         $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : [];
+                        $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
                         $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
                         $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
                         $date_till    = $_POST[ 'stats_until' ];
                         $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups );
-                        
+                        $show_all     = 'all' == $asset_types ? true : false;
+                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
+
                         if ( ! empty( $grouped_data ) ) {
                             $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                             $chart_args = [
-                                'data'        => $processed_data,
                                 'asset_group' => $asset_groups,
                                 'asset_type'  => $asset_types,
                                 'graph_type'  => $graph_type,
+                                'currency'    => get_option( 'bp_currency' ),
+                                'data'        => $processed_data,
                             ];
-                            
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
-                        
+
                         $in_footer = false;
                         wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', $in_footer );
                     }
                 }
             }
-            
-            
+
+
             public function bp_add_css_front() {
                 wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-front' );
             }
-            
-            
+
+
             public function bp_check_table() {
                 $db_version = get_option( 'assets_db_version', false );
                 if ( false == $db_version || $db_version != $this->bp_settings()[ 'db_version' ] ) {
@@ -168,7 +168,7 @@
                     <?php
                     $sql1 = ob_get_clean();
                     dbDelta( $sql1 );
-                    
+
                     ob_start();
                     ?>
                     CREATE TABLE <?php echo $wpdb->prefix; ?>asset_data (
@@ -182,7 +182,7 @@
                     <?php
                     $sql2 = ob_get_clean();
                     dbDelta( $sql2 );
-                    
+
                     ob_start();
                     ?>
                     CREATE TABLE <?php echo $wpdb->prefix; ?>asset_groups (
@@ -197,14 +197,14 @@
                     update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
             }
-            
-            
+
+
             public static function bp_admin_menu() {
                 $admin_url     = admin_url( 'admin.php?page=' );
                 $current_class = ' class="current_page"';
                 $url_array     = parse_url( esc_url_raw( $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ] ) );
-                $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 11 ) : false;
-                
+                $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 8 ) : false;
+
                 $pages = [
                     'assets-dashboard' => esc_html__( 'Dashboard', 'bp-assets' ),
                     'assets-data'      => esc_html__( 'Data', 'bp-assets' ),
@@ -214,17 +214,16 @@
                     'assets-settings'  => esc_html__( 'Settings', 'bp-assets' ),
                     // 'assets-info'      => esc_html__( 'Info', 'bp-assets' ),
                 ];
-                
+
                 ob_start();
                 foreach( $pages as $slug => $label ) {
-                    $current_page = ( $subpage == $slug ) ? $current_class : false;
-                    $current_page = ( 'countries' == $slug ) ? ' class="cta"' : $current_page;
-                    echo ( 'assets-dashboard' != $slug ) ? ' | ' : false;
-                    echo '<a href="' . $admin_url . 'bp-' . $slug . '"' . $current_page . '>' . $label . '</a>';
+                    $current_page = ( $subpage === $slug ) ? $current_class : false;
+                    echo ( 'assets-dashboard' !== $slug ) ? ' | ' : false;
+                    echo sprintf( '<a href="%s"%s>%s</a>', sprintf( '%sbp-%s', $admin_url, $slug ), $current_page, $label );
                 }
                 $menu_items = ob_get_clean();
                 $menu       = sprintf( '<p class="bp-admin-menu">%s</p>', $menu_items );
-                
+
                 return $menu;
             }
         }
