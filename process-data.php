@@ -149,7 +149,6 @@
                 
                 if ( ! empty( $asset_types ) ) {
                     if ( 'all' == $asset_types ) {
-                        // @TODO
                         $day_value = 0;
                         foreach( $date_entries as $asset_row ) {
                             $type_id = (int) $asset_row->type;
