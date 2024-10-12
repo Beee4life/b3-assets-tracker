@@ -15,4 +15,9 @@
             <?php $row_counter++; ?>
         <?php } ?>
     </table>
+    <?php if ( ! is_admin() && 9 <= $amount_cols ) { ?>
+        <div class="table_note">
+            Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile).
+        </div>
+    <?php } ?>
 </div>
