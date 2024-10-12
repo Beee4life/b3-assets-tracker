@@ -21,8 +21,8 @@
                     if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                         var options = {
                             title : 'Totals',
-                            vAxis: {title: 'Value'},
                             hAxis: {title: 'Date'},
+                            vAxis: {title: 'Value', format: currency + " #.###" },
                             curveType: 'function',
                             legend: 'none',
                             width: 1200,
@@ -33,8 +33,8 @@
                     } else if ( chart_vars.graph_type === 'line' ) {
                         var options = {
                             title : 'Week diff',
-                            vAxis: {title: 'Value'},
                             hAxis: {title: 'Week'},
+                            vAxis: {title: 'Value', format: currency + ' #,###' },
                             curveType: 'function',
                             legend: { position: 'right' },
                             series: {5: {type: 'line'}},
