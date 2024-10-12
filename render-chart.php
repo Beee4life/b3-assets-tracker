@@ -87,4 +87,3 @@
         echo $output;
     }
     add_action( 'admin_head', 'bp_add_chart_script' );
-    add_action( 'wp_head', 'bp_add_chart_script' );
