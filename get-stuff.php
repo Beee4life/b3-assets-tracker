@@ -360,6 +360,5 @@
             }
         }
 
-        // echo '<pre>'; var_dump($top_row); echo '</pre>'; exit;
         return $top_row;
     }
