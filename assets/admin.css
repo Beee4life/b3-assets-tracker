@@ -136,11 +136,6 @@
     margin-top: 1rem;
 }
 
-.graphs-help h3 {
-    font-size: 1.15rem;
-    margin:    0 0 1rem 0;
-}
-
 .graphs-help ul li {
     margin: 0;
 }
@@ -166,6 +161,11 @@
 }
 
 /* https://stackoverflow.com/questions/19206919/how-to-create-checkbox-inside-dropdown */
+td.asset-groups,
+td.asset-types {
+    position: relative;
+}
+
 .dropdown-check-list .anchor:active:after {
     /*right: 8px;*/
     /*top:   21%;*/
@@ -187,11 +187,6 @@
     border:        1px solid #8c8f94;
     border-radius: 3px;
     padding:       0.3rem 0.5rem;
-}
-
-td.asset-groups,
-td.asset-types {
-    position: relative;
 }
 
 .dropdown-check-list.visible .items {
