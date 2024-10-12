@@ -206,7 +206,7 @@
                 $admin_url     = admin_url( 'admin.php?page=' );
                 $current_class = ' class="current_page"';
                 $url_array     = parse_url( esc_url_raw( $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ] ) );
-                $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 11 ) : false;
+                $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 8 ) : false;
 
                 $pages = [
                     'assets-dashboard' => esc_html__( 'Dashboard', 'bp-assets' ),
@@ -220,10 +220,9 @@
 
                 ob_start();
                 foreach( $pages as $slug => $label ) {
-                    $current_page = ( $subpage == $slug ) ? $current_class : false;
-                    $current_page = ( 'countries' == $slug ) ? ' class="cta"' : $current_page;
-                    echo ( 'assets-dashboard' != $slug ) ? ' | ' : false;
-                    echo '<a href="' . $admin_url . 'bp-' . $slug . '"' . $current_page . '>' . $label . '</a>';
+                    $current_page = ( $subpage === $slug ) ? $current_class : false;
+                    echo ( 'assets-dashboard' !== $slug ) ? ' | ' : false;
+                    echo sprintf( '<a href="%s"%s>%s</a>', sprintf( '%sbp-%s', $admin_url, $slug ), $current_page, $label );
                 }
                 $menu_items = ob_get_clean();
                 $menu       = sprintf( '<p class="bp-admin-menu">%s</p>', $menu_items );
