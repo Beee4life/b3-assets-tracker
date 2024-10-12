@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.3.0 - 1x.10.24
+* ?
+
 1.2.0 - 12.10.24
 * add line graph for all assets
 * add curency symbol to graphs
