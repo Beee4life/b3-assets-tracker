@@ -23,7 +23,7 @@
             <?php if ( $show_asset_groups ) { ?>
                 <th class="asset-groups">Asset group(s)</th>
             <?php } ?>
-            <th>&nbsp;</th>
+            <th class="submit">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@
             <?php if ( $show_all_option ) { ?>
                 <td class="checkbox">
                     <label>
-                        <input type="checkbox" name="show_all" value="1">
+                        <input type="checkbox" name="show_all" value="1"<?php checked( $show_all ); ?>>
                     </label>
                 </td>
             <?php } ?>
@@ -109,7 +109,7 @@
                     </div>
                 </td>
             <?php } ?>
-            <td>
+            <td class="submit">
                 <input type="submit" class="admin-button admin-button-small" value="Filter" />
             </td>
         </tr>
