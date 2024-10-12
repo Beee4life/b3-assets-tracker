@@ -130,6 +130,9 @@
     }
 }
 
+.bp-admin-menu .current_page {
+    font-weight: bold;
+}
 
 .graphs-help {
     margin-top: 2rem;
