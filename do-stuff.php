@@ -36,7 +36,7 @@
             if ( in_array( 'all', $post_data[ 'asset_type' ] ) ) {
                 if ( 1 < count( $post_data[ 'asset_type' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
-                        bp_errors()->add( 'error_only_all', esc_html( __( 'If you select "All", you can\' select any other types.', 'assets' ) ) );
+                        bp_errors()->add( 'error_only_all', esc_html( __( 'If you select "All", you can\'t select any other types.', 'assets' ) ) );
                         return;
                     }
                 }
