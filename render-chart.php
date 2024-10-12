@@ -13,7 +13,7 @@
             if (typeof(chart_vars) != "undefined" && chart_vars !== null) {
                 google.charts.load('current', {'packages':['corechart', 'bar']});
                 google.charts.setOnLoadCallback(drawChart);
-                
+
                 function drawChart() {
                     var currency = chart_vars.currency;
                     var data = google.visualization.arrayToDataTable(chart_vars.data);
@@ -53,7 +53,7 @@
                             height: 500
                         };
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                        
+
                     } else if ( chart_vars.graph_type === 'total_group' ) {
                         var options = {
                             title : 'Assets per group',
@@ -64,7 +64,7 @@
                             height: 500
                         };
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                        
+
                     } else {
                         // combo chart
                         var options = {
@@ -87,3 +87,4 @@
         echo $output;
     }
     add_action( 'admin_head', 'bp_add_chart_script' );
+    add_action( 'wp_head', 'bp_add_chart_script' );
