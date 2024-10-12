@@ -15,6 +15,7 @@
                 google.charts.setOnLoadCallback(drawChart);
                 
                 function drawChart() {
+                    var currency = chart_vars.currency;
                     var data = google.visualization.arrayToDataTable(chart_vars.data);
 
                     if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
