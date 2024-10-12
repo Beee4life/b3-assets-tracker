@@ -15,8 +15,8 @@
     }
 }
 
-#wrap table,
-#data table {
+#data-input table,
+#data-output table {
     border-collapse: collapse;
     border-spacing:  0;
     border-width:    0;
