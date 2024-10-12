@@ -1,5 +1,7 @@
 <div id="data-output">
-    <h2>All types</h2>
+    <?php if ( $preset_types ) { ?>
+        <h2>All types</h2>
+    <?php } ?>
 
     <?php if ( $asset_types ) { ?>
         <form name="delete-assets" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
