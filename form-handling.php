@@ -23,12 +23,14 @@
                             $type_id    = $_POST[ 'update_type' ];
                             $close_date = bp_get_type_by_id( $type_id, 'closed' );
                             $closed     = ! empty( $_POST[ 'bp_closed' ] ) ? true : false;
-                            
-                            if ( $closed && ! $close_date || '0000-00-00' === $close_date ) {
+
+                            if ( $closed && ( ! $close_date || '0000-00-00' == $closed ) ) {
                                 $close_date = gmdate( 'Y-m-d', time() );
 
-                            } elseif ( '0000-00-00' !== $close_date ) {
+                            } elseif ( ! $closed && '0000-00-00' !== $close_date ) {
                                 $close_date = '';
+                            } elseif ( '0000-00-00' !== $close_date ) {
+                                error_log('HIT else close date');
                             }
                             
                             $data = [
