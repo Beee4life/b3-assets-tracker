@@ -1,7 +1,6 @@
 <div id="data-output">
-    <br>
     <h2>All types</h2>
-    
+
     <?php if ( $asset_types ) { ?>
         <form name="delete-assets" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
             <input type="hidden" name="delete_types_nonce" value="<?php echo wp_create_nonce( 'delete-types-nonce' ); ?>" />
