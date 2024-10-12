@@ -146,8 +146,6 @@
             public function bp_add_css_front() {
                 wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-front' );
-                wp_register_style( 'bp-assets-admin', plugins_url( 'assets/admin.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
-                wp_enqueue_style( 'bp-assets-admin' );
             }
 
 
