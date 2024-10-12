@@ -312,7 +312,7 @@
             if ( 'all' == $asset_types ) {
                 $top_row = [ 'Week', 'Value' ];
                 
-            } elseif ( is_array( $asset_types ) ) {
+            } elseif ( ! empty( $asset_types ) ) {
                 $top_row = [ 'Week' ];
                 foreach( $asset_types as $type ) {
                     if ( bp_is_type_hidden( $type ) ) {
@@ -321,7 +321,7 @@
                     $top_row[] = bp_get_type_by_id( $type );
                 }
                 
-            } elseif ( is_array( $asset_groups ) ) {
+            } elseif ( ! empty( $asset_groups ) ) {
                 $top_row = [ 'Week' ];
                 foreach( $asset_groups as $group_id ) {
                     $top_row[] = bp_get_group_by_id( $group_id );
