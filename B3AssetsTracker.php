@@ -131,6 +131,7 @@
                                 'asset_group' => $asset_groups,
                                 'asset_type'  => $asset_types,
                                 'graph_type'  => $graph_type,
+                                'currency'    => get_option( 'bp_currency' ),
                                 'data'        => $processed_data,
                             ];
 
