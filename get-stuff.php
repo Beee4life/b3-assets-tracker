@@ -170,8 +170,8 @@
                     $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE ( date = '%s' OR date = '%s' ) ORDER BY date ASC", $from, $until );
                 }
             
-            } elseif ( is_array( $asset_type ) ) {
-                // only for graphs or all
+            } elseif ( ! empty( $asset_type ) ) {
+                // only for graphs
                 if ( in_array( 'all', $asset_type ) ) {
                     $query = $wpdb->prepare( "SELECT * FROM $table_assets WHERE date BETWEEN '%s' AND '%s' ORDER BY date, type ASC", $from, $until );
                 } else {
@@ -179,7 +179,6 @@
                 }
 
             } elseif ( is_array( $asset_group ) ) {
-                // only for graphs
                 $types = $wpdb->get_results( "SELECT id FROM $table_types WHERE asset_group IN (" . implode( ',' , $asset_group ) . ")" );
                 if ( ! empty( $types ) ) {
                     foreach( $types as $type ) {
