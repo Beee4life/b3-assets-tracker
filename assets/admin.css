@@ -104,10 +104,12 @@
     }
 
     table.data-types {
+        margin-top:  1rem;
+
         th,
         td {
             border-bottom: 1px solid #ccc;
-            padding:       0.25rem 1rem 0.25rem 0;
+            padding:       0.25rem 2rem 0.25rem 0;
 
             &.hide-asset,
             &.delete-asset {
