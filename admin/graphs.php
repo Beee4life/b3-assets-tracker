@@ -47,9 +47,8 @@
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
+                echo B3AssetsTracker::bp_admin_menu();
             ?>
-
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <div id="data-input">
                 <?php
