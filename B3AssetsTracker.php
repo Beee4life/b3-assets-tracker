@@ -132,7 +132,6 @@
                                 'currency'    => get_option( 'bp_currency' ),
                                 'data'        => $processed_data,
                             ];
-
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
 
