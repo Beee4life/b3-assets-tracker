@@ -1,8 +1,8 @@
 <?php
     /*
         Plugin Name: B3 : Assets Tracker
-        Description: Assets storage
-        Version: 1.2.0
+        Description: This plugin gives you the option to track and analyze your (financial) assets.
+        Version: 1.2.1
         Author: Beee
         Author URI: https://berryplasman.com
         License: GPL2
@@ -75,7 +75,7 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.1',
+                    'db_version' => '1.2',
                     'version'    => '1.1.0',
                 ];
             }
@@ -176,6 +176,7 @@
                     date DATE NOT NULL,
                     type int(2) NOT NULL,
                     value decimal(8,2) NOT NULL,
+                    updated int(11) NULL,
                     PRIMARY KEY  (id)
                     )
                     COLLATE <?php echo $wpdb->collate; ?>;

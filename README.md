@@ -40,6 +40,11 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.2.1 - 13.10.24
+* Fix missing css in shortcode output
+* Split forms function into separate ones
+* Add updated column to asset data
+
 1.2.0 - 12.10.24
 * add line graph for all assets
 * add curency symbol to graphs

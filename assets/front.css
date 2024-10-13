@@ -1,3 +1,4 @@
+/* shortcode only */
 #data {
     .shortcode-footer + & {
         @media screen and ( min-width: 700px ) {
@@ -15,6 +16,7 @@
     }
 }
 
+/* all in/output */
 #data-input table,
 #data-output table {
     border-collapse: collapse;
