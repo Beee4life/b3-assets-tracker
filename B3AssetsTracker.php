@@ -75,7 +75,7 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.1',
+                    'db_version' => '1.2',
                     'version'    => '1.1.0',
                 ];
             }
