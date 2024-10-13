@@ -2,9 +2,7 @@
     
     function yoft_add_data_form() {
         global $wpdb;
-        $table_data   = $wpdb->prefix . 'asset_data';
-        $table_groups = $wpdb->prefix . 'asset_groups';
-        $table_types  = $wpdb->prefix . 'asset_types';
+        $table_data = $wpdb->prefix . 'asset_data';
 
         // add/update data
         if ( isset( $_POST[ 'add_data_nonce' ] ) ) {

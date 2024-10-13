@@ -2,9 +2,8 @@
 
     function yoft_add_type_form() {
         global $wpdb;
-        $table_data   = $wpdb->prefix . 'asset_data';
-        $table_groups = $wpdb->prefix . 'asset_groups';
-        $table_types  = $wpdb->prefix . 'asset_types';
+        $table_data  = $wpdb->prefix . 'asset_data';
+        $table_types = $wpdb->prefix . 'asset_types';
 
         // add types form
         if ( isset( $_POST[ 'add_type_nonce' ] ) ) {
