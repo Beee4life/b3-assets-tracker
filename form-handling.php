@@ -155,13 +155,16 @@
 
                             if ( null == $row ) {
                                 $data = [
-                                    'value' => ! empty( $value ) ? $value : '0.00',
-                                    'date'  => $input[ 'update_data' ],
-                                    'type'  => $type,
+                                    'value'   => ! empty( $value ) ? $value : '0.00',
+                                    'date'    => $input[ 'update_data' ],
+                                    'type'    => $type,
+                                    'updated' => time(),
                                 ];
                                 $wpdb->insert( $table_data, $data );
 
                             } else {
+                                $data[ 'updated' ] = time();
+                                $format[]          = '%d';
                                 $wpdb->update( $table_data, $data, $where, $format );
                             }
 
@@ -175,9 +178,10 @@
                         // insert row
                         foreach( $values as $type => $value ) {
                             $data = [
-                                'date'  => $input[ 'bp_date' ],
-                                'type'  => $type,
-                                'value' => ! empty( $value ) ? $value : '0.00',
+                                'date'    => $input[ 'bp_date' ],
+                                'type'    => $type,
+                                'value'   => ! empty( $value ) ? $value : '0.00',
+                                'updated' => time(),
                             ];
                             $wpdb->insert( $table_data, $data );
                         }
