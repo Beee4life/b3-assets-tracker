@@ -55,8 +55,12 @@
                 } elseif ( is_admin() && 15 < count( $amount_columns ) ) {
                     echo $shortcode_notice;
                 }
-
+                
+                echo '<div id="data-output">';
+                echo '<div id="data">';
                 include 'admin/includes/data-output.php';
+                echo '</div>';
+                echo '</div>';
                 
                 if ( 'true' == $attributes[ 'footer' ] ) {
                     $page_id = get_page_by_path( 'assets-tracker' );
