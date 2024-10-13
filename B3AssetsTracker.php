@@ -176,6 +176,7 @@
                     date DATE NOT NULL,
                     type int(2) NOT NULL,
                     value decimal(8,2) NOT NULL,
+                    updated int(11) NULL,
                     PRIMARY KEY  (id)
                     )
                     COLLATE <?php echo $wpdb->collate; ?>;
