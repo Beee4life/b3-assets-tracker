@@ -16,6 +16,12 @@
     }
 }
 
+#data-output {
+    h2 + & {
+        margin-top: 0.5rem;
+    }
+}
+
 /* all in/output */
 #data-input table,
 #data-output table {
