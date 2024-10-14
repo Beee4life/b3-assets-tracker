@@ -38,7 +38,7 @@
                             curveType: 'function',
                             legend: { position: 'right' },
                             series: {5: {type: 'line'}},
-                            width: 1200,
+                            width: '100%',
                             height: 500
                         };
                         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -73,7 +73,7 @@
                             hAxis: {title: 'Week'},
                             seriesType: 'bars',
                             series: {5: {type: 'line'}},
-                            width: 1200,
+                            width: '100%',
                             height: 500
                         };
                         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
