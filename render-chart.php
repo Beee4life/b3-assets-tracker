@@ -49,7 +49,7 @@
                             is3D : true,
                             // pieHole : 0.1,
                             pieSliceText: 'label',
-                            width: 800,
+                            width: '100%',
                             height: 500
                         };
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -60,7 +60,7 @@
                             is3D : true,
                             // pieHole : 0.1,
                             pieSliceText: 'label',
-                            width: 800,
+                            width: '100%',
                             height: 500
                         };
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
