@@ -32,7 +32,6 @@
 
                     if ( isset( $input[ 'update_data' ] ) ) {
                         // update row
-
                         foreach( $values as $type => $value ) {
                             $data = [
                                 'value' => ! empty( $value ) ? $value : '0.00',
