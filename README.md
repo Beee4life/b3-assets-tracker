@@ -40,6 +40,10 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.3.0 - 15.10.24
+* Fix delete asset type(s)
+* Change graph widths
+
 1.2.1 - 13.10.24
 * Fix missing css in shortcode output
 * Split forms function into separate ones
