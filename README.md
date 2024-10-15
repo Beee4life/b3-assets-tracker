@@ -42,6 +42,7 @@ composer require "Beee4life/b3-assets-tracker"
 
 1.3.0 - 15.10.24
 * Prepare graphs for front
+* Fix delete asset type(s)
 
 1.2.1 - 13.10.24
 * Fix missing css in shortcode output
