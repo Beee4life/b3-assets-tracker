@@ -4,7 +4,7 @@
      */
     function bp_assets_add_type() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'assets-tracker' ) ) );
         }
         $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
         $asset_groups = bp_get_asset_groups();

@@ -4,7 +4,7 @@
      */
     function bp_assets_dashboard() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'assets-tracker' ) ) );
         }
         
         $all_dates   = array_values( bp_get_dates() );

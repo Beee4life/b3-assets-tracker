@@ -6,7 +6,7 @@
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
-        Text-domain:    assets-tracker
+        Text domain:    assets-tracker
         License:        GPL v2 (or later)
         License URI:    https://www.gnu.org/licenses/gpl-2.0.html
         Domain Path:    /languages
@@ -207,9 +207,10 @@
             
             public function bp_load_plugin_text_domain() {
                 $plugin_folder = dirname( plugin_basename( __FILE__ ) );
+                $text_domain   = get_plugin_data( __FILE__ )[ 'TextDomain' ];
                 $locale        = apply_filters( 'plugin_locale', get_locale(), $plugin_folder );
-                load_textdomain( $plugin_folder, trailingslashit( WP_LANG_DIR ) . $plugin_folder . '/' . $plugin_folder . '-' . $locale . '.mo' );
-                load_plugin_textdomain( $plugin_folder, false, $plugin_folder . '/languages/' );
+                load_textdomain( $text_domain, trailingslashit( WP_LANG_DIR ) . $plugin_folder . '/' . $plugin_folder . '-' . $locale . '.mo' );
+                load_plugin_textdomain( $text_domain, false, $plugin_folder . '/languages/' );
             }
 
 
