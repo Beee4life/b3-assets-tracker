@@ -63,7 +63,7 @@
                 echo '</div>';
                 
                 if ( 'true' == $attributes[ 'footer' ] ) {
-                    $page_id = get_page_by_path( 'assets-tracker' );
+                    $page_id = get_page_by_path( 'b3-assets-tracker' );
                     if ( $page_id ) {
                         $message = sprintf( 'This data comes from a WordPress %s I created to track my assets and easily share it within the site.', sprintf( '<a href="%s">%s</a>', '/assets-tracker/', 'plugin' ) );
                     } else {

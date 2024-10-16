@@ -7,7 +7,7 @@
         if ( ! isset( $post_data[ 'bp_date' ] ) || empty( $_POST[ 'bp_date' ] ) ) {
             return [
                 'code'    => 'error_no_date',
-                'message' => esc_html( __( 'No date selected.', 'assets-tracker' ) ),
+                'message' => esc_html( __( 'No date selected.', 'b3-assets-tracker' ) ),
             ];
         }
         

@@ -6,7 +6,7 @@
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
-        Text domain:    assets-tracker
+        Text domain:    b3-assets-tracker
         License:        GPL v2 (or later)
         License URI:    https://www.gnu.org/licenses/gpl-2.0.html
         Domain Path:    /languages
@@ -207,10 +207,9 @@
             
             public function bp_load_plugin_text_domain() {
                 $plugin_folder = dirname( plugin_basename( __FILE__ ) );
-                $text_domain   = get_plugin_data( __FILE__ )[ 'TextDomain' ];
                 $locale        = apply_filters( 'plugin_locale', get_locale(), $plugin_folder );
-                load_textdomain( $text_domain, trailingslashit( WP_LANG_DIR ) . $plugin_folder . '/' . $plugin_folder . '-' . $locale . '.mo' );
-                load_plugin_textdomain( $text_domain, false, $plugin_folder . '/languages/' );
+                load_textdomain( $plugin_folder, trailingslashit( WP_LANG_DIR ) . $plugin_folder . '/' . $plugin_folder . '-' . $locale . '.mo' );
+                load_plugin_textdomain( $plugin_folder, false, $plugin_folder . '/languages/' );
             }
 
 
@@ -221,13 +220,13 @@
                 $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 8 ) : false;
 
                 $pages = [
-                    'assets-dashboard' => esc_html__( 'Dashboard', 'bp-assets' ),
-                    'assets-data'      => esc_html__( 'Data', 'bp-assets' ),
-                    'assets-add-data'  => esc_html__( 'Add data', 'bp-assets' ),
-                    'assets-graphs'     => esc_html__( 'Graphs', 'bp-assets' ),
-                    'assets-types'     => esc_html__( 'Types', 'bp-assets' ),
-                    'assets-settings'  => esc_html__( 'Settings', 'bp-assets' ),
-                    // 'assets-info'      => esc_html__( 'Info', 'bp-assets' ),
+                    'assets-dashboard' => esc_html__( 'Dashboard', 'b3-assets-tracker' ),
+                    'assets-data'      => esc_html__( 'Data', 'b3-assets-tracker' ),
+                    'assets-add-data'  => esc_html__( 'Add data', 'b3-assets-tracker' ),
+                    'assets-graphs'     => esc_html__( 'Graphs', 'b3-assets-tracker' ),
+                    'assets-types'     => esc_html__( 'Types', 'b3-assets-tracker' ),
+                    'assets-settings'  => esc_html__( 'Settings', 'b3-assets-tracker' ),
+                    // 'assets-info'      => esc_html__( 'Info', 'b3-assets-tracker' ),
                 ];
 
                 ob_start();

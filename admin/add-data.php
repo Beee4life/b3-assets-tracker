@@ -4,7 +4,7 @@
      */
     function bp_assets_add_data() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'assets-tracker' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         $action       = admin_url( 'admin.php?page=bp-assets-dashboard' );
         $edit_date    = isset( $_GET[ 'date' ] ) ? $_GET[ 'date' ] : '';

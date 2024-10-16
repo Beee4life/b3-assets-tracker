@@ -8,7 +8,7 @@
         if ( isset( $_POST[ 'add_data_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_data_nonce' ], 'add-data-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets-tracker' ) ) );
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'b3-assets-tracker' ) ) );
                 }
 
             } else {
@@ -66,7 +66,7 @@
                         }
 
                         if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'success_type_updated', esc_html( __( 'Values updated.', 'assets-tracker' ) ) );
+                            bp_errors()->add( 'success_type_updated', esc_html( __( 'Values updated.', 'b3-assets-tracker' ) ) );
                         }
 
                     } else {
@@ -81,11 +81,11 @@
                             $wpdb->insert( $table_data, $data );
                         }
                         if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'success_type_inserted', esc_html( __( 'Values inserted.', 'assets-tracker' ) ) );
+                            bp_errors()->add( 'success_type_inserted', esc_html( __( 'Values inserted.', 'b3-assets-tracker' ) ) );
                         }
                     }
                 } elseif ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( $validated_fields[ 'code' ], __( $validated_fields[ 'message' ], 'assets-tracker' ) );
+                    bp_errors()->add( $validated_fields[ 'code' ], __( $validated_fields[ 'message' ], 'b3-assets-tracker' ) );
                 }
 
                 if ( ! is_admin() ) {
@@ -110,7 +110,7 @@
                 $deleted = $wpdb->query($query);
 
                 if ( $deleted && is_int( $deleted ) && function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'success_date_removed', esc_html( __( 'Date removed.', 'assets-tracker' ) ) );
+                    bp_errors()->add( 'success_date_removed', esc_html( __( 'Date removed.', 'b3-assets-tracker' ) ) );
                 }
             }
         }
