@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.4.0 - xx.10.24
+* ?
+
 1.3.0 - 15.10.24
 * Fix delete asset type(s)
 * Change graph widths
