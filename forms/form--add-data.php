@@ -85,7 +85,7 @@
                         }
                     }
                 } elseif ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( $validated_fields[ 'code' ], __( $validated_fields[ 'message' ], 'b3-assets-tracker' ) );
+                    bp_errors()->add( $validated_fields[ 'code' ], $validated_fields[ 'message' ], 'b3-assets-tracker' );
                 }
 
                 if ( ! is_admin() ) {
