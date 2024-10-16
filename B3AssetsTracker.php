@@ -76,7 +76,7 @@
             public function bp_settings() {
                 return [
                     'db_version' => '1.2',
-                    'version'    => '1.1.0',
+                    'version'    => get_plugin_data( __FILE__ )[ 'Version' ],
                 ];
             }
 
