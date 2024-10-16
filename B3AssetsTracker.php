@@ -111,7 +111,7 @@
                 wp_register_style( 'bp-assets-admin', plugins_url( 'assets/admin.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-admin' );
 
-                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
+                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], $this->bp_settings()['version'], [ 'in_footer' => true ] );
 
                 if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
@@ -139,16 +139,17 @@
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
 
-                        $in_footer = false;
-                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', $in_footer );
+                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], [ 'in_footer' => true ] );
                     }
                 }
             }
 
 
             public function bp_add_css_front() {
-                wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
-                wp_enqueue_style( 'bp-assets-front' );
+                if ( ! is_admin() ) {
+                    wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
+                    wp_enqueue_style( 'bp-assets-front' );
+                }
             }
 
 
