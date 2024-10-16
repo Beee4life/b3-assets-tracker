@@ -48,12 +48,9 @@
                 ob_start();
                 $amount_columns   = $grouped_data[ 0 ];
                 $scroll_class     = 15 < $amount_columns ? ' tablescroll' : '';
-                $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
                 
-                if ( ! is_admin() && 6 < count( $amount_columns ) ) {
-                    echo $shortcode_notice;
-                } elseif ( is_admin() && 15 < count( $amount_columns ) ) {
-                    echo $shortcode_notice;
+                if ( ( ! is_admin() && 6 < count( $amount_columns ) ) || ( is_admin() && 15 < count( $amount_columns ) ) ) {
+                    echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html__( 'Table scrolls horizontally.', 'b3-assets-tracker' ) );
                 }
                 
                 echo '<div id="data-output">';
@@ -75,7 +72,7 @@
                             $message = 'This data comes from a WordPress plugin I created to track my assets and easily share it within the site.';
                         }
                     }
-                    echo sprintf( '<div class="shortcode-footer">%s</div>', $message );
+                    echo sprintf( '<div class="shortcode-footer">%s</div>', esc_html( $message ) );
                 }
                 $result = ob_get_clean();
                 

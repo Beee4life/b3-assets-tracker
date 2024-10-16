@@ -47,16 +47,16 @@
 
         <div id="wrap">
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-            ?>
             
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
+                do_action( 'bp_admin_menu' );
+            ?>
             
             <?php if ( empty( $grouped_data ) && empty( $types ) ) { ?>
                 <div id="data-input">

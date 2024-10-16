@@ -29,21 +29,21 @@
         <div id="wrap">
 
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
+
+                do_action( 'bp_admin_menu' );
             ?>
-            
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <?php if ( $types ) { ?>
                 <div id="data-input">
                     <form name="add-data" action="<?php echo $action; ?>" method="post">
-                        <input name="add_data_nonce" type="hidden" value="<?php echo wp_create_nonce( 'add-data-nonce' ); ?>" />
+                        <input name="add_data_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'add-data-nonce' ) ); ?>" />
                         <?php if ( $edit_date ) { ?>
                             <input name="update_data" type="hidden" value="<?php echo $edit_date; ?>" />
                         <?php } ?>
