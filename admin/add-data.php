@@ -89,10 +89,10 @@
                                             if ( ! empty( $type->hide ) ) {
                                                 echo 'Hidden';
                                             }
-                                            if ( ! empty( $type->hide ) && ! empty( $type->closed ) ) {
+                                            if ( ! empty( $type->hide ) && ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
                                                 echo ' & ';
                                             }
-                                            if ( ! empty( $type->closed ) ) {
+                                            if ( ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
                                                 echo 'Closed';
                                             }
                                         ?>
