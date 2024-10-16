@@ -3,7 +3,7 @@
         if ( isset( $_POST[ 'assets_settings_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'assets_settings_nonce' ], 'assets-settings-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets-tracker' ) ) );
                 }
 
             } else {
@@ -18,7 +18,7 @@
                     update_option( 'bp_date_format', 'd-m-y' );
                 }
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets' ) ) );
+                    bp_errors()->add( 'success_settings_saved', esc_html( __( 'Settings saved.', 'assets-tracker' ) ) );
                 }
             }
         }

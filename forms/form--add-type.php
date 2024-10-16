@@ -9,14 +9,14 @@
         if ( isset( $_POST[ 'add_type_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_type_nonce' ], 'add-type-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets-tracker' ) ) );
                 }
 
             } else {
                 if ( isset( $_POST[ 'bp_type' ] ) ) {
                     if ( empty( $_POST[ 'bp_type' ] ) ) {
                         if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets' ) ) );
+                            bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets-tracker' ) ) );
                         }
                     } else {
                         if ( isset( $_POST[ 'update_type' ] ) ) {
@@ -53,7 +53,7 @@
                             ];
                             $updated = $wpdb->update( $table_types, $data, $where, $format );
                             if ( $updated && function_exists( 'bp_errors' ) ) {
-                                bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'assets' ) ) );
+                                bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'assets-tracker' ) ) );
                             }
 
                         } else {
@@ -82,7 +82,7 @@
 
                             $return = $wpdb->insert( $table_types, $data );
                             if ( $return && function_exists( 'bp_errors' ) ) {
-                                bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'assets' ) ) );
+                                bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'assets-tracker' ) ) );
                             }
                         }
                     }
@@ -94,7 +94,7 @@
         if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets-tracker' ) ) );
                 }
             } else {
                 if ( is_array( $_POST[ 'bp_delete_type' ] ) && ! empty( $_POST[ 'bp_delete_type' ] ) ) {
