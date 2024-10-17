@@ -39,14 +39,15 @@
             $top_row[] = '% of total';
         }
         
-        $all_rows[] = $top_row;
-        
+        $all_rows[]    = $top_row;
         $total_columns = count( $data );
 
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
-
-            if ( ! bp_is_visible( $type->id, $data ) ) {
+            if ( bp_is_type_closed( $type->id, $data ) ) {
+                continue;
+            }
+            if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
             
@@ -61,7 +62,7 @@
                     $entry_row[] = sprintf( '%s &mdash;', get_option( 'bp_currency' ) );
                 } else {
                     if ( $type->id == $date_entries[ $key ]->type ) {
-                        $value       = $date_entries[ $key ]->value;
+                        $value       = (float) $date_entries[ $key ]->value;
                         $entry_row[] = bp_format_value( (float) $value );
                     }
                 }
@@ -162,16 +163,16 @@
                         
                     } else {
                         foreach( $asset_types as $asset_type ) {
-                            if ( bp_is_type_hidden( (int) $asset_type ) ) {
+                            if ( bp_is_type_hidden( $asset_type ) ) {
                                 continue;
                             }
     
-                            if ( bp_is_type_closed( (int) $asset_type, $data ) ) {
+                            if ( bp_is_type_closed( $asset_type, $data ) ) {
                                 continue;
                             }
         
                             $types_colummn = array_column( $date_entries, 'type' );
-                            $key           = array_search( (int) $asset_type, $types_colummn );
+                            $key           = array_search( $asset_type, $types_colummn );
         
                             if ( is_int( $key ) ) {
                                 $entry_row[] = (float) $date_entries[$key]->value;
