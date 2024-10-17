@@ -19,8 +19,11 @@
                             bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'b3-assets-tracker' ) ) );
                         }
                     } else {
+                        $all_dates = array_values( bp_get_dates() );
                         if ( isset( $_POST[ 'update_type' ] ) ) {
                             $type_id    = $_POST[ 'update_type' ];
+                            $row        = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_types WHERE id = %d", (int) $type_id ) );
+                            $add_date   = $row ? $row->added : $all_dates[0];
                             $close_date = bp_get_type_by_id( $type_id, 'closed' );
                             $closed     = ! empty( $_POST[ 'bp_closed' ] ) ? true : false;
 
@@ -38,11 +41,12 @@
                                 'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
                                 'asset_group' => (int) $_POST[ 'bp_asset_group' ],
                                 'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
+                                'added'       => $add_date,
                                 'closed'      => $close_date,
                             ];
 
                             $where = [
-                                'id' => $type_id,
+                                'id' => (int) $type_id,
                             ];
                             $format = [
                                 '%s',
