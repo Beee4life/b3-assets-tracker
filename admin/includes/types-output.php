@@ -79,7 +79,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) asset(s)" />
+            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) type(s)" />
         </form>
     <?php } ?>
 
