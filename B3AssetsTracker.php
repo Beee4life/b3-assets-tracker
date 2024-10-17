@@ -77,6 +77,9 @@
              * Add admin page
              */
             public function bp_settings() {
+                if ( ! is_admin() ) {
+                    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+                }
                 return [
                     'db_version' => '1.3',
                     'version'    => get_plugin_data( __FILE__ )['Version'],
