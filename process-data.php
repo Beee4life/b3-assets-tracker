@@ -46,10 +46,7 @@
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
 
-            if ( bp_is_type_hidden( $type->id ) ) {
-                continue;
-            }
-            if ( bp_is_type_closed( $type->id, $data ) ) {
+            if ( ! bp_is_visible( $type->id, $data ) ) {
                 continue;
             }
             
