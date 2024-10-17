@@ -332,6 +332,9 @@
                     if ( bp_is_type_hidden( $type ) ) {
                         continue;
                     }
+                    if ( bp_is_type_closed( $type, $data ) ) {
+                        continue;
+                    }
                     $top_row[] = bp_get_type_by_id( $type );
                 }
 
