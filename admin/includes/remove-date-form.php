@@ -1,4 +1,5 @@
 <form method="post" onsubmit="return confirm('Are you sure you want to remove data ?');">
+    <?php // @TODO: add nonce ?>
     <label>
         <select name="bp_remove_date">
             <?php echo sprintf( '<option value="">%s</option>', 'Select date' ); ?>
