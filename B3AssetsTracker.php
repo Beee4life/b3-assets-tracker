@@ -36,7 +36,6 @@
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
                 add_action( 'wp_enqueue_scripts',       [ $this, 'bp_add_css_front' ] );
                 add_action( 'admin_enqueue_scripts',    [ $this, 'bp_add_css_admin' ] );
-                add_action( 'init',                     [ $this, 'bp_load_plugin_text_domain' ] );
 
                 include 'actions.php';
                 include 'data.php';
@@ -203,14 +202,6 @@
                     dbDelta( $sql3 );
                     update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
-            }
-            
-            
-            public function bp_load_plugin_text_domain() {
-                $plugin_folder = dirname( plugin_basename( __FILE__ ) );
-                $locale        = apply_filters( 'plugin_locale', get_locale(), $plugin_folder );
-                load_textdomain( $plugin_folder, trailingslashit( WP_LANG_DIR ) . $plugin_folder . '/' . $plugin_folder . '-' . $locale . '.mo' );
-                load_plugin_textdomain( $plugin_folder, false, $plugin_folder . '/languages/' );
             }
 
 
