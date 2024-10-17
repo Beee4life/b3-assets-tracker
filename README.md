@@ -41,7 +41,8 @@ composer require "Beee4life/b3-assets-tracker"
 ## CHANGELOG
 
 1.4.0 - xx.10.24
-* improve type view
+* add added date for asset type
+* improve asset type view
 * set width admin column
 
 1.3.0 - 15.10.24
