@@ -23,6 +23,11 @@
                         <th class="asset-group">
                             Group
                         </th>
+                        <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                            <th class="added">
+                                Added
+                            </th>
+                        <?php } ?>
                         <th class="closed">
                             Closed
                         </th>
@@ -53,6 +58,11 @@
                             <td class="asset-group">
                                 <?php echo bp_get_group_by_id( $type->asset_group ); ?>
                             </td>
+                            <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
+                                <td class="added">
+                                    <?php echo isset( $type->added ) && '0000-00-00' !== $type->added ? bp_format_value( $type->added, 'date' ) : ''; ?>
+                                </td>
+                            <?php } ?>
                             <td class="closed">
                                 <?php echo isset( $type->closed ) && '0000-00-00' !== $type->closed ? bp_format_value( $type->closed, 'date' ) : ''; ?>
                             </td>
@@ -69,7 +79,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) asset(s)" />
+            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) type(s)" />
         </form>
     <?php } ?>
 

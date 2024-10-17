@@ -1,11 +1,14 @@
 <?php
     /*
-        Plugin Name: B3 : Assets Tracker
-        Description: This plugin gives you the option to track and analyze your (financial) assets.
-        Version: 1.3.0
-        Author: Beee
-        Author URI: https://berryplasman.com
-        License: GPL2
+        Plugin Name:    B3 : Assets Tracker
+        Description:    This plugin gives you the option to track and analyze your (financial) assets.
+        Version:        1.4.0
+        Author:         Beee
+        Author URI:     https://berryplasman.com
+        License:        GPL2
+        License:        GPL v2 (or later)
+        License URI:    https://www.gnu.org/licenses/gpl-2.0.html
+        Domain Path:    /languages
     */
 
     if ( ! defined( 'ABSPATH' ) ) {
@@ -75,8 +78,8 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.2',
-                    'version'    => '1.1.0',
+                    'db_version' => '1.3',
+                    'version'    => get_plugin_data( __FILE__ )['Version'],
                 ];
             }
 
@@ -107,7 +110,7 @@
                 wp_register_style( 'bp-assets-admin', plugins_url( 'assets/admin.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-admin' );
 
-                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [] );
+                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], false, false );
 
                 if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
@@ -135,16 +138,17 @@
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
 
-                        $in_footer = false;
-                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', $in_footer );
+                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', false );
                     }
                 }
             }
 
 
             public function bp_add_css_front() {
-                wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
-                wp_enqueue_style( 'bp-assets-front' );
+                if ( ! is_admin() ) {
+                    wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
+                    wp_enqueue_style( 'bp-assets-front' );
+                }
             }
 
 
@@ -161,6 +165,7 @@
                     ordering int(2) NOT NULL,
                     asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
+                    added DATE NULL,
                     closed DATE NULL,
                     PRIMARY KEY  (id)
                     )
@@ -207,12 +212,12 @@
                 $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 8 ) : false;
 
                 $pages = [
-                    'assets-dashboard' => esc_html__( 'Dashboard', 'bp-assets' ),
-                    'assets-data'      => esc_html__( 'Data', 'bp-assets' ),
-                    'assets-add-data'  => esc_html__( 'Add data', 'bp-assets' ),
-                    'assets-graphs'     => esc_html__( 'Graphs', 'bp-assets' ),
-                    'assets-types'     => esc_html__( 'Types', 'bp-assets' ),
-                    'assets-settings'  => esc_html__( 'Settings', 'bp-assets' ),
+                    'assets-dashboard' => esc_html__( 'Dashboard', 'b3-assets-tracker' ),
+                    'assets-data'      => esc_html__( 'Data', 'b3-assets-tracker' ),
+                    'assets-add-data'  => esc_html__( 'Add data', 'b3-assets-tracker' ),
+                    'assets-graphs'     => esc_html__( 'Graphs', 'b3-assets-tracker' ),
+                    'assets-types'     => esc_html__( 'Types', 'b3-assets-tracker' ),
+                    'assets-settings'  => esc_html__( 'Settings', 'b3-assets-tracker' ),
                     // 'assets-info'      => esc_html__( 'Info', 'bp-assets' ),
                 ];
 

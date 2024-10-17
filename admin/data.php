@@ -4,7 +4,7 @@
      */
     function bp_assets_data() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
         $all_dates    = array_values( bp_get_dates() );
@@ -47,16 +47,16 @@
 
         <div id="wrap">
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
+                
+                do_action( 'bp_admin_menu' );
             ?>
-            
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
             
             <?php if ( empty( $grouped_data ) && empty( $types ) ) { ?>
                 <div id="data-input">

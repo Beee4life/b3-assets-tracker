@@ -1,6 +1,6 @@
 <div id="data-input">
     <form name="add-type" action="" method="post">
-        <input name="add_type_nonce" type="hidden" value="<?php echo wp_create_nonce( 'add-type-nonce' ); ?>" />
+        <input name="add_type_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'add-type-nonce' ) ); ?>" />
         <?php if ( $current_type ) { ?>
             <input name="update_type" type="hidden" value="<?php echo $current_type; ?>" />
         <?php } ?>

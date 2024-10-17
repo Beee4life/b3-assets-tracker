@@ -80,6 +80,8 @@
                     }
                     chart.draw(data, options);
                 }
+            } else {
+                console.log('No results or something else went wrong');
             }
         </script>
         <?php

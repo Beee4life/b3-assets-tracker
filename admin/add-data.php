@@ -4,7 +4,7 @@
      */
     function bp_assets_add_data() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         $action       = admin_url( 'admin.php?page=bp-assets-dashboard' );
         $edit_date    = isset( $_GET[ 'date' ] ) ? $_GET[ 'date' ] : '';
@@ -29,21 +29,21 @@
         <div id="wrap">
 
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
+                
+                do_action( 'bp_admin_menu' );
             ?>
-            
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <?php if ( $types ) { ?>
                 <div id="data-input">
                     <form name="add-data" action="<?php echo $action; ?>" method="post">
-                        <input name="add_data_nonce" type="hidden" value="<?php echo wp_create_nonce( 'add-data-nonce' ); ?>" />
+                        <input name="add_data_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'add-data-nonce' ) ); ?>" />
                         <?php if ( $edit_date ) { ?>
                             <input name="update_data" type="hidden" value="<?php echo $edit_date; ?>" />
                         <?php } ?>
@@ -89,10 +89,10 @@
                                             if ( ! empty( $type->hide ) ) {
                                                 echo 'Hidden';
                                             }
-                                            if ( ! empty( $type->hide ) && ! empty( $type->closed ) ) {
+                                            if ( ! empty( $type->hide ) && ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
                                                 echo ' & ';
                                             }
-                                            if ( ! empty( $type->closed ) ) {
+                                            if ( ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
                                                 echo 'Closed';
                                             }
                                         ?>

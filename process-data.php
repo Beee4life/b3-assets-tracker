@@ -39,14 +39,16 @@
             $top_row[] = '% of total';
         }
         
-        $all_rows[] = $top_row;
-        
+        $all_rows[]    = $top_row;
         $total_columns = count( $data );
 
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
 
             if ( bp_is_type_hidden( $type->id ) ) {
+                continue;
+            }
+            if ( ! bp_is_type_added( $type->id, $data ) ) {
                 continue;
             }
             if ( bp_is_type_closed( $type->id, $data ) ) {
@@ -60,7 +62,7 @@
                 $key = bp_find_id_in_values( $date_entries, $type->id );
                 
                 if ( false === $key ) {
-                    $value       = (float) '0.00';
+                    $value       = '0.00';
                     $entry_row[] = sprintf( '%s &mdash;', get_option( 'bp_currency' ) );
                 } else {
                     if ( $type->id == $date_entries[ $key ]->type ) {
@@ -73,7 +75,7 @@
                     $start_value_row = $value;
                 }
 
-                $end_value_row = $value;
+                $end_value_row = (float) $value;
                 if ( $show_diff && $total_columns == $date_counter ) {
                     $diff          = bp_calculate_diff( $date_from, $date_until, $type->id );
                     $entry_row[]   = bp_format_value( (float) $diff );
@@ -165,16 +167,20 @@
                         
                     } else {
                         foreach( $asset_types as $asset_type ) {
-                            if ( bp_is_type_hidden( (int) $asset_type ) ) {
+                            if ( bp_is_type_hidden( $asset_type ) ) {
                                 continue;
                             }
-    
-                            if ( bp_is_type_closed( (int) $asset_type, $data ) ) {
+                            
+                            if ( ! bp_is_type_added( $asset_type, $data ) ) {
+                                continue;
+                            }
+                            
+                            if ( bp_is_type_closed( $asset_type, $data ) ) {
                                 continue;
                             }
         
                             $types_colummn = array_column( $date_entries, 'type' );
-                            $key           = array_search( (int) $asset_type, $types_colummn );
+                            $key           = array_search( $asset_type, $types_colummn );
         
                             if ( is_int( $key ) ) {
                                 $entry_row[] = (float) $date_entries[$key]->value;

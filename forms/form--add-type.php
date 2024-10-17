@@ -2,21 +2,20 @@
 
     function yoft_add_type_form() {
         global $wpdb;
-        $table_data  = $wpdb->prefix . 'asset_data';
         $table_types = $wpdb->prefix . 'asset_types';
 
         // add types form
         if ( isset( $_POST[ 'add_type_nonce' ] ) ) {
             if ( ! wp_verify_nonce( $_POST[ 'add_type_nonce' ], 'add-type-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
+                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'b3-assets-tracker-' ) ) );
                 }
 
             } else {
                 if ( isset( $_POST[ 'bp_type' ] ) ) {
                     if ( empty( $_POST[ 'bp_type' ] ) ) {
                         if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'assets' ) ) );
+                            bp_errors()->add( 'error_no_type', esc_html( __( 'No type selected.', 'b3-assets-tracker-' ) ) );
                         }
                     } else {
                         if ( isset( $_POST[ 'update_type' ] ) ) {
@@ -53,7 +52,7 @@
                             ];
                             $updated = $wpdb->update( $table_types, $data, $where, $format );
                             if ( $updated && function_exists( 'bp_errors' ) ) {
-                                bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'assets' ) ) );
+                                bp_errors()->add( 'success_type_updated', esc_html( __( 'Type updated.', 'b3-assets-tracker-' ) ) );
                             }
 
                         } else {
@@ -82,27 +81,9 @@
 
                             $return = $wpdb->insert( $table_types, $data );
                             if ( $return && function_exists( 'bp_errors' ) ) {
-                                bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'assets' ) ) );
+                                bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'b3-assets-tracker-' ) ) );
                             }
                         }
-                    }
-                }
-            }
-        }
-
-        // delete types form
-        if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
-            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
-                if ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'assets' ) ) );
-                }
-            } else {
-                if ( is_array( $_POST[ 'bp_delete_type' ] ) && ! empty( $_POST[ 'bp_delete_type' ] ) ) {
-                    foreach( $_POST[ 'bp_delete_type' ] as $type ) {
-                        // delete type
-                        $wpdb->delete( $table_types, [ 'id' => (int) $type ], [ '%d' ] );
-                        // delete entries with type
-                        $wpdb->delete( $table_data, [ 'id' => (int) $type ], [ '%d' ] );
                     }
                 }
             }

@@ -12,7 +12,7 @@
     function bp_add_assets_toolbar( $wp_admin_bar ) {
         if ( current_user_can( 'manage_options' ) ) {
             $args        = [
-                'id'    => 'bp-assets',
+                'id'    => 'b3-assets-tracker',
                 'title' => get_option( 'bp_currency' ),
                 'href'  => admin_url( 'admin.php?page=bp-assets-dashboard' ),
                 'meta'  => [ 'class' => '' ],

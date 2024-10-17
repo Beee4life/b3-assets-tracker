@@ -1,4 +1,5 @@
 <form name="" action="" method="post">
+    <?php // @TODO: add nonce ?>
     <label>
         <select name="bp_date_range">
             <?php echo sprintf( '<option value="">%s</option>', 'All' ); ?>

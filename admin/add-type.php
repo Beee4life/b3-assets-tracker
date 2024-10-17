@@ -4,7 +4,7 @@
      */
     function bp_assets_add_type() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         $current_type = isset( $_GET[ 'type_id' ] ) ? $_GET[ 'type_id' ] : '';
         $asset_groups = bp_get_asset_groups();
@@ -35,15 +35,15 @@
         <div id="wrap">
 
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-            
-                echo B3AssetsTracker::bp_admin_menu();
+                
+                do_action( 'bp_admin_menu' );
                 
                 include 'includes/types-input.php';
     

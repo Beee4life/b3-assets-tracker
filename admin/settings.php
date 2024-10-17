@@ -4,7 +4,7 @@
      */
     function bp_assets_settings() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
         $dash               = '-';
@@ -40,20 +40,20 @@
         <div id="wrap">
 
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
+                
+                do_action( 'bp_admin_menu' );
             ?>
-            
-            <?php echo B3AssetsTracker::bp_admin_menu(); ?>
 
             <div id="data-input">
                 <form name="add-settings" action="" method="post">
-                    <input name="assets_settings_nonce" type="hidden" value="<?php echo wp_create_nonce( 'assets-settings-nonce' ); ?>" />
+                    <input name="assets_settings_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'assets-settings-nonce' ) ); ?>" />
                     <table class="settings">
                         <tr>
                             <th>
