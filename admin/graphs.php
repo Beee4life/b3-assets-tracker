@@ -33,10 +33,12 @@
         $show_graph_options    = true;
 
 
-        if ( b3_validate_graph_fields( $_POST ) ) {
-            $add_graph = true;
-        } else {
-            error_log('Not validated');
+        if ( ! empty( $_POST ) ) {
+            if ( b3_validate_graph_fields( $_POST ) ) {
+                $add_graph = true;
+            } else {
+                error_log('Not validated');
+            }
         }
     ?>
 
