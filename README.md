@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.5.0 - xx.10.24
+* ?
+
 1.4.0 - 18.10.24
 * add added date for asset type
 * hide assets if not added on date
