@@ -54,6 +54,7 @@
                                 '%d',
                                 '%d',
                                 '%s',
+                                '%s',
                             ];
                             $updated = $wpdb->update( $table_types, $data, $where, $format );
                             if ( $updated && function_exists( 'bp_errors' ) ) {
@@ -63,6 +64,7 @@
                         } else {
                             // insert
                             $type   = sanitize_text_field( $_POST[ 'bp_type' ] );
+                            $added  = gmdate( 'Y-m-d', time() );
                             $closed = isset( $_POST[ 'bp_closed' ] ) ? gmdate( 'Y-m-d', time() ) : '0000-00-00';
                             $group  = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
                             $hide   = isset( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '';
@@ -70,21 +72,31 @@
 
                             $data  = [
                                 'name' => $type,
+                                'added' => $added,
                             ];
+                            $format = [
+                                '%s',
+                                '%s',
+                            ];
+
                             if ( $closed ) {
                                 $data[ 'closed' ] = $closed;
+                                $data[]           = '%s';
                             }
                             if ( $group ) {
                                 $data[ 'asset_group' ] = $group;
+                                $format[]              = '%d';
                             }
                             if ( $order ) {
                                 $data[ 'ordering' ] = $order;
+                                $format[]           = '%d';
                             }
                             if ( $hide ) {
                                 $data[ 'hide' ] = $hide;
+                                $format[]       = '%d';
                             }
 
-                            $return = $wpdb->insert( $table_types, $data );
+                            $return = $wpdb->insert( $table_types, $data, $format );
                             if ( $return && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'b3-assets-tracker' ) ) );
                             }
