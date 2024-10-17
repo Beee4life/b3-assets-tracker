@@ -4,7 +4,7 @@
      */
     function bp_assets_graphs() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
 
         // @TODO: prefill first/last dates
@@ -35,19 +35,22 @@
 
         if ( b3_validate_graph_fields( $_POST ) ) {
             $add_graph = true;
+        } else {
+            error_log('Not validated');
         }
     ?>
 
         <div id="wrap">
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-                echo B3AssetsTracker::bp_admin_menu();
+                
+                do_action( 'bp_admin_menu' );
             ?>
 
             <div id="data-input">

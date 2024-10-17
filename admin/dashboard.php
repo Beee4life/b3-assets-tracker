@@ -4,7 +4,7 @@
      */
     function bp_assets_dashboard() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'bpnl' ) ) );
+            wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
         $all_dates   = array_values( bp_get_dates() );
@@ -71,7 +71,7 @@
         <div id="wrap">
 
             <h1>
-                <?php echo get_admin_page_title(); ?>
+                <?php echo esc_html( get_admin_page_title() ); ?>
             </h1>
 
             <?php
@@ -79,7 +79,7 @@
                     bp_show_error_messages();
                 }
                 
-                echo B3AssetsTracker::bp_admin_menu();
+                do_action( 'bp_admin_menu' );
             ?>
 
             <?php if ( ! empty( $grouped_data ) ) { ?>
@@ -94,12 +94,12 @@
                 </div>
             <?php } elseif ( empty( $types ) ) { ?>
                 <div id="data-output">
-                    <a href="<?php echo admin_url( 'admin.php?page=bp-assets-types' ); ?>">
+                    <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
                         Add types first
                     </a>
                 </div>
             <?php } else { ?>
-                <a href="<?php echo admin_url( 'admin.php?page=bp-assets-add-data' ); ?>">
+                <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-add-data' ) ); ?>">
                     Add data now
                 </a>
             <?php } ?>
