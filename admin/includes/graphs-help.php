@@ -11,7 +11,7 @@
         <li class="graph-info">
             <div class="graph-info__header">Total chart</div>
             <ul>
-                <li>Asset group/type is ignored (because the graph type defines it)</li>
+                <li>Asset group/type is ignored (because it's defines by graph type)</li>
                 <li>End date is required</li>
             </ul>
         </li>
