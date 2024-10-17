@@ -79,7 +79,7 @@
              */
             public function bp_settings() {
                 return [
-                    'db_version' => '1.2',
+                    'db_version' => '1.3',
                     'version'    => get_plugin_data( __FILE__ )[ 'Version' ],
                 ];
             }
@@ -166,6 +166,7 @@
                     ordering int(2) NOT NULL,
                     asset_group int(2) NOT NULL,
                     hide int(1) unsigned NULL,
+                    added DATE NULL,
                     closed DATE NULL,
                     PRIMARY KEY  (id)
                     )
