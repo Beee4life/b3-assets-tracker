@@ -1,6 +1,8 @@
 <?php
     include 'forms/form--add-type.php';
+    include 'forms/form--delete-type.php';
     include 'forms/form--add-data.php';
+    include 'forms/form--delete-data.php';
     include 'forms/form--settings.php';
     
     function bp_validate_form_input( $post_data = [] ) {
