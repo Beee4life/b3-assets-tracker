@@ -153,6 +153,9 @@
                         $day_value = 0;
                         foreach( $date_entries as $asset_row ) {
                             $type_id = (int) $asset_row->type;
+                            // if ( bp_is_type_added( $type_id, $data ) ) {
+                            //     continue;
+                            // }
                             if ( bp_is_type_closed( $type_id, $data ) ) {
                                 continue;
                             }
