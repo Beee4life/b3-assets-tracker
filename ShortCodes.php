@@ -13,7 +13,7 @@
         
         
         /**
-         * Shortcode aff link
+         * Shortcode to output results on front-end
          *
          * @param $attr
          * @param $content
