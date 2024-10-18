@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.5.1 - 18.10.24
+* disable added condition
+
 1.5.0 - 18.10.24
 * improve asset type queries with added date
 
