@@ -43,6 +43,9 @@ composer require "Beee4life/b3-assets-tracker"
 1.5.0 - xx.10.24
 * ?
 
+1.4.1 - 18.10.24
+* include admin file for front-end use
+
 1.4.0 - 18.10.24
 * add added date for asset type
 * hide assets if not added on date
