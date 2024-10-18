@@ -54,8 +54,11 @@
             $table   = $wpdb->prefix . 'asset_types';
             $query   = $wpdb->prepare( "SELECT added FROM $table WHERE id = %d", $type );
             $results = $wpdb->get_results( $query );
-            
-            if ( ! empty( $results[ 0 ]->added ) && '0000-00-00' !== $results[ 0 ]->added && $results[ 0 ]->added < $dates[ 0 ] ) {
+
+            if ( ! empty( $results ) && null === $results[0]->added ) {
+                return true;
+            }
+            if ( ! empty( $results[ 0 ]->added ) && '0000-00-00' !== $results[ 0 ]->added && $results[ 0 ]->added < $dates[ 1 ] ) {
                 return true;
             }
         }
