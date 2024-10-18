@@ -332,9 +332,9 @@
                     if ( bp_is_type_hidden( $type ) ) {
                         continue;
                     }
-                    if ( ! bp_is_type_added( $type, $data ) ) {
-                        continue;
-                    }
+                    // if ( ! bp_is_type_added( $type, $data ) ) {
+                    //     continue;
+                    // }
                     if ( bp_is_type_closed( $type, $data ) ) {
                         continue;
                     }

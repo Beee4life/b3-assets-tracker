@@ -171,9 +171,9 @@
                                 continue;
                             }
                             
-                            if ( ! bp_is_type_added( $asset_type, $data ) ) {
-                                continue;
-                            }
+                            // if ( ! bp_is_type_added( $asset_type, $data ) ) {
+                            //     continue;
+                            // }
                             
                             if ( bp_is_type_closed( $asset_type, $data ) ) {
                                 continue;
