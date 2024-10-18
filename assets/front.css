@@ -20,6 +20,10 @@
     h2 + & {
         margin-top: 0.5rem;
     }
+
+    + p {
+        margin-top: 1rem;
+    }
 }
 
 /* all in/output */
