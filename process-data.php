@@ -44,14 +44,13 @@
 
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
-
-            if ( bp_is_type_hidden( $type->id ) ) {
-                continue;
-            }
-            if ( ! bp_is_type_added( $type->id, $data ) ) {
-                continue;
-            }
+            // if ( ! bp_is_type_added( $type->id, $data ) ) {
+            //     continue;
+            // }
             if ( bp_is_type_closed( $type->id, $data ) ) {
+                continue;
+            }
+            if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
             
@@ -154,11 +153,10 @@
                         $day_value = 0;
                         foreach( $date_entries as $asset_row ) {
                             $type_id = (int) $asset_row->type;
-                            if ( bp_is_type_hidden( $type_id ) ) {
+                            if ( bp_is_type_closed( $type_id, $data ) ) {
                                 continue;
                             }
-                            
-                            if ( bp_is_type_closed( $type_id, $data ) ) {
+                            if ( bp_is_type_hidden( $type_id ) ) {
                                 continue;
                             }
                             $day_value = $day_value + $asset_row->value;
@@ -167,15 +165,13 @@
                         
                     } else {
                         foreach( $asset_types as $asset_type ) {
-                            if ( bp_is_type_hidden( $asset_type ) ) {
-                                continue;
-                            }
-                            
                             // if ( ! bp_is_type_added( $asset_type, $data ) ) {
                             //     continue;
                             // }
-                            
                             if ( bp_is_type_closed( $asset_type, $data ) ) {
+                                continue;
+                            }
+                            if ( bp_is_type_hidden( $asset_type ) ) {
                                 continue;
                             }
         
@@ -216,11 +212,13 @@
             
         } elseif ( 'total_type' === $graph_type ) {
             foreach( $data as $asset_row ) {
-                if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                //     continue;
+                // }
+                if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
                     continue;
                 }
-                
-                if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                     continue;
                 }
                 
@@ -235,8 +233,9 @@
                     continue;
                 }
                 
-                $group_id = bp_get_group_by_type_id( $asset_row->type, 'id' );
+                $group_id   = bp_get_group_by_type_id( $asset_row->type, 'id' );
                 $group_name = bp_get_group_by_id( $group_id, 'name' );
+
                 if ( ! array_key_exists( $group_name, $groups ) ) {
                     $groups[ $group_name ] = [];
                 }

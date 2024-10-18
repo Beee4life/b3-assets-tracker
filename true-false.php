@@ -55,13 +55,17 @@
             if ( ! empty( $dates ) ) {
                 $table   = $wpdb->prefix . 'asset_types';
                 $results = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM $table WHERE id = %d", $type ) );
+                $added   = isset( $results[ 0 ]->added ) ? $results[ 0 ]->added : false;
     
-                if ( ! empty( $results ) && null === $results[0]->added ) {
+                if ( $added && null === $added ) {
                     return true;
                 }
-
-                if ( 1 < count( $dates ) ) {
-                    if ( ! empty( $results[ 0 ]->added ) && '0000-00-00' !== $results[ 0 ]->added && $results[ 0 ]->added < $dates[ 1 ] ) {
+                
+                if ( $added && 1 < count( $dates ) ) {
+                    $start_date = $dates[ 0 ];
+                    $end_date   = end( $dates );
+                    
+                    if ( '0000-00-00' !== $added && $added <= $end_date && $added >= $start_date ) {
                         return true;
                     }
                 }
@@ -80,14 +84,14 @@
      *
      * @return bool
      */
-    function bp_is_visible( $type, $data = [] ) : bool {
-        $added  = bp_is_type_added( (int) $type, $data );
-        $hidden = bp_is_type_hidden( (int) $type );
-        $closed = bp_is_type_closed( (int) $type, $data );
-        
-        if ( $hidden || $closed || ! $added ) {
-            return false;
-        }
-        
-        return true;
-    }
+    // function bp_is_visible( $type, $data = [] ) : bool {
+    //     $added  = bp_is_type_added( (int) $type, $data );
+    //     $closed = bp_is_type_closed( (int) $type, $data );
+    //     $hidden = bp_is_type_hidden( (int) $type );
+    //
+    //     if ( ! $added || $closed || $hidden ) {
+    //         return false;
+    //     }
+    //
+    //     return true;
+    // }
