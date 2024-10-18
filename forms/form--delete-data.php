@@ -1,5 +1,5 @@
 <?php
-    
+
     function yoft_delete_data_form() {
         global $wpdb;
         $table_data = $wpdb->prefix . 'asset_data';
@@ -7,7 +7,7 @@
         // remove data form
         if ( isset( $_POST[ 'bp_remove_date' ] ) ) {
             global $wpdb;
-            $date = $_POST[ 'bp_remove_date' ];
+            $date = sanitize_text_field( $_POST[ 'bp_remove_date' ] );
 
             if ( 'all' === $date ) {
                 $wpdb->query( "TRUNCATE TABLE $table_data" );
