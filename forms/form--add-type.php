@@ -19,7 +19,7 @@
                         }
                     } else {
                         if ( isset( $_POST[ 'update_type' ] ) ) {
-                            $type_id    = $_POST[ 'update_type' ];
+                            $type_id    = (int) $_POST[ 'update_type' ];
                             $close_date = bp_get_type_by_id( $type_id, 'closed' );
                             $closed     = ! empty( $_POST[ 'bp_closed' ] ) ? true : false;
 
@@ -36,7 +36,7 @@
                                 'name'        => sanitize_text_field( $_POST[ 'bp_type' ] ),
                                 'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
                                 'asset_group' => (int) $_POST[ 'bp_asset_group' ],
-                                'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '',
+                                'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? (int) $_POST[ 'bp_hide' ] : '',
                                 'closed'      => $close_date,
                             ];
 
@@ -60,26 +60,35 @@
                             $type   = sanitize_text_field( $_POST[ 'bp_type' ] );
                             $closed = isset( $_POST[ 'bp_closed' ] ) ? gmdate( 'Y-m-d', time() ) : '0000-00-00';
                             $group  = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
-                            $hide   = isset( $_POST[ 'bp_hide' ] ) ? $_POST[ 'bp_hide' ] : '';
+                            $hide   = isset( $_POST[ 'bp_hide' ] ) ? (int) $_POST[ 'bp_hide' ] : '';
                             $order  = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
 
                             $data  = [
                                 'name' => $type,
+                                'added' => gmdate( 'Y-m-d', time() ),
+                            ];
+                            $format = [
+                                '%s',
+                                '%s',
                             ];
                             if ( $closed ) {
                                 $data[ 'closed' ] = $closed;
+                                $format[] = '%s';
                             }
                             if ( $group ) {
                                 $data[ 'asset_group' ] = $group;
+                                $format[] = '%d';
                             }
                             if ( $order ) {
                                 $data[ 'ordering' ] = $order;
+                                $format[] = '%d';
                             }
                             if ( $hide ) {
                                 $data[ 'hide' ] = $hide;
+                                $format[] = '%d';
                             }
 
-                            $return = $wpdb->insert( $table_types, $data );
+                            $return = $wpdb->insert( $table_types, $data, $format );
                             if ( $return && function_exists( 'bp_errors' ) ) {
                                 bp_errors()->add( 'success_type_inserted', esc_html( __( 'Type inserted.', 'b3-assets-tracker-' ) ) );
                             }
