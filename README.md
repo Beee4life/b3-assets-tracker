@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.5.0 - 18.10.24
+* improve asset type queries with added date
+
 1.4.1 - 18.10.24
 * include admin file for front-end use
 

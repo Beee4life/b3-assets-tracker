@@ -50,13 +50,21 @@
     function bp_is_type_added( $type, $data = [] ) {
         if ( $type && $data ) {
             global $wpdb;
-            $dates   = array_keys( $data );
-            $table   = $wpdb->prefix . 'asset_types';
-            $query   = $wpdb->prepare( "SELECT added FROM $table WHERE id = %d", $type );
-            $results = $wpdb->get_results( $query );
+            $dates = array_keys( $data );
             
-            if ( ! empty( $results[ 0 ]->added ) && '0000-00-00' !== $results[ 0 ]->added && $results[ 0 ]->added < $dates[ 0 ] ) {
-                return true;
+            if ( ! empty( $dates ) ) {
+                $table   = $wpdb->prefix . 'asset_types';
+                $results = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM $table WHERE id = %d", $type ) );
+    
+                if ( ! empty( $results ) && null === $results[0]->added ) {
+                    return true;
+                }
+
+                if ( 1 < count( $dates ) ) {
+                    if ( ! empty( $results[ 0 ]->added ) && '0000-00-00' !== $results[ 0 ]->added && $results[ 0 ]->added < $dates[ 1 ] ) {
+                        return true;
+                    }
+                }
             }
         }
         
