@@ -286,6 +286,7 @@
         } elseif ( is_array( $data ) ) {
             foreach( $data as $entry ) {
                 if ( isset( $entry->value ) && ! empty( $entry->value ) ) {
+                    // @TODO: check if is added/closed
                     if ( bp_is_type_hidden( $entry->type ) ) {
                         continue;
                     }
@@ -329,13 +330,13 @@
             } elseif ( ! empty( $asset_types ) ) {
                 $top_row = [ 'Week' ];
                 foreach( $asset_types as $type ) {
-                    if ( bp_is_type_hidden( $type ) ) {
-                        continue;
-                    }
-                    if ( ! bp_is_type_added( $type, $data ) ) {
-                        continue;
-                    }
+                    // if ( ! bp_is_type_added( $type, $data ) ) {
+                    //     continue;
+                    // }
                     if ( bp_is_type_closed( $type, $data ) ) {
+                        continue;
+                    }
+                    if ( bp_is_type_hidden( $type ) ) {
                         continue;
                     }
                     $top_row[] = bp_get_type_by_id( $type );
