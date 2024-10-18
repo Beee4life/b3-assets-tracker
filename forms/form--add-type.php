@@ -61,7 +61,7 @@
                             $closed = isset( $_POST[ 'bp_closed' ] ) ? gmdate( 'Y-m-d', time() ) : '0000-00-00';
                             $group  = isset( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false;
                             $hide   = isset( $_POST[ 'bp_hide' ] ) ? (int) $_POST[ 'bp_hide' ] : '';
-                            $order  = isset( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
+                            $order  = ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1;
 
                             $data  = [
                                 'name' => $type,
