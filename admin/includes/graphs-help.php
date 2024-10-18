@@ -4,8 +4,8 @@
             <div class="graph-info__header">Line chart</div>
 
             <ul>
-                <li>Start and end date are required</li>
                 <li>Choose either asset types or groups, not both.</li>
+                <li>Start and end date are required</li>
             </ul>
         </li>
         <li class="graph-info">
