@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.6.0 - ?.10.24
+* ?
+
 1.5.1 - 18.10.24
 * disable added condition
 
