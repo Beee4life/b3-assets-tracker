@@ -2,7 +2,7 @@
     /*
         Plugin Name:    B3 : Assets Tracker
         Description:    This plugin gives you the option to track and analyze your (financial) assets.
-        Version:        1.4.0
+        Version:        1.4.1
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
@@ -77,6 +77,9 @@
              * Add admin page
              */
             public function bp_settings() {
+                if ( ! is_admin() ) {
+                    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+                }
                 return [
                     'db_version' => '1.3',
                     'version'    => get_plugin_data( __FILE__ )['Version'],
