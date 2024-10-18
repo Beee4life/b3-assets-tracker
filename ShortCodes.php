@@ -24,7 +24,7 @@
             $attributes = shortcode_atts( [
                 'from'   => '',
                 'till'   => '',
-                'footer' => 'true',
+                'footer' => 'false',
             ], $attr );
 
             if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) ) {
