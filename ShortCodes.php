@@ -40,6 +40,7 @@
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
             $range        = 'begin_end';
             $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+            
             if ( 1 < count( $grouped_data ) ) {
                 $show_total   = true;
                 $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
