@@ -1,5 +1,5 @@
 <?php
-    
+
     function yoft_add_data_form() {
         global $wpdb;
         $table_data = $wpdb->prefix . 'asset_data';
@@ -34,11 +34,11 @@
                         // update row
                         foreach( $values as $type => $value ) {
                             $data = [
-                                'value' => ! empty( $value ) ? $value : '0.00',
+                                'value' => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
                             ];
                             $where = [
-                                'date' => $input[ 'update_data' ],
-                                'type' => $type,
+                                'date' => sanitize_text_field( $input[ 'update_data' ] ),
+                                'type' => (int) $type,
                             ];
                             $format = [
                                 '%f'
@@ -50,8 +50,8 @@
 
                             if ( null == $row ) {
                                 $data = [
-                                    'value'   => ! empty( $value ) ? $value : '0.00',
-                                    'date'    => $input[ 'update_data' ],
+                                    'value'   => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
+                                    'date'    => sanitize_text_field( $input[ 'update_data' ] ),
                                     'type'    => $type,
                                     'updated' => time(),
                                 ];
@@ -73,10 +73,16 @@
                         // insert row
                         foreach( $values as $type => $value ) {
                             $data = [
-                                'date'    => $input[ 'bp_date' ],
-                                'type'    => $type,
-                                'value'   => ! empty( $value ) ? $value : '0.00',
+                                'date'    => sanitize_text_field( $input[ 'update_data' ] ),
+                                'type'    => (int) $type,
+                                'value'   => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
                                 'updated' => time(),
+                            ];
+                            $format = [
+                                '%s',
+                                '%d',
+                                '%f',
+                                '%d',
                             ];
                             $wpdb->insert( $table_data, $data );
                         }
