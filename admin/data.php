@@ -8,12 +8,13 @@
         }
         
         $all_dates    = array_values( bp_get_dates() );
-        $data_8dates  = bp_get_data();
+        $amount       = 8; // default: 8
+        $data         = bp_get_data( '', 'reverse', $amount );
         $scroll_class = false;
         $types        = bp_get_asset_types();
 
-        if ( $data_8dates ) {
-            $dates      = array_keys( $data_8dates );
+        if ( $data ) {
+            $dates      = array_keys( $data );
             $date_range = false;
             $months     = [];
             $show_diff  = false;
@@ -38,7 +39,7 @@
                 }
             } else {
                 // default view
-                $grouped_data = $data_8dates;
+                $grouped_data = $data;
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
@@ -74,6 +75,9 @@
                 <div id="data-input">
                     <?php include 'includes/date-range-form.php'; ?>
                     <?php include 'includes/remove-date-form.php'; ?>
+                    <p>
+                        <?php echo sprintf( 'The last %d entries are shown or a filtered selection, selected above.', $amount ); ?>
+                    </p>
                 </div>
 
                 <div id="data-output">
