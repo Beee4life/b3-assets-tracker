@@ -38,7 +38,6 @@
             $show_diff    = true;
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
-            $range        = 'begin_end';
             $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
             
             if ( 1 < count( $grouped_data ) ) {
