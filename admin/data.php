@@ -76,7 +76,7 @@
                     <?php include 'includes/date-range-form.php'; ?>
                     <?php include 'includes/remove-date-form.php'; ?>
                     <p>
-                        <?php echo sprintf( 'The last %d entries are shown or a filtered selection, selected above.', $amount ); ?>
+                        <?php echo sprintf( 'The last %d entries are shown or a specific range, selected above.', $amount ); ?>
                     </p>
                 </div>
 
