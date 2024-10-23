@@ -40,6 +40,10 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.6.0 - 23.10.24
+* change graph width to 100%
+* partially sanitize input/escape output
+
 1.5.1 - 18.10.24
 * disable added condition
 

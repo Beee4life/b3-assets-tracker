@@ -7,14 +7,14 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
-        $all_dates   = array_values( bp_get_dates() );
-        $data_8dates = bp_get_data();
-        $types       = bp_get_asset_types();
+        $all_dates = array_values( bp_get_dates() );
+        $data      = bp_get_data();
+        $types     = bp_get_asset_types();
         
-        if ( ! empty( $data_8dates ) ) {
+        if ( ! empty( $data ) ) {
             $asset_group        = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
             $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
-            $dates              = array_keys( $data_8dates );
+            $dates              = array_keys( $data );
             $date_from          = $dates[ count( $dates ) - 2 ];
             $date_until         = end( $dates );
             $graph_type         = false;
@@ -61,7 +61,7 @@
             } else {
                 // when are there no dates ?
                 error_log('Dashboard - No dates');
-                $grouped_data = array_reverse( $data_8dates );
+                $grouped_data = array_reverse( $data );
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );

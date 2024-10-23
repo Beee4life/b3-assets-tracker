@@ -8,6 +8,7 @@
 
 #chart_div {
     margin-top: 1rem;
+    max-width:  75%;
 }
 
 #data-input {

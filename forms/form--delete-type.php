@@ -7,7 +7,7 @@
 
         // delete types form
         if ( isset( $_POST[ 'delete_types_nonce' ] ) ) {
-            if ( ! wp_verify_nonce( $_POST[ 'delete_types_nonce' ], 'delete-types-nonce' ) ) {
+            if ( ! wp_verify_nonce( sanitize_text_field( $_POST[ 'delete_types_nonce' ] ), 'delete-types-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'b3-assets-tracker' ) ) );
                 }
