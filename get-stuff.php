@@ -383,3 +383,8 @@
 
         return $top_row;
     }
+
+    
+    function bp_get_chart_element() {
+        return '<div id="chart_div"></div>';
+    }
