@@ -8,7 +8,8 @@
         }
 
         function register_all() {
-            add_shortcode( 'results',       [ $this, 'shortcode_results' ] );
+            add_shortcode( 'results',   [ $this, 'shortcode_results' ] );
+            add_shortcode( 'graph',     [ $this, 'shortcode_graph' ] );
         }
         
         
@@ -85,6 +86,64 @@
                     return '<p>Er is te weinig data om weer te geven. Check de shortcode in de content.</p>';
                 } else {
                     return '<p>Er is iets verkeerd gegaan met de resultaten.</p>';
+                }
+            }
+        }
+        
+        
+        /**
+         * Shortcode to output results on front-end
+         *
+         * @param $attr
+         * @param $content
+         *
+         * @return string|void
+         */
+        function shortcode_graph( $attr, $content = null ) {
+            if ( ! is_admin() ) {
+                $attributes = shortcode_atts( [
+                    'from'   => '',
+                    'till'   => '',
+                    'type'   => '',
+                    'footer' => 'false',
+                ], $attr );
+    
+                if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) || empty( $attributes[ 'type' ] ) ) {
+                    if ( current_user_can( 'manage_options' ) ) {
+                        return '[shortcode is missing attributes]';
+                    } else {
+                        return '';
+                    }
+                }
+                
+                $graph_type   = $attributes[ 'type' ];
+                $asset_groups = [];
+                $asset_types  = 'all';
+                $show_diff    = true;
+                $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
+                $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
+                $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+                
+                if ( 1 < count( $grouped_data ) ) {
+                    $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                    
+                    $chart_args = [
+                        'asset_group' => $asset_groups,
+                        'asset_type'  => $asset_types,
+                        'graph_type'  => $graph_type,
+                        'currency'    => get_option( 'bp_currency' ),
+                        'data'        => $processed_data,
+                    ];
+                    wp_localize_script( 'charts', 'chart_vars', $chart_args );
+
+                    return bp_get_chart_element();
+                    
+                } else {
+                    if ( current_user_can( 'manage_options' ) ) {
+                        return '<p>Er is te weinig data om weer te geven. Check de shortcode in de content.</p>';
+                    } else {
+                        return '<p>Er is iets verkeerd gegaan met de resultaten.</p>';
+                    }
                 }
             }
         }
