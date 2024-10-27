@@ -115,3 +115,8 @@
         
         return true;
     }
+
+    
+    function bp_show_admin_links() {
+        return '1' === getenv( 'SHOW_ADMIN_LINKS' ) ? true : false;
+    }
