@@ -25,12 +25,17 @@
             $attributes = shortcode_atts( [
                 'from'   => '',
                 'till'   => '',
+                'until'  => '',
                 'footer' => 'false',
             ], $attr );
 
-            if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) ) {
+            if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'until' ] ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
-                    return '[shortcode is missing attributes]';
+                    if ( empty( ! $attributes[ 'till' ] ) ) {
+                        return '[shortcode is using old till value]';
+                    } else {
+                        return '[shortcode is missing attributes]';
+                    }
                 } else {
                     return '';
                 }
@@ -38,7 +43,7 @@
 
             $show_diff    = true;
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
-            $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
+            $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'until' ] ) );
             $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
 
             if ( 1 < count( $grouped_data ) ) {
@@ -113,7 +118,11 @@
                 $validated_shortcode_field = b3_validate_shortcode_fields( $shortcode_attributes );
                 if ( ! $validated_shortcode_field ) {
                     if ( current_user_can( 'manage_options' ) ) {
-                        return '[shortcode is missing attributes]';
+                        if ( ! empty( $shortcode_attributes[ 'till' ] ) ) {
+                            return '[shortcode is using old till value]';
+                        } else {
+                            return '[shortcode is missing attributes]';
+                        }
                     } else {
                         return '';
                     }
@@ -140,17 +149,17 @@
                             }
                         }
 
-                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'till' ] ) ) {
+                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'until' ] ) ) {
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
-                        $date_until   = ! empty( $shortcode_attributes[ 'till' ] ) ? $shortcode_attributes[ 'till' ] : '';
-                        $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
+                        $date_until   = ! empty( $shortcode_attributes[ 'until' ] ) ? $shortcode_attributes[ 'until' ] : '';
+                        $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
                         $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, [], $show_all );
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_from    = '';
-                    $date_till    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
-                    $grouped_data = bp_get_results_range( $date_from, $date_till, [], [] );
+                    $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
+                    $grouped_data = bp_get_results_range( $date_from, $date_until, [], [] );
                 }
 
                 if ( 1 < count( $grouped_data ) ) {

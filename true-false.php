@@ -102,14 +102,14 @@
         
         if ( isset( $attributes[ 'type' ] ) ) {
             if ( 'line' === $attributes[ 'type' ] ) {
-                if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'until' ] ) || empty( $attributes[ 'till' ] ) ) {
+                if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'until' ] ) ) {
                     if ( ! empty( $attributes[ 'from' ] ) ) {
                         return true;
                     }
                 }
                 
             } elseif ( in_array( $attributes[ 'type' ], [ 'total_type', 'total_group' ] ) ) {
-                if ( empty( $attributes[ 'until' ] ) || empty( $attributes[ 'till' ] ) ) {
+                if ( empty( $attributes[ 'until' ] ) ) {
                     return false;
                 }
             }
