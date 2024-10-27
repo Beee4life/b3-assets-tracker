@@ -124,10 +124,10 @@
                             $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
                             $asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : [];
                             $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
-                            $date_till    = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
+                            $date_until   = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types ? true : false;
-                            $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
+                            $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
 
                             if ( ! empty( $grouped_data ) ) {
                                 $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
