@@ -1,12 +1,12 @@
 <form name="" action="" method="post">
     <input type="hidden" name="b3_from_till_nonce" value="<?php echo esc_attr( wp_create_nonce( 'b3-from-till-nonce' ) ); ?>" />
-    <?php if ( $is_graph_page && $show_graph_options ) { ?>
+    <?php if ( $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
     <?php } ?>
     <table class="data-input">
         <thead>
         <tr>
-            <?php if ( $is_graph_page && $show_graph_options ) { ?>
+            <?php if ( ! empty( $graph_options ) && $show_graph_options ) { ?>
                 <th>Graph type</th>
             <?php } ?>
             <th>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <tr>
-            <?php if ( $is_graph_page && $show_graph_options ) { ?>
+            <?php if ( ! empty( $graph_options ) && $show_graph_options ) { ?>
                 <td>
                     <label>
                         <select name="graph_type">

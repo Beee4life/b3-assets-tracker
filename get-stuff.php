@@ -18,13 +18,13 @@
             }
         } else {
             $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY date DESC", $table ) );
-            
+
         }
 
         if ( $date && ! isset( $month ) ) {
             return $results;
         }
-        
+
         if ( ! empty( $results ) ) {
             foreach( $results as $row ) {
                 if ( ! array_key_exists( $row->date, $grouped_data ) ) {
@@ -217,7 +217,7 @@
                     }
                     $grouped_data[ $row->date ][] = $row;
                 }
-    
+
                 return $grouped_data;
             }
 
@@ -285,7 +285,7 @@
         } elseif ( is_array( $data ) ) {
             $results = $data;
         }
-        
+
         if ( isset( $results ) ) {
             foreach( $results as $entry ) {
                 if ( isset( $entry->value ) && ! empty( $entry->value ) ) {
@@ -362,7 +362,7 @@
             // non defined graphs
             $top_row = [ 'Week' ];
 
-            if ( $asset_type ) {
+            if ( isset( $asset_type ) ) {
                 if ( is_string( $asset_type ) ) {
 
                 } elseif( is_array( $asset_type ) ) {
@@ -386,7 +386,7 @@
         return $top_row;
     }
 
-    
+
     function bp_get_chart_element() {
         return '<div id="chart_div"></div>';
     }

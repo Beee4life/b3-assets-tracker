@@ -106,7 +106,7 @@
                     'type'   => 'line',
                     'footer' => 'false',
                 ], $attr );
-                
+
                 $validated_shortcode_field = b3_validate_shortcode_fields( $shortcode_attributes );
                 if ( ! $validated_shortcode_field ) {
                     if ( current_user_can( 'manage_options' ) ) {
@@ -148,11 +148,13 @@
                     $date_till    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
                     $show_all     = 'all' == $asset_types ? true : false;
                     $grouped_data = bp_get_results_range( $date_from, $date_till, [], [] );
-
+                    // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                 }
 
                 if ( 1 < count( $grouped_data ) ) {
+                    $processed_data = [];
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                    // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                     $chart_args = [
                         'asset_group' => $asset_groups,
@@ -161,6 +163,7 @@
                         'currency'    => get_option( 'bp_currency' ),
                         'data'        => $processed_data,
                     ];
+                    // echo '<pre>'; var_dump($chart_args); echo '</pre>'; exit;
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
 
                     return bp_get_chart_element();
