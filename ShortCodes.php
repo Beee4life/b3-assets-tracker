@@ -50,12 +50,10 @@
                     ob_start();
                     $amount_columns   = $grouped_data[ 0 ];
                     $scroll_class     = 15 < $amount_columns ? ' tablescroll' : '';
-                    $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' );
+                    $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html( 'Table scrolls horizontally.' ) );
                     
-                    if ( ! is_admin() && 6 < count( $amount_columns ) ) {
-                        echo $shortcode_notice;
-                    } elseif ( is_admin() && 15 < count( $amount_columns ) ) {
-                        echo $shortcode_notice;
+                    if ( ! is_admin() && 6 < count( $amount_columns ) || is_admin() && 15 < count( $amount_columns ) ) {
+                        printf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html( 'Table scrolls horizontally.' ) );
                     }
                     
                     echo '<div id="data-output"><div id="data">';
@@ -75,7 +73,7 @@
                                 $message = 'This data comes from a WordPress plugin I created to track my assets and easily share it within the site.';
                             }
                         }
-                        echo sprintf( '<div class="shortcode-footer">%s</div>', $message );
+                        echo sprintf( '<div class="shortcode-footer">%s</div>', esc_html( $message ) );
                     }
                     $result = ob_get_clean();
                     
@@ -104,7 +102,7 @@
                 $shortcode_attributes = shortcode_atts( [
                     'from'   => '',
                     'till'   => '',
-                    'type'   => '',
+                    'type'   => 'line',
                     'footer' => 'false',
                 ], $attr );
     
@@ -135,9 +133,7 @@
                         'currency'    => get_option( 'bp_currency' ),
                         'data'        => $processed_data,
                     ];
-                    wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], false, true );
-                    wp_localize_script( 'charts', 'chart_vars', $chart_args );
-                    wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], false, false );
+                    wp_localize_script( 'graphs', 'chart_vars', $chart_args );
 
                     return bp_get_chart_element();
                     

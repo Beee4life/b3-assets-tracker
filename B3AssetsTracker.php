@@ -113,6 +113,7 @@
                 wp_enqueue_style( 'bp-assets-admin' );
 
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], false, false );
+                wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], false, true );
 
                 if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                     $validated = b3_validate_graph_fields( $_POST );
@@ -139,7 +140,6 @@
                             ];
                             wp_localize_script( 'charts', 'chart_vars', $chart_args );
                         }
-
                         wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', false );
                     }
                 }
@@ -151,8 +151,11 @@
                     wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                     wp_enqueue_style( 'bp-assets-front' );
                     
-                    wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [ 'jquery' ], false, true );
-                    wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', false );
+                    if ( is_singular( 'post' ) ) {
+                        // @TODO: check if shortcode is used
+                        wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], false, true );
+                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', true );
+                    }
                 }
             }
 

@@ -80,12 +80,10 @@
                     }
                     chart.draw(data, options);
                 }
-            } else {
-                console.log('No results or something else went wrong');
             }
         </script>
         <?php
         $output = ob_get_clean();
         echo $output;
     }
-    add_action( 'admin_head', 'bp_add_chart_script' );
+    // add_action( 'admin_head', 'bp_add_chart_script' );
