@@ -100,13 +100,14 @@
         function shortcode_graph( $attr, $content = null ) {
             if ( ! is_admin() ) {
                 $shortcode_attributes = shortcode_atts( [
+                    'dates'  => '',
                     'from'   => '',
                     'till'   => '',
                     'type'   => 'line',
                     'footer' => 'false',
                 ], $attr );
-    
-                if ( empty( $shortcode_attributes[ 'from' ] ) || empty( $shortcode_attributes[ 'till' ] ) || empty( $shortcode_attributes[ 'type' ] ) ) {
+                
+                if ( ( empty( $shortcode_attributes[ 'dates' ] ) && ( empty( $shortcode_attributes[ 'from' ] ) || empty( $shortcode_attributes[ 'till' ] ) ) ) || empty( $shortcode_attributes[ 'type' ] ) ) {
                     if ( current_user_can( 'manage_options' ) ) {
                         return '[shortcode is missing attributes]';
                     } else {
@@ -117,11 +118,30 @@
                 $graph_type   = $shortcode_attributes[ 'type' ];
                 $asset_groups = [];
                 $asset_types  = 'all';
-                $show_diff    = true;
-                $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
-                $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
+                $grouped_data = [];
                 $show_all     = 'all' == $asset_types ? true : false;
-                $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [], $show_all );
+                $show_diff    = false;
+                
+                if ( ! empty( $shortcode_attributes[ 'dates' ] ) ) {
+                    $dates = explode( ',', $shortcode_attributes[ 'dates' ] );
+                    foreach( $dates as $date ) {
+                        $date = gmdate( 'Y-m-d', strtotime( $date ) );
+                        if ( ! array_key_exists( $date, $grouped_data ) ) {
+                            $grouped_data[ $date ] = [];
+                        }
+
+                        $date_rows = bp_get_data( $date );
+                        if ( ! empty( $date_rows ) ) {
+                            $grouped_data[ $date ] = $date_rows;
+                        }
+                    }
+                    
+                } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'till' ] ) ) {
+                    $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
+                    $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
+                    $show_diff    = true;
+                    $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [], $show_all );
+                }
                 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
