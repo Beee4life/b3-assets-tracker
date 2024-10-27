@@ -1,6 +1,4 @@
 <?php
-    // include 'render-chart.php';
-    
     function bp_add_short_code() {
         include 'ShortCodes.php';
         $shortcodes = new AssetsShortCodes();
