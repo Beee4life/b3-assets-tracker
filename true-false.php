@@ -93,3 +93,25 @@
     //
     //     return true;
     // }
+
+    
+    function b3_validate_shortcode_fields( $attributes = [] ) {
+        if ( ! $attributes ) {
+            return false;
+        }
+        
+        if ( isset( $attributes[ 'type' ] ) ) {
+            if ( 'line' === $attributes[ 'type' ] ) {
+                if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) ) {
+                    return false;
+                }
+                
+            } elseif ( in_array( $attributes[ 'type' ], [ 'total_type', 'total_group' ] ) ) {
+                if ( empty( $attributes[ 'till' ] ) ) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
