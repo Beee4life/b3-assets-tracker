@@ -102,6 +102,7 @@
                 $shortcode_attributes = shortcode_atts( [
                     'from'        => '',
                     'till'        => '',
+                    'until'       => '',
                     'dates'       => '',
                     'asset_type'  => 'all',
                     'asset_group' => '',
@@ -141,6 +142,7 @@
 
                     } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'till' ] ) ) {
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
+                        $date_until   = ! empty( $shortcode_attributes[ 'till' ] ) ? $shortcode_attributes[ 'till' ] : '';
                         $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
                         $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, [], $show_all );
                     }
