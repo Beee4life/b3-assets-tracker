@@ -186,11 +186,11 @@
                 if ( in_array( 'all', $asset_type ) ) {
                     $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, $from, $until ) );
                 } else {
-                    $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE type IN (%s) AND date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, implode( ',' , $asset_type ), $from, $until ) );
+                    $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE type IN (" . implode( ',', $asset_type ) . ") AND date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, $from, $until ) );
                 }
 
             } elseif ( is_array( $asset_group ) ) {
-                $types = $wpdb->get_results( $wpdb->prepare( "SELECT id FROM %i WHERE asset_group IN (%s)", $table_types, implode( ',' , $asset_group ) ) );
+                $types = $wpdb->get_results( $wpdb->prepare( "SELECT id FROM %i WHERE asset_group IN (" . implode( ',', $asset_group ) . ")", $table_types ) );
                 if ( ! empty( $types ) ) {
                     foreach( $types as $type ) {
                         $asset_types[] = (int) $type->id;
@@ -198,10 +198,10 @@
                 }
                 if ( ! empty( $asset_types ) ) {
                     if ( 1 == count( $asset_group ) ) {
-                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE type IN (%s) AND date BETWEEN %s AND %s ORDER BY type ASC", $table_assets, implode( ',' , $asset_types ), $from, $until ) );
+                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE type IN (" . implode( ',', $asset_types ) . ") AND date BETWEEN %s AND %s ORDER BY type ASC", $table_assets, $from, $until ) );
 
                     } elseif ( 1 < count( $asset_group ) ) {
-                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i INNER JOIN %i ON %i.type = %i.id WHERE type IN (%s) AND date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, $table_types, $table_assets, $table_types, implode( ',' , $asset_types ), $from, $until ) );
+                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i INNER JOIN %i ON %i.type = %i.id WHERE type IN (" . implode( ',', $asset_types ) . ") AND date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, $table_types, $table_assets, $table_types, $from, $until ) );
                         if ( 'development' === WP_ENV ) {
                             error_log($query);
                         }
