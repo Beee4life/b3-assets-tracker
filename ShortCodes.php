@@ -100,11 +100,13 @@
         function shortcode_graph( $attr, $content = null ) {
             if ( ! is_admin() ) {
                 $shortcode_attributes = shortcode_atts( [
-                    'dates'  => '',
-                    'from'   => '',
-                    'till'   => '',
-                    'type'   => 'line',
-                    'footer' => 'false',
+                    'from'        => '',
+                    'till'        => '',
+                    'dates'       => '',
+                    'asset_type'  => 'all',
+                    'asset_group' => '',
+                    'type'        => 'line',
+                    'footer'      => 'false',
                 ], $attr );
 
                 $validated_shortcode_field = b3_validate_shortcode_fields( $shortcode_attributes );
@@ -118,7 +120,7 @@
 
                 $graph_type   = $shortcode_attributes[ 'type' ];
                 $asset_groups = [];
-                $asset_types  = 'all';
+                $asset_types  = 'all' != $shortcode_attributes[ 'asset_type' ] ? explode( ',', $shortcode_attributes[ 'asset_type' ] ) : $shortcode_attributes[ 'asset_type' ];
                 $grouped_data = [];
                 $show_all     = 'all' == $asset_types ? true : false;
 
@@ -140,21 +142,18 @@
                     } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'till' ] ) ) {
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
                         $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
-                        $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [], $show_all );
+                        $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, [], $show_all );
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_from    = '';
                     $date_till    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
-                    $show_all     = 'all' == $asset_types ? true : false;
                     $grouped_data = bp_get_results_range( $date_from, $date_till, [], [] );
-                    // echo '<pre>'; var_dump($grouped_data); echo '</pre>'; exit;
                 }
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = [];
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
-                    // echo '<pre>'; var_dump($processed_data); echo '</pre>'; exit;
 
                     $chart_args = [
                         'asset_group' => $asset_groups,
@@ -163,7 +162,6 @@
                         'currency'    => get_option( 'bp_currency' ),
                         'data'        => $processed_data,
                     ];
-                    // echo '<pre>'; var_dump($chart_args); echo '</pre>'; exit;
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
 
                     return bp_get_chart_element();
