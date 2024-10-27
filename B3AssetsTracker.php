@@ -139,9 +139,9 @@
                                     'currency'    => get_option( 'bp_currency' ),
                                     'data'        => $processed_data,
                                 ];
+                                wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                                 wp_localize_script( 'charts', 'chart_vars', $chart_args );
                             }
-                            wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                         }
                     }
                 }
