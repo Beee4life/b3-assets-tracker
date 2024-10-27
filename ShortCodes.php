@@ -106,8 +106,9 @@
                     'type'   => 'line',
                     'footer' => 'false',
                 ], $attr );
-
-                if ( ( empty( $shortcode_attributes[ 'dates' ] ) && ( empty( $shortcode_attributes[ 'from' ] ) || empty( $shortcode_attributes[ 'till' ] ) ) ) || empty( $shortcode_attributes[ 'type' ] ) ) {
+                
+                $validated_shortcode_field = b3_validate_shortcode_fields( $shortcode_attributes );
+                if ( ! $validated_shortcode_field ) {
                     if ( current_user_can( 'manage_options' ) ) {
                         return '[shortcode is missing attributes]';
                     } else {
@@ -142,9 +143,11 @@
                         $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [], $show_all );
                     }
 
-                } elseif ( 'pie' === $graph_type ) {
-                    $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
-                    echo '<pre>'; var_dump($date_until); echo '</pre>'; exit;
+                } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
+                    $date_from    = '';
+                    $date_till    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
+                    $show_all     = 'all' == $asset_types ? true : false;
+                    $grouped_data = bp_get_results_range( $date_from, $date_till, [], [] );
 
                 }
 
