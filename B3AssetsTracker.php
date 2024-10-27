@@ -52,7 +52,7 @@
 
                 global $wpdb;
                 $table   = $wpdb->prefix . 'asset_groups';
-                $results = $wpdb->get_results( "SELECT * FROM $table" );
+                $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i", $table ) );
 
                 if ( empty( $results ) ) {
                     foreach( b3_get_default_groups() as $id => $name ) {
@@ -112,35 +112,37 @@
                 wp_register_style( 'bp-assets-admin', plugins_url( 'assets/admin.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                 wp_enqueue_style( 'bp-assets-admin' );
 
-                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], false, false );
-                wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], false, true );
-
-                if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
-                    $validated = b3_validate_graph_fields( $_POST );
-
-                    if ( $validated ) {
-                        $asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : [];
-                        $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
-                        $asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
-                        $date_from    = isset( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-                        $date_till    = $_POST[ 'stats_until' ];
-                        $graph_type   = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
-                        $show_all     = 'all' == $asset_types ? true : false;
-                        $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
-
-                        if ( ! empty( $grouped_data ) ) {
-                            $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
-
-                            $chart_args = [
-                                'asset_group' => $asset_groups,
-                                'asset_type'  => $asset_types,
-                                'graph_type'  => $graph_type,
-                                'currency'    => get_option( 'bp_currency' ),
-                                'data'        => $processed_data,
-                            ];
-                            wp_localize_script( 'charts', 'chart_vars', $chart_args );
+                wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], $this->bp_settings()[ 'version' ], false );
+                wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
+                
+                if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
+                    if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
+                        $validated = b3_validate_graph_fields( $_POST );
+    
+                        if ( $validated ) {
+                            $asset_types  = isset( $_POST[ 'asset_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_type' ] ) ) : [];
+                            $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
+                            $asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : [];
+                            $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
+                            $date_till    = isset( $_POST[ 'stats_till' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_till' ] ) ) : '';
+                            $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
+                            $show_all     = 'all' == $asset_types ? true : false;
+                            $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
+    
+                            if ( ! empty( $grouped_data ) ) {
+                                $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+    
+                                $chart_args = [
+                                    'asset_group' => $asset_groups,
+                                    'asset_type'  => $asset_types,
+                                    'graph_type'  => $graph_type,
+                                    'currency'    => get_option( 'bp_currency' ),
+                                    'data'        => $processed_data,
+                                ];
+                                wp_localize_script( 'charts', 'chart_vars', $chart_args );
+                            }
+                            wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                         }
-                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', false );
                     }
                 }
             }
@@ -153,8 +155,8 @@
                     
                     if ( is_singular( 'post' ) ) {
                         // @TODO: check if shortcode is used
-                        wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], false, true );
-                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], '', true );
+                        wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
+                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], true );
                     }
                 }
             }
@@ -167,7 +169,7 @@
                     global $wpdb;
                     ob_start();
                     ?>
-                    CREATE TABLE <?php echo $wpdb->prefix; ?>asset_types (
+                    CREATE TABLE <?php echo esc_sql( $wpdb->prefix ); ?>asset_types (
                     id int(6) unsigned NOT NULL auto_increment,
                     name varchar(50) NOT NULL,
                     ordering int(2) NOT NULL,
@@ -177,14 +179,14 @@
                     closed DATE NULL,
                     PRIMARY KEY  (id)
                     )
-                    COLLATE <?php echo $wpdb->collate; ?>;
+                    COLLATE <?php echo esc_sql( $wpdb->collate ); ?>;
                     <?php
                     $sql1 = ob_get_clean();
                     dbDelta( $sql1 );
 
                     ob_start();
                     ?>
-                    CREATE TABLE <?php echo $wpdb->prefix; ?>asset_data (
+                    CREATE TABLE <?php echo esc_sql( $wpdb->prefix ); ?>asset_data (
                     id int(6) unsigned NOT NULL auto_increment,
                     date DATE NOT NULL,
                     type int(2) NOT NULL,
@@ -192,53 +194,24 @@
                     updated int(11) NULL,
                     PRIMARY KEY  (id)
                     )
-                    COLLATE <?php echo $wpdb->collate; ?>;
+                    COLLATE <?php echo esc_sql( $wpdb->collate ); ?>;
                     <?php
                     $sql2 = ob_get_clean();
                     dbDelta( $sql2 );
 
                     ob_start();
                     ?>
-                    CREATE TABLE <?php echo $wpdb->prefix; ?>asset_groups (
+                    CREATE TABLE <?php echo esc_sql( $wpdb->prefix ); ?>asset_groups (
                     id int(6) unsigned NOT NULL auto_increment,
                     name varchar(50) NOT NULL,
                     PRIMARY KEY  (id)
                     )
-                    COLLATE <?php echo $wpdb->collate; ?>;
+                    COLLATE <?php echo esc_sql( $wpdb->collate ); ?>;
                     <?php
                     $sql3 = ob_get_clean();
                     dbDelta( $sql3 );
                     update_option( 'assets_db_version', $this->bp_settings()[ 'db_version' ] );
                 }
-            }
-
-
-            public static function bp_admin_menu() {
-                $admin_url     = admin_url( 'admin.php?page=' );
-                $current_class = ' class="current_page"';
-                $url_array     = parse_url( esc_url_raw( $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ] ) );
-                $subpage       = ( isset( $url_array[ 'query' ] ) ) ? substr( $url_array[ 'query' ], 8 ) : false;
-
-                $pages = [
-                    'assets-dashboard' => esc_html__( 'Dashboard', 'b3-assets-tracker' ),
-                    'assets-data'      => esc_html__( 'Data', 'b3-assets-tracker' ),
-                    'assets-add-data'  => esc_html__( 'Add data', 'b3-assets-tracker' ),
-                    'assets-graphs'     => esc_html__( 'Graphs', 'b3-assets-tracker' ),
-                    'assets-types'     => esc_html__( 'Types', 'b3-assets-tracker' ),
-                    'assets-settings'  => esc_html__( 'Settings', 'b3-assets-tracker' ),
-                    // 'assets-info'      => esc_html__( 'Info', 'bp-assets' ),
-                ];
-
-                ob_start();
-                foreach( $pages as $slug => $label ) {
-                    $current_page = ( $subpage === $slug ) ? $current_class : false;
-                    echo ( 'assets-dashboard' !== $slug ) ? ' | ' : false;
-                    echo sprintf( '<a href="%s"%s>%s</a>', sprintf( '%sbp-%s', $admin_url, $slug ), $current_page, $label );
-                }
-                $menu_items = ob_get_clean();
-                $menu       = sprintf( '<p class="bp-admin-menu">%s</p>', $menu_items );
-
-                return $menu;
             }
         }
 
