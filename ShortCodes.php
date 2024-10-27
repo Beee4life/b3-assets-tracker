@@ -101,14 +101,14 @@
          */
         function shortcode_graph( $attr, $content = null ) {
             if ( ! is_admin() ) {
-                $attributes = shortcode_atts( [
+                $shortcode_attributes = shortcode_atts( [
                     'from'   => '',
                     'till'   => '',
                     'type'   => '',
                     'footer' => 'false',
                 ], $attr );
     
-                if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'till' ] ) || empty( $attributes[ 'type' ] ) ) {
+                if ( empty( $shortcode_attributes[ 'from' ] ) || empty( $shortcode_attributes[ 'till' ] ) || empty( $shortcode_attributes[ 'type' ] ) ) {
                     if ( current_user_can( 'manage_options' ) ) {
                         return '[shortcode is missing attributes]';
                     } else {
@@ -116,13 +116,14 @@
                     }
                 }
                 
-                $graph_type   = $attributes[ 'type' ];
+                $graph_type   = $shortcode_attributes[ 'type' ];
                 $asset_groups = [];
                 $asset_types  = 'all';
                 $show_diff    = true;
-                $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
-                $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'till' ] ) );
-                $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+                $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
+                $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'till' ] ) );
+                $show_all     = 'all' == $asset_types ? true : false;
+                $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [], $show_all );
                 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
@@ -134,7 +135,9 @@
                         'currency'    => get_option( 'bp_currency' ),
                         'data'        => $processed_data,
                     ];
+                    wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], false, true );
                     wp_localize_script( 'charts', 'chart_vars', $chart_args );
+                    wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], false, false );
 
                     return bp_get_chart_element();
                     
