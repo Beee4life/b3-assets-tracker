@@ -2,7 +2,7 @@
     <form name="add-type" action="" method="post">
         <input name="add_type_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'add-type-nonce' ) ); ?>" />
         <?php if ( $current_type ) { ?>
-            <input name="update_type" type="hidden" value="<?php echo $current_type; ?>" />
+            <input name="update_type" type="hidden" value="<?php echo esc_attr( $current_type ); ?>" />
         <?php } ?>
         
         <?php if ( $preset_types ) { ?>
@@ -10,10 +10,10 @@
             <table class="data-input">
                 <?php foreach( $preset_types as $id => $label ) { ?>
                     <tr>
-                        <td><?php echo $label; ?></td>
+                        <td><?php echo esc_html( $label ); ?></td>
                         <td>
                             <label>
-                                <?php echo sprintf( '<input name="%d" type="checkbox" value="1" %s/>', $id, checked( $id, in_array( $id, [] ) ) ); ?>
+                                <?php echo sprintf( '<input name="%d" type="checkbox" value="1" %s/>', esc_attr( $id ), checked( $id, in_array( $id, [] ) ) ); ?>
                             </label>
                         </td>
                     </tr>
@@ -52,12 +52,12 @@
             <tr>
                 <td>
                     <label>
-                        <input name="bp_type" type="text" value="<?php echo $type_value; ?>" required />
+                        <input name="bp_type" type="text" value="<?php echo esc_attr( $type_value ); ?>" required />
                     </label>
                 </td>
                 <td>
                     <label>
-                        <input name="bp_order" type="number" value="<?php echo $order_value; ?>" />
+                        <input name="bp_order" type="number" value="<?php echo esc_attr( $order_value ); ?>" />
                     </label>
                 </td>
                 <?php if ( ! empty( $asset_groups ) ) { ?>
@@ -66,7 +66,7 @@
                             <select name="bp_asset_group">
                                 <option value="">Group</option>
                                 <?php foreach( $asset_groups as $group ) { ?>
-                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', $group->id, selected( $group->id, $group_value ), $group->name ); ?>
+                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', esc_attr( $group->id ), selected( $group->id, $group_value ), esc_attr( $group->name ) ); ?>
                                 <?php } ?>
                             </select>
                         </label>
@@ -83,7 +83,7 @@
                     </label>
                 </td>
                 <td>
-                    <input type="submit" class="admin-button admin-button-small" value="<?php echo $button_label; ?>" />
+                    <input type="submit" class="admin-button admin-button-small" value="<?php echo esc_attr( $button_label ); ?>" />
                 </td>
             </tr>
             </tbody>

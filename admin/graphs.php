@@ -16,32 +16,36 @@
         $asset_types           = bp_get_asset_types( 'id_name' );
         $asset_types[ 'all' ]  = 'All';
         $dates                 = array_keys( $all_data );
-        $date_from             = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-        $date_from             = isset( $_POST[ 'graph_type' ] ) && str_starts_with( $_POST[ 'graph_type' ], 'total' ) ? '' : $date_from;
-        $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
+        $date_from             = '';
+        $date_until            = '';
         $is_dashboard          = false;
         $is_graph_page         = true;
-        $last_date             = end( $dates );
+        $graph_type            = '';
         $graph_options         = bp_get_graph_types();
-        $graph_type            = isset( $_POST[ 'graph_type' ] ) ? $_POST[ 'graph_type' ] : '';
         $grouped_data          = [];
-        $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
-        $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
+        $last_date             = end( $dates );
+        $selected_asset_types  = 'all';
+        $selected_asset_groups = [];
         $show_asset_groups     = true;
         $show_asset_types      = true;
         $show_all_option       = false;
         $show_graph_options    = true;
 
+        if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
+            $date_from             = ! empty( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : $date_from;
+            $date_from             = isset( $_POST[ 'graph_type' ] ) && str_starts_with( sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ), 'total' ) ? '' : $date_from;
+            $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : $date_until;
+            $graph_type            = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : $graph_type;
+            $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_type' ] ) ) : $selected_asset_types;
+            $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : $selected_asset_groups;
+        }
 
         if ( ! empty( $_POST ) ) {
             if ( b3_validate_graph_fields( $_POST ) ) {
                 $add_graph = true;
-            } else {
-                error_log('Not validated');
             }
         }
-    ?>
-
+        ?>
         <div id="wrap">
             <h1>
                 <?php echo esc_html( get_admin_page_title() ); ?>
@@ -62,11 +66,12 @@
 
                         if ( empty( $_POST ) ) {
                             include 'includes/graphs-help.php';
-                        } else {
-                            do_action( 'add_graph', $add_graph );
+                        } elseif ( isset( $add_graph ) && true == $add_graph ) {
+                            echo '<div id="chart_div"></div>';
                         }
+                        
                     } else {
-                        echo sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=bp-assets-types' ), 'Add types first' );
+                        echo sprintf( '<a href="%s">%s</a>', esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ), 'Add types first' );
                     }
                 ?>
             </div>

@@ -6,7 +6,7 @@
 
         // add/update data
         if ( isset( $_POST[ 'add_data_nonce' ] ) ) {
-            if ( ! wp_verify_nonce( $_POST[ 'add_data_nonce' ], 'add-data-nonce' ) ) {
+            if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'add_data_nonce' ] ) ), 'add-data-nonce' ) ) {
                 if ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( 'error_nonce_no_match', esc_html( __( 'Something went wrong. Please try again.', 'b3-assets-tracker' ) ) );
                 }
@@ -45,8 +45,7 @@
                             ];
 
                             // check if exists
-                            $query = $wpdb->prepare( "SELECT * FROM $table_data WHERE type = '%d' and date = '%s'", (int) $type, $input[ 'update_data' ] );
-                            $row   = $wpdb->get_row( $query );
+                            $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM %i WHERE type = %d and date = %s", $table_data, (int) $type, $input[ 'update_data' ] ) );
 
                             if ( null == $row ) {
                                 $data = [
@@ -91,7 +90,7 @@
                         }
                     }
                 } elseif ( function_exists( 'bp_errors' ) ) {
-                    bp_errors()->add( $validated_fields[ 'code' ], __( $validated_fields[ 'message' ], 'b3-assets-tracker' ) );
+                    bp_errors()->add( $validated_fields[ 'code' ], esc_html( $validated_fields[ 'message' ] ) );
                 }
 
                 if ( ! is_admin() ) {

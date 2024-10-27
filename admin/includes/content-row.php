@@ -1,5 +1,5 @@
 <?php $tr_class = ( count($grouped_data) ) == $row_counter ? 'totalrow' : ''; ?>
-<tr class="<?php echo $tr_class; ?>">
+<tr class="<?php echo esc_attr( $tr_class ); ?>">
     <?php $column_counter = 1; ?>
     <?php foreach( $row as $value ) { ?>
         <?php
@@ -63,8 +63,8 @@
                 }
             }
         ?>
-        <td class="<?php echo $td_class; ?>">
-            <?php echo $value; ?>
+        <td class="<?php echo esc_attr( $td_class ); ?>">
+            <?php echo esc_html( $value ); ?>
         </td>
         <?php $column_counter++; ?>
     <?php } ?>

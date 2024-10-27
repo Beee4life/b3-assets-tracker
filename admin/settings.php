@@ -63,7 +63,7 @@
                                 <label>
                                     <select name="bp_currency">
                                         <?php foreach( $currencies as $currency ) { ?>
-                                            <?php echo sprintf( '<option value="%s" %s>%s</option>', $currency, selected( $currency, $stored_currency ), $currency ); ?>
+                                            <?php echo sprintf( '<option value="%s" %s>%s</option>', esc_attr( $currency ), selected( $currency, $stored_currency ), esc_html( $currency ) ); ?>
                                         <?php } ?>
                                     </select>
                                 </label>
@@ -77,9 +77,9 @@
                                 <label>
                                     <select name="bp_date_format">
                                         <?php foreach( $date_formats as $separator => $optgroup ) { ?>
-                                            <optgroup label="<?php echo $separator; ?>">
+                                            <optgroup label="<?php echo esc_attr( $separator ); ?>">
                                                 <?php foreach( $optgroup as $option ) { ?>
-                                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', $option, selected( $option, $stored_date_format ), gmdate( $option, time() ) ); ?>
+                                                    <?php echo sprintf( '<option value="%s" %s>%s</option>', esc_attr( $option ), selected( $option, $stored_date_format ), esc_html( gmdate( $option, time() ) ) ); ?>
                                                 <?php } ?>
                                             </optgroup>
                                         <?php } ?>
