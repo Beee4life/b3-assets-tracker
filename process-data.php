@@ -23,7 +23,7 @@
             $total_counter++;
 
             if ( ! array_key_exists( $total_counter, $totals ) ) {
-                $totals[$total_counter] = 0;
+                $totals[ $total_counter ] = 0;
             }
 
             $total_value_on_date      = bp_get_value_on_date( $entries );
