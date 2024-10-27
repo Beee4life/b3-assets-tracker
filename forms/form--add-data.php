@@ -19,7 +19,7 @@
                     $input  = $_POST;
                     $values = is_array( $input[ 'bp_value' ] ) ? $input[ 'bp_value' ] : [];
 
-                    if ( getenv( 'ASSETS' ) ) {
+                    if ( getenv( 'ASSETS' ) && ! empty( getenv( 'ASSETS' ) ) ) {
                         $assets = explode( ',', getenv( 'ASSETS' ) );
 
                         if ( ! empty( $values[ $assets[ 0 ] ] ) && ! empty( $values[ $assets[ 1 ] ] ) ) {
