@@ -21,6 +21,5 @@
     ];
     
     foreach( $tables as $table ) {
-        $query = "DROP TABLE IF EXISTS $table";
-        $wpdb->query( $query );
+        $wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %i", $table ) );
     }
