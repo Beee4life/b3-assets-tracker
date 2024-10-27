@@ -9,11 +9,10 @@
      */
     function bp_is_type_closed( $type, $data ) {
         if ( $type && $data ) {
-            $dates = array_keys( $data );
             global $wpdb;
-            $table = $wpdb->prefix . 'asset_types';
-            $query = $wpdb->prepare( "SELECT closed FROM $table WHERE id = %d", $type );
-            $results = $wpdb->get_results( $query );
+            $dates   = array_keys( $data );
+            $table   = $wpdb->prefix . 'asset_types';
+            $results = $wpdb->get_results( $wpdb->prepare( "SELECT closed FROM %i WHERE id = %d", $table, $type ) );
             
             if ( ! empty( $results[ 0 ]->closed ) && '0000-00-00' !== $results[ 0 ]->closed && $results[ 0 ]->closed < $dates[ 0 ] ) {
                 return true;
@@ -27,8 +26,7 @@
         if ( $type ) {
             global $wpdb;
             $table   = $wpdb->prefix . 'asset_types';
-            $query   = $wpdb->prepare( "SELECT hide FROM $table WHERE id = %d", $type );
-            $results = $wpdb->get_results( $query );
+            $results = $wpdb->get_results( $wpdb->prepare( "SELECT hide FROM %i WHERE id = %d", $table, $type ) );
             
             if ( isset( $results[0]->hide ) && '1' == $results[0]->hide ) {
                 return true;
@@ -54,7 +52,7 @@
             
             if ( ! empty( $dates ) ) {
                 $table   = $wpdb->prefix . 'asset_types';
-                $results = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM $table WHERE id = %d", $type ) );
+                $results = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM %i WHERE id = %d", $table, $type ) );
                 $added   = isset( $results[ 0 ]->added ) ? $results[ 0 ]->added : false;
     
                 if ( $added && null === $added ) {

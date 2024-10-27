@@ -40,6 +40,10 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.7.0 - 27.10.24
+* add graph shortcode
+* sanitize/escape input/output
+
 1.6.0 - 23.10.24
 * change graph width to 100%
 * partially sanitize input/escape output

@@ -7,13 +7,13 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
-        $all_dates = array_values( bp_get_dates() );
-        $data      = bp_get_data();
-        $types     = bp_get_asset_types();
+        $all_dates   = array_values( bp_get_dates() );
+        $data        = bp_get_data();
+        $types       = bp_get_asset_types();
+        $asset_group = [];
+        $asset_type  = 'all';
         
         if ( ! empty( $data ) ) {
-            $asset_group        = isset( $_POST[ 'asset_group' ] ) ? $_POST[ 'asset_group' ] : [];
-            $asset_type         = isset( $_POST[ 'asset_type' ] ) ? $_POST[ 'asset_type' ] : 'all';
             $dates              = array_keys( $data );
             $date_from          = $dates[ count( $dates ) - 2 ];
             $date_until         = end( $dates );
@@ -31,22 +31,23 @@
             $show_graph_options = false;
             $show_total         = false;
             
-            if ( ! empty( $_POST ) ) {
-                if ( isset( $_POST[ 'bp_date' ] ) ) {
-                    if ( isset( $_POST[ 'update_data' ] ) ) {
-                        // view after update
-                        $show_diff = isset( $dates[ 1 ] ) ? true : false;
-                    } else {
-                        // view after insert
-                    }
-                } else {
-                    // view after use date filter
-                    $date_from  = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-                    $date_until = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
-                }
+            if ( isset( $_POST[ 'b3_input_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_input_nonce' ] ) ), 'b3-input-nonce' ) ) {
+                $asset_group = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : $asset_group;
+                $asset_type  = isset( $_POST[ 'asset_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_type' ] ) ) : $asset_type;
+                
+                $date_from  = ! empty( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
+                $date_until = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
             } else {
-                // default view
                 $show_diff = isset( $dates[ 1 ] ) ? true : false;
+            }
+            
+            if ( isset( $_POST[ 'add_type_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'add_type_nonce' ] ) ), 'add-type-nonce' ) ) {
+                if ( isset( $_POST[ 'bp_date' ] ) && isset( $_POST[ 'update_data' ] ) ) {
+                    // view after update
+                    $show_diff = isset( $dates[ 1 ] ) ? true : false;
+                } else {
+                    // view after insert
+                }
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
@@ -60,8 +61,7 @@
                 
             } else {
                 // when are there no dates ?
-                error_log('Dashboard - No dates');
-                $grouped_data = array_reverse( $data );
+               $grouped_data = array_reverse( $data );
             }
             
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );

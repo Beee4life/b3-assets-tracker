@@ -8,9 +8,9 @@
         $grouped_data  = $data;
         $sliced_array  = array_slice( $grouped_data, 0, 1 );
         $first_item    = array_shift( $sliced_array );
-        $date_from     = $first_item[ 0 ]->date;
+        $date_from     = isset( $first_item[ 0 ]->date ) ? $first_item[ 0 ]->date : '';
         $last_item     = end( $grouped_data );
-        $date_until    = $last_item[ 0 ]->date;
+        $date_until    = isset( $last_item[ 0 ]->date ) ? $last_item[ 0 ]->date : '';
         $top_row       = [ 'Asset' ];
         $start_value   = bp_get_value_on_date( $first_item );
         $end_value     = bp_get_value_on_date( $last_item );

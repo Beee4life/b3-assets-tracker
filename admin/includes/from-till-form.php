@@ -1,4 +1,5 @@
 <form name="" action="" method="post">
+    <input type="hidden" name="b3_from_till_nonce" value="<?php echo esc_attr( wp_create_nonce( 'b3-from-till-nonce' ) ); ?>" />
     <?php if ( $is_graph_page && $show_graph_options ) { ?>
         <input type="hidden" name="show_graph" value="1" />
     <?php } ?>
@@ -33,7 +34,7 @@
                     <label>
                         <select name="graph_type">
                             <?php foreach( $graph_options as $id => $label ) { ?>
-                                <option value="<?php echo $id; ?>" <?php selected( $graph_type, $id ); ?>><?php echo $label; ?></option>
+                                <option value="<?php echo esc_attr( $id ); ?>" <?php selected( $graph_type, $id ); ?>><?php echo esc_html( $label ); ?></option>
                             <?php } ?>
                         </select>
                     </label>
@@ -44,7 +45,7 @@
                     <select name="stats_from">
                         <?php echo sprintf( '<option value="">%s</option>', 'Start' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
-                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', $date, selected( $date_from, $date ), bp_format_value( $date, 'date' ), sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) ); ?>
+                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_from, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                         <?php } ?>
                     </select>
                 </label>
@@ -54,7 +55,7 @@
                     <select name="stats_until" required>
                         <?php echo sprintf( '<option value="">%s</option>', 'End' ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
-                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', $date, selected( $date_until, $date ), bp_format_value( $date, 'date' ), sprintf( ' (%s)', gmdate( 'D', strtotime( $date ) ) ) ); ?>
+                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_until, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                         <?php } ?>
                     </select>
                 </label>
@@ -81,7 +82,7 @@
                                         <?php if ( is_array( $selected_asset_types ) && in_array( $id, $selected_asset_types ) ) { ?>
                                             <?php $checked = ' checked="checked"'; ?>
                                         <?php } ?>
-                                        <?php echo sprintf( '<input type="checkbox" name="asset_type[]" value="%s" %s>%s</input>', $id, $checked, $name ); ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="asset_type[]" value="%s" %s>%s</input>', esc_attr( $id ), esc_attr( $checked ), esc_html( $name ) ); ?>
                                     </label>
                                 </li>
                             <?php } ?>
@@ -101,7 +102,7 @@
                                         <?php if ( is_array( $selected_asset_groups ) && in_array( $group->id, $selected_asset_groups ) ) { ?>
                                             <?php $checked = ' checked="checked"'; ?>
                                         <?php } ?>
-                                        <?php echo sprintf( '<input type="checkbox" name="asset_group[]" value="%s" %s>%s</input>', $group->id, $checked, $group->name ); ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="asset_group[]" value="%s" %s>%s</input>', esc_attr( $group->id ), esc_attr( $checked ), esc_html( $group->name ) ); ?>
                                     </label>
                                 </li>
                             <?php } ?>

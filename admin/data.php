@@ -28,14 +28,19 @@
                     $months[ $year_month ] = $month;
                 }
             }
-            
-            if ( ! empty( $_POST[ 'bp_date_range' ] ) ) {
-                $date_range      = $_POST[ 'bp_date_range' ];
-                $grouped_data    = bp_get_data( $_POST[ 'bp_date_range' ] );
-                
-                if ( 1 < count( $grouped_data ) ) {
-                    $show_diff  = true;
-                    $show_total = true;
+
+            if ( isset( $_POST[ 'b3_date_range_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_date_range_nonce' ] ) ), 'b3-date-range-nonce' ) ) {
+                if ( ! empty( $_POST[ 'bp_date_range' ] ) ) {
+                    $date_range   = sanitize_text_field( wp_unslash( $_POST[ 'bp_date_range' ] ) );
+                    $grouped_data = bp_get_data( $date_range );
+                    
+                    if ( 1 < count( $grouped_data ) ) {
+                        $show_diff  = true;
+                        $show_total = true;
+                    }
+                } else {
+                    // default view
+                    $grouped_data = $data;
                 }
             } else {
                 // default view
@@ -61,13 +66,13 @@
             
             <?php if ( empty( $grouped_data ) && empty( $types ) ) { ?>
                 <div id="data-input">
-                    <a href="<?php echo admin_url( 'admin.php?page=bp-assets-types' ); ?>">
+                    <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
                         Add types first
                     </a>
                 </div>
             <?php } elseif ( empty( $grouped_data ) && empty( ! $types ) ) { ?>
                 <div id="data-input">
-                    <a href="<?php echo admin_url( 'admin.php?page=bp-assets-add-data' ); ?>">
+                    <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-add-data' ) ); ?>">
                         Add data now
                     </a>
                 </div>
@@ -76,7 +81,7 @@
                     <?php include 'includes/date-range-form.php'; ?>
                     <?php include 'includes/remove-date-form.php'; ?>
                     <p>
-                        <?php echo sprintf( 'The last %d entries are shown or a specific range, selected above.', $amount ); ?>
+                        <?php echo sprintf( 'The last %d entries are shown or a specific range, selected above.', (int) $amount ); ?>
                     </p>
                 </div>
 

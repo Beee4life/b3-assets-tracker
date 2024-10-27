@@ -7,7 +7,7 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         $action       = admin_url( 'admin.php?page=bp-assets-dashboard' );
-        $edit_date    = isset( $_GET[ 'date' ] ) ? $_GET[ 'date' ] : '';
+        $edit_date    = isset( $_GET[ 'date' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'date' ] ) ) : '';
         $grouped_data = [];
         $max_date     = gmdate( 'Y-m-d', ( time() + WEEK_IN_SECONDS ) );
         $types        = bp_get_asset_types();
@@ -42,10 +42,10 @@
 
             <?php if ( $types ) { ?>
                 <div id="data-input">
-                    <form name="add-data" action="<?php echo $action; ?>" method="post">
-                        <input name="add_data_nonce" type="hidden" value="<?php echo esc_html( wp_create_nonce( 'add-data-nonce' ) ); ?>" />
+                    <form name="add-data" action="<?php echo esc_url_raw( $action ); ?>" method="post">
+                        <input name="add_data_nonce" type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'add-data-nonce' ) ); ?>" />
                         <?php if ( $edit_date ) { ?>
-                            <input name="update_data" type="hidden" value="<?php echo $edit_date; ?>" />
+                            <input name="update_data" type="hidden" value="<?php echo esc_attr( $edit_date ); ?>" />
                         <?php } ?>
                         <table class="add-data">
                             <tr>
@@ -54,7 +54,7 @@
                                 </th>
                                 <td>
                                     <label>
-                                        <input name="bp_date" type="date" class="" min="2024-07-30" value="<?php echo $edit_date; ?>" max="<?php echo $max_date; ?>" required />
+                                        <input name="bp_date" type="date" class="" min="2024-07-30" value="<?php echo esc_attr( $edit_date ); ?>" max="<?php echo esc_attr( $max_date ); ?>" required />
                                     </label>
                                 </td>
                                 <td>
@@ -64,7 +64,7 @@
                             <?php foreach( $types as $type ) { ?>
                                 <tr>
                                     <th>
-                                        <?php echo $type->name; ?>
+                                        <?php echo esc_html( $type->name ); ?>
                                     </th>
                                     <td>
                                         <label>
@@ -81,7 +81,7 @@
                                                     }
                                                 }
                                             ?>
-                                            <input name="bp_value[<?php echo $type->id; ?>]" type="number" class="" placeholder="Value" step="0.01" value="<?php echo $value; ?>" />
+                                            <input name="bp_value[<?php echo esc_attr( $type->id ); ?>]" type="number" class="" placeholder="Value" step="0.01" value="<?php echo esc_attr( $value ); ?>" />
                                         </label>
                                     </td>
                                     <td>
@@ -105,7 +105,7 @@
                     </form>
                 </div>
             <?php } else { ?>
-                <a href="<?php echo admin_url( 'admin.php?page=bp-assets-types' ); ?>">
+                <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
                     Add types first
                 </a>
             <?php } ?>

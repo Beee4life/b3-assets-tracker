@@ -3,7 +3,7 @@
     $amount_cols  = count( $grouped_data[ 0 ] );
 ?>
 
-<table class="data-output<?php echo $scroll_class; ?>">
+<table class="data-output<?php echo esc_attr( $scroll_class ); ?>">
     <?php $row_counter = 1; ?>
     <?php foreach( $grouped_data as $row ) { ?>
         <?php if ( 1 == $row_counter ) { ?>

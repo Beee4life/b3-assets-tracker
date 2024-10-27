@@ -52,10 +52,10 @@
                 }
             }
         ?>
-        <th class="<?php echo $td_class; ?>">
+        <th class="<?php echo esc_attr( $td_class ); ?>">
             <?php
                 if ( 1 == $column_counter ) {
-                    echo $value;
+                    echo esc_html( $value );
                 } elseif ( 1 < $column_counter ) {
                     if ( is_admin() ) {
                         $edit_url = admin_url( sprintf( 'admin.php?page=bp-assets-add-data&date=%s', $value ) );
@@ -69,24 +69,24 @@
                             $value    = bp_format_value( $value, 'date' );
 
                             if ( current_user_can( 'manage_options' ) ) {
-                                echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
+                                echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
-                                echo $value;
+                                echo esc_html( $value );
                             }
                         } else {
-                            echo $value;
+                            echo esc_html( $value );
                         }
 
                     } elseif ( $show_diff ) {
                         if ( $column_counter < ( $amount_cols - 1 ) ) {
                             $value = bp_format_value( $value, 'date' );
                             if ( current_user_can( 'manage_options' ) ) {
-                                echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
+                                echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
-                                echo $value;
+                                echo esc_html( $value );
                             }
                         } else {
-                            echo $value;
+                            echo esc_html( $value );
                         }
 
                     } elseif ( $show_total ) {
@@ -97,21 +97,21 @@
                             $value    = bp_format_value( $value, 'date' );
 
                             if ( current_user_can( 'manage_options' ) ) {
-                                echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
+                                echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
-                                echo $value;
+                                echo esc_html( $value );
                             }
                         }
 
                     } elseif ( ! $show_diff && 1 < $column_counter ) {
                         $value = bp_format_value( $value, 'date' );
                         if ( current_user_can( 'manage_options' ) ) {
-                            echo sprintf( '<a href="%s">%s</a>', $edit_url, $value );
+                            echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                         } else {
-                            echo $value;
+                            echo esc_html( $value );
                         }
                     } else {
-                        echo $value;
+                        echo esc_html( $value );
                     }
                 }
             ?>
