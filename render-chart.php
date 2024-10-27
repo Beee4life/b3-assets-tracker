@@ -84,6 +84,6 @@
         </script>
         <?php
         $output = ob_get_clean();
-        echo $output;
+        echo esc_js( $output );
     }
     // add_action( 'admin_head', 'bp_add_chart_script' );
