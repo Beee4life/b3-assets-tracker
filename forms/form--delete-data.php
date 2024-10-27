@@ -29,6 +29,5 @@
                 }
             }
         }
-
     }
     add_action( 'init', 'yoft_delete_data_form' );

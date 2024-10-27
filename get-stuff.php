@@ -360,7 +360,6 @@
 
         } else {
             // non defined graphs
-            // error_log(sprintf('Catch %s', $graph_type ));
             $top_row = [ 'Week' ];
 
             if ( $asset_type ) {

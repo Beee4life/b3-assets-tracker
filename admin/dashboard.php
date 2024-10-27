@@ -7,11 +7,11 @@
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
         
-        $all_dates = array_values( bp_get_dates() );
-        $data      = bp_get_data();
-        $types     = bp_get_asset_types();
+        $all_dates   = array_values( bp_get_dates() );
+        $data        = bp_get_data();
+        $types       = bp_get_asset_types();
         $asset_group = [];
-        $asset_type = 'all';
+        $asset_type  = 'all';
         
         if ( ! empty( $data ) ) {
             $dates              = array_keys( $data );
@@ -48,24 +48,6 @@
                 } else {
                     // view after insert
                 }
-            }
-            
-            if ( ! empty( $_POST ) ) {
-                if ( isset( $_POST[ 'bp_date' ] ) ) {
-                    if ( isset( $_POST[ 'update_data' ] ) ) {
-                        // view after update
-                        // $show_diff = isset( $dates[ 1 ] ) ? true : false;
-                    } else {
-                        // view after insert
-                    }
-                } else {
-                    // view after use date filter
-                    // $date_from  = ! empty( $_POST[ 'stats_from' ] ) ? $_POST[ 'stats_from' ] : '';
-                    // $date_until = ! empty( $_POST[ 'stats_until' ] ) ? $_POST[ 'stats_until' ] : '';
-                }
-            } else {
-                // default view
-                // $show_diff = isset( $dates[ 1 ] ) ? true : false;
             }
             
             if ( ! empty( $date_from ) && ! empty( $date_until ) ) {
