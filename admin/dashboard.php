@@ -14,15 +14,21 @@
         $asset_type  = 'all';
 
         if ( ! empty( $data ) ) {
-            $dates              = array_keys( $data );
-            $date_from          = $dates[ count( $dates ) - 2 ];
+            $dates = array_keys( $data );
+
+            if ( 1 === count( $dates ) ) {
+                $date_from = $dates[ 0 ];
+            } elseif ( 1 < count( $dates ) ) {
+                $date_from = $dates[ count( $dates ) - 2 ];
+            }
+
             $date_until         = end( $dates );
             $graph_type         = false;
             $grouped_data       = [];
             $is_dashboard       = true;
             $scroll_class       = false;
             $show_all_option    = true;
-            $show_all           = isset( $_POST[ 'show_all' ] ) ? true : false;
+            $show_all           = false;
             $show_asset_groups  = false;
             $show_asset_types   = false;
             $show_diff          = false;
@@ -33,9 +39,10 @@
             if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
                 $asset_group = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : $asset_group;
                 $asset_type  = isset( $_POST[ 'asset_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_type' ] ) ) : $asset_type;
+                $date_from   = ! empty( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
+                $date_until  = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
+                $show_all    = isset( $_POST[ 'show_all' ] ) ? true : false;
 
-                $date_from  = ! empty( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
-                $date_until = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
             } else {
                 $show_diff = isset( $dates[ 1 ] ) ? true : false;
             }
