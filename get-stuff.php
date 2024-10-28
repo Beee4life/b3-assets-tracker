@@ -333,9 +333,9 @@
             } elseif ( ! empty( $asset_types ) ) {
                 $top_row = [ 'Week' ];
                 foreach( $asset_types as $type ) {
-                    // if ( ! bp_is_type_added( $type, $data ) ) {
-                    //     continue;
-                    // }
+                    if ( ! bp_is_type_added( $type, $data ) ) {
+                        continue;
+                    }
                     if ( bp_is_type_closed( $type, $data ) ) {
                         continue;
                     }
