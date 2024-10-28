@@ -36,7 +36,6 @@
             $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : $date_until;
             $graph_type            = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : $graph_type;
             $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? wp_unslash( $_POST[ 'asset_type' ] ) : '';
-            // echo '<pre>'; var_dump($selected_asset_types); echo '</pre>'; exit;
             $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : $selected_asset_groups;
         }
 
