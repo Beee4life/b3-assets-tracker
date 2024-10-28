@@ -57,7 +57,7 @@
                 if ( 1 == $column_counter ) {
                     echo esc_html( $value );
                 } elseif ( 1 < $column_counter ) {
-                    if ( is_admin() ) {
+                    if ( is_admin() || bp_show_admin_links() ) {
                         $edit_url = admin_url( sprintf( 'admin.php?page=bp-assets-add-data&date=%s', $value ) );
                     } else {
                         $edit_url = get_home_url( '', sprintf( 'add-data/?date=%s', $value ) );

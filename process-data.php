@@ -17,49 +17,49 @@
         $total_counter = 0;
         $total_diff    = 0;
         $totals        = [];
-        
+
         foreach( $data as $date => $entries ) {
             $top_row[] = $date;
             $total_counter++;
-            
+
             if ( ! array_key_exists( $total_counter, $totals ) ) {
-                $totals[$total_counter] = 0;
+                $totals[ $total_counter ] = 0;
             }
-            
+
             $total_value_on_date      = bp_get_value_on_date( $entries );
             $totals[ $total_counter ] = $totals[ $total_counter ] + $total_value_on_date;
         }
-        
+
         if ( $show_diff ) {
             $top_row[]  = sprintf( 'Diff in %s', get_option( 'bp_currency' ) );
             $top_row[]  = 'Diff in %';
         }
-        
+
         if ( $show_total ) {
             $top_row[] = '% of total';
         }
-        
+
         $all_rows[]    = $top_row;
         $total_columns = count( $data );
 
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
-            // if ( ! bp_is_type_added( $type->id, $data ) ) {
-            //     continue;
-            // }
+            if ( ! bp_is_type_added( $type->id, $data ) ) {
+                continue;
+            }
             if ( bp_is_type_closed( $type->id, $data ) ) {
                 continue;
             }
             if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
-            
+
             $entry_row[]  = $type->name;
             $date_counter = 1;
 
             foreach( $data as $date => $date_entries ) {
                 $key = bp_find_id_in_values( $date_entries, $type->id );
-                
+
                 if ( false === $key ) {
                     $value       = '0.00';
                     $entry_row[] = sprintf( '%s &mdash;', get_option( 'bp_currency' ) );
@@ -87,7 +87,7 @@
                         $entry_row[]  = bp_format_value( 0.00, 'percent' );
                     }
                 }
-                
+
                 if ( $show_total && $date_counter == $total_counter ) {
                     $percent_total = ( $end_value_row / $end_value ) * 100;
                     $entry_row[]   = bp_format_value( $percent_total, 'percent' );
@@ -100,7 +100,7 @@
             }
             $all_rows[] = $entry_row;
         }
-        
+
         $total_row = [ 'Total' ];
 
         foreach( $totals as $counter => $total ) {
@@ -119,8 +119,8 @@
 
         return $all_rows;
     }
-    
-    
+
+
     /**
      * Prepare data for charts
      *
@@ -137,9 +137,9 @@
         if ( ! is_array( $data ) || ! isset( $asset_types ) ) {
             return false;
         }
-        
+
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
-        
+
         if ( 'line' === $graph_type ) {
             // @TODO: check if range spans NYE
             $a_lot = 10 < count( $data ) ? false : true;
@@ -147,15 +147,15 @@
                 $entry_row   = [];
                 $date        = $a_lot ? bp_format_value( $date, 'date' ) : gmdate( 'd-m', strtotime( $date ) );
                 $entry_row[] = $date;
-                
+
                 if ( ! empty( $asset_types ) ) {
                     if ( 'all' == $asset_types ) {
                         $day_value = 0;
                         foreach( $date_entries as $asset_row ) {
                             $type_id = (int) $asset_row->type;
-                            // if ( bp_is_type_added( $type_id, $data ) ) {
-                            //     continue;
-                            // }
+                            if ( ! bp_is_type_added( $type_id, $data ) ) {
+                                continue;
+                            }
                             if ( bp_is_type_closed( $type_id, $data ) ) {
                                 continue;
                             }
@@ -165,22 +165,22 @@
                             $day_value = $day_value + $asset_row->value;
                         }
                         $entry_row[] = $day_value;
-                        
+
                     } else {
                         foreach( $asset_types as $asset_type ) {
-                            // if ( ! bp_is_type_added( $asset_type, $data ) ) {
-                            //     continue;
-                            // }
+                            if ( ! bp_is_type_added( $asset_type, $data ) ) {
+                                continue;
+                            }
                             if ( bp_is_type_closed( $asset_type, $data ) ) {
                                 continue;
                             }
                             if ( bp_is_type_hidden( $asset_type ) ) {
                                 continue;
                             }
-        
+
                             $types_colummn = array_column( $date_entries, 'type' );
                             $key           = array_search( $asset_type, $types_colummn );
-        
+
                             if ( is_int( $key ) ) {
                                 $entry_row[] = (float) $date_entries[$key]->value;
                             } else {
@@ -212,19 +212,20 @@
                 }
                 $all_rows[] = $entry_row;
             }
-            
+
         } elseif ( 'total_type' === $graph_type ) {
+            // @TODO: fix this like groups
             foreach( $data as $asset_row ) {
-                // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
-                //     continue;
-                // }
+                if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                    continue;
+                }
                 if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
                     continue;
                 }
                 if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                     continue;
                 }
-                
+
                 $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
                 $all_rows[] = $entry_row;
             }
@@ -235,7 +236,7 @@
                 if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                     continue;
                 }
-                
+
                 $group_id   = bp_get_group_by_type_id( $asset_row->type, 'id' );
                 $group_name = bp_get_group_by_id( $group_id, 'name' );
 
@@ -244,11 +245,11 @@
                 }
                 $groups[ $group_name ][] = $asset_row->value;
             }
-            
+
             $total = 0;
             foreach( $groups as $group_name => $group_values ) {
                 $total_in_group = 0;
-                
+
                 foreach( $group_values as $value ) {
                     $total          = $total + $value;
                     $total_in_group = $total_in_group + $value;
@@ -256,19 +257,19 @@
                 $entry_row   = [ $group_name, (float) $total_in_group ];
                 $all_rows[]  = $entry_row;
             }
-            
+
         } elseif ( str_starts_with( $graph_type, 'total_' ) ) {
             if ( 'all' == $asset_types ) {
                 foreach( $data as $asset_row ) {
                     if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                         continue;
                     }
-                    
+
                     $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
                     $all_rows[] = $entry_row;
                 }
             }
         }
-        
+
         return $all_rows;
     }

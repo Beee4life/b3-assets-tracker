@@ -2,7 +2,7 @@
     /*
         Plugin Name:    B3 : Assets Tracker
         Description:    This plugin gives you the option to track and analyze your (financial) assets.
-        Version:        1.7.0
+        Version:        1.8.0
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
@@ -114,24 +114,24 @@
 
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], $this->bp_settings()[ 'version' ], false );
                 wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
-                
+
                 if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
                     if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
                         $validated = b3_validate_graph_fields( $_POST );
-    
+
                         if ( $validated ) {
-                            $asset_types  = isset( $_POST[ 'asset_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_type' ] ) ) : [];
+                            $asset_types  = isset( $_POST[ 'asset_type' ] ) ? wp_unslash( $_POST[ 'asset_type' ] ) : [];
                             $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
                             $asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : [];
                             $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
-                            $date_till    = isset( $_POST[ 'stats_till' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_till' ] ) ) : '';
+                            $date_until   = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types ? true : false;
-                            $grouped_data = bp_get_results_range( $date_from, $date_till, $asset_types, $asset_groups, $show_all );
-    
+                            $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
+
                             if ( ! empty( $grouped_data ) ) {
                                 $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
-    
+
                                 $chart_args = [
                                     'asset_group' => $asset_groups,
                                     'asset_type'  => $asset_types,
@@ -139,9 +139,9 @@
                                     'currency'    => get_option( 'bp_currency' ),
                                     'data'        => $processed_data,
                                 ];
+                                wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                                 wp_localize_script( 'charts', 'chart_vars', $chart_args );
                             }
-                            wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                         }
                     }
                 }
@@ -152,12 +152,10 @@
                 if ( ! is_admin() ) {
                     wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                     wp_enqueue_style( 'bp-assets-front' );
-                    
-                    if ( is_singular( 'post' ) ) {
-                        // @TODO: check if shortcode is used
-                        wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
-                        wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
-                    }
+
+                    // @TODO: add IF is shortcode used
+                    wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
+                    wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
                 }
             }
 

@@ -13,26 +13,26 @@
                     break;
             }
         }
-        
+
         return $value;
     }
 
-    
+
     function b3_validate_graph_fields( $post_data = [] ) {
         if ( empty( $post_data ) ) {
             return false;
         }
-        
+
         if ( isset( $post_data[ 'show_graph' ] ) ) {
             if ( ! isset( $post_data[ 'asset_type' ] ) && ! isset( $post_data[ 'asset_group' ] )  ) {
-                if ( strpos( $post_data[ 'graph_type' ], 'total_' ) === false ) {
+                if ( isset( $post_data[ 'graph_type' ] ) && strpos( $post_data[ 'graph_type' ], 'total_' ) === false ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'error_no_type', esc_html( __( 'You did not select an asset type or group.', 'b3-assets-tracker' ) ) );
                         return;
                     }
                 }
             }
-            
+
             if ( isset( $post_data[ 'asset_type' ] ) ) {
                 if ( in_array( 'all', $post_data[ 'asset_type' ] ) ) {
                     if ( 1 < count( $post_data[ 'asset_type' ] ) ) {
@@ -48,18 +48,18 @@
                         return;
                     }
                 }
-                
+
             }
-            
-            if ( 'line' === $post_data[ 'graph_type' ] ) {
+
+            if ( isset( $post_data[ 'graph_type' ] ) && 'line' === $post_data[ 'graph_type' ] ) {
                 if ( empty( $post_data[ 'stats_from' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'error_no_start_date', esc_html( __( 'You didn\'t select a start date.', 'b3-assets-tracker' ) ) );
-                        
+
                         return false;
                     }
                 }
-            } elseif ( 'total_type' === $post_data[ 'graph_type' ] ) {
+            } elseif ( isset( $post_data[ 'graph_type' ] ) && 'total_type' === $post_data[ 'graph_type' ] ) {
                 if ( ! empty( $post_data[ 'stats_from' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
                         bp_errors()->add( 'warning_no_start_date_needed', esc_html( __( 'You don\'t need a start date for a total. The until date is used for that.', 'b3-assets-tracker' ) ) );
@@ -69,6 +69,6 @@
         } else {
             // @TODO: non-graph validation
         }
-        
+
         return true;
     }

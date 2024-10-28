@@ -43,9 +43,15 @@
                     <?php foreach( $asset_types as $type ) { ?>
                         <tr>
                             <td>
-                                <a href="<?php echo esc_url_raw( sprintf( admin_url( 'admin.php?page=bp-assets-types&type_id=%s' ), $type->id ) ); ?>">
-                                    <?php echo esc_html( $type->ordering ); ?>
-                                </a>
+                                <?php if ( is_admin() || bp_show_admin_links() ) { ?>
+                                    <a href="<?php echo esc_url_raw( sprintf( admin_url( 'admin.php?page=bp-assets-types&type_id=%s' ), $type->id ) ); ?>">
+                                        <?php echo esc_html( $type->ordering ); ?>
+                                    </a>
+                                <?php } else { ?>
+                                    <a href="<?php echo esc_url_raw( sprintf( get_home_url( '', 'types?type_id=%s' ), $type->id ) ); ?>">
+                                        <?php echo esc_html( $type->ordering ); ?>
+                                    </a>
+                                <?php } ?>
                             </td>
                             <td>
                                 <?php echo esc_html( $type->name ); ?>
