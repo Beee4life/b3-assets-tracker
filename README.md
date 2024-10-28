@@ -40,6 +40,10 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.8.0 - 28.10.24
+* improve graph shortcode
+* improve stuff for front-end renders
+
 1.7.0 - 27.10.24
 * add graph shortcode
 * sanitize/escape input/output
