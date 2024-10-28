@@ -41,12 +41,12 @@
                 }
             }
 
-            $show_diff    = true;
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'until' ] ) );
             $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+            $show_diff    = 1 < count( $grouped_data ) ? true : false;
 
-            if ( 1 < count( $grouped_data ) ) {
+            if ( ! empty( count( $grouped_data ) ) ) {
                 $show_total   = true;
                 $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
                 $types        = bp_get_asset_types();
@@ -86,7 +86,7 @@
                 }
             } else {
                 if ( current_user_can( 'manage_options' ) ) {
-                    return '<p>Er is te weinig data om weer te geven. Check de shortcode in de content.</p>';
+                    return '<p>Niet genoeg data voor resultaten.</p>';
                 } else {
                     return '<p>Er is iets verkeerd gegaan met de resultaten.</p>';
                 }
