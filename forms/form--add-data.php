@@ -72,7 +72,7 @@
                         // insert row
                         foreach( $values as $type => $value ) {
                             $data = [
-                                'date'    => sanitize_text_field( $input[ 'update_data' ] ),
+                                'date'    => sanitize_text_field( $input[ 'bp_date' ] ),
                                 'type'    => (int) $type,
                                 'value'   => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
                                 'updated' => time(),
