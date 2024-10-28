@@ -32,9 +32,9 @@
             if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'until' ] ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
                     if ( empty( ! $attributes[ 'till' ] ) ) {
-                        return '[shortcode is using old till value]';
+                        return sprintf( '<p>[%s]</p>', 'Shortcode is using old till value' ) ;
                     } else {
-                        return '[shortcode is missing attributes]';
+                        return sprintf( '<p>[%s]</p>', 'Shortcode is missing 1 or more attributes' ) ;
                     }
                 } else {
                     return '';
@@ -119,9 +119,9 @@
                 if ( ! $validated_shortcode_field ) {
                     if ( current_user_can( 'manage_options' ) ) {
                         if ( ! empty( $shortcode_attributes[ 'till' ] ) ) {
-                            return '[shortcode is using old till value]';
+                            return sprintf( '<p>[%s]</p>', 'Shortcode is using old till value' ) ;
                         } else {
-                            return '[shortcode is missing attributes]';
+                            return sprintf( '<p>[%s]</p>', 'Shortcode is missing 1 or more attributes' ) ;
                         }
                     } else {
                         return '';
