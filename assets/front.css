@@ -47,6 +47,36 @@
         text-align: left;
     }
 
+    &.add-data {
+        th,
+        td {
+            padding: 0.25rem 2rem 0.25rem 0;
+
+            &.checkbox {
+                text-align: center;
+            }
+        }
+    }
+
+    &.data-input {
+        th,
+        td {
+            padding: 0 1rem 0 0;
+
+            &.checkbox {
+                text-align: center;
+            }
+
+            &.submit {
+                text-align: right;
+            }
+        }
+
+        input[name="bp_order"] {
+            width: 4rem;
+        }
+    }
+
     &.data-output {
         display:     block;
         font-size:   0.925rem;
