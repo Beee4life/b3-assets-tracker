@@ -41,7 +41,7 @@ composer require "Beee4life/b3-assets-tracker"
 ## CHANGELOG
 
 1.10.0 - 29.10.24
-* ?
+* add group icons
 
 1.9.0 - 29.10.24
 * fix dashboard for 1 date
