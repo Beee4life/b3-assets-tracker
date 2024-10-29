@@ -120,13 +120,15 @@
     }
 
 
-    function bp_get_group_by_type_id( $type_id ) {
+    function bp_get_group_by_type_id( $type_id, $return = 'group_id' ) {
         global $wpdb;
         $table  = $wpdb->prefix . 'asset_types';
         $result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE id = %d", $table, $type_id ) );
 
-        if ( isset( $result[ 0 ]->asset_group ) ) {
+        if ( 'group_id' === $return && isset( $result[ 0 ]->asset_group ) ) {
             return $result[ 0 ]->asset_group;
+        } elseif ( 'name' === $return && isset( $result[ 0 ]->name ) ) {
+            return $result[ 0 ]->name;
         }
 
         return false;
@@ -389,4 +391,26 @@
 
     function bp_get_chart_element() {
         return '<div id="chart_div"></div>';
+    }
+
+
+    function bp_get_asset_icon( $type ) {
+        if ( $type ) {
+            $type_group = bp_get_group_by_type_id( $type );
+            if ( $type_group ) {
+                $group_name = bp_get_group_by_id( $type_group, 'name' );
+                switch ( $group_name ) {
+                    case 'Cash':
+                        $fa_code = 'fal fa-money-bill-wave';
+                        break;
+                    default:
+                        $fa_code = '';
+                };
+                if ( ! empty( $fa_code ) ) {
+                    return sprintf( '<i class="%s"></i>', $fa_code );
+                }
+            }
+        }
+
+        return false;
     }
