@@ -248,7 +248,7 @@
                     continue;
                 }
 
-                $group_id   = bp_get_group_by_type_id( $asset_row->type, 'id' );
+                $group_id   = bp_get_group_by_type_id( $asset_row->type );
                 $group_name = bp_get_group_by_id( $group_id, 'name' );
 
                 if ( ! array_key_exists( $group_name, $groups ) ) {
