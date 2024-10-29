@@ -45,7 +45,7 @@
         foreach( bp_get_asset_types() as $type ) {
             $entry_row = [];
             if ( ! bp_is_type_added( $type->id, $data ) ) {
-                // continue;
+                continue;
             }
             if ( bp_is_type_closed( $type->id, $data ) ) {
                 continue;
