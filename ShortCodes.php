@@ -158,9 +158,8 @@
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
-                    $date_from    = '';
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                    $grouped_data = bp_get_results_range( $date_from, $date_until, [], [] );
+                    $grouped_data = bp_get_results_range( '', $date_until, [], [] );
                 }
 
                 if ( 1 < count( $grouped_data ) ) {
