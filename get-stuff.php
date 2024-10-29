@@ -127,8 +127,6 @@
 
         if ( 'group_id' === $return && isset( $result[ 0 ]->asset_group ) ) {
             return $result[ 0 ]->asset_group;
-        } elseif ( 'name' === $return && isset( $result[ 0 ]->name ) ) {
-            return $result[ 0 ]->name;
         }
 
         return false;
@@ -146,6 +144,10 @@
             }
         } elseif ( 'all' === $return ) {
             return $result;
+        } elseif ( 'added' === $return ) {
+            if ( isset( $result[ 0 ]->added ) ) {
+                return $result[ 0 ]->added;
+            }
         } elseif ( 'closed' === $return ) {
             if ( isset( $result[ 0 ]->closed ) ) {
                 return $result[ 0 ]->closed;
