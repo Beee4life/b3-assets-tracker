@@ -47,6 +47,10 @@
         text-align: left;
     }
 
+    a {
+        text-decoration: none;
+    }
+
     &.add-data {
         th,
         td {
