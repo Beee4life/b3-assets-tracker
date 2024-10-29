@@ -14,7 +14,7 @@
                 } else {
                     $class = 'same';
                 }
-                
+
                 if ( $show_total && $show_diff ) {
                     switch( $column_counter ) {
                         case $amount_cols - 2:
@@ -40,7 +40,7 @@
                         default:
                             $td_class = '';
                     }
-                    
+
                 } elseif ( $show_total ) {
                     switch( $column_counter ) {
                         case $amount_cols:
@@ -64,7 +64,13 @@
             }
         ?>
         <td class="<?php echo esc_attr( $td_class ); ?>">
-            <?php echo esc_html( $value ); ?>
+            <?php
+                if ( 1 == $column_counter ) {
+                    echo $value;
+                } else {
+                    echo esc_html( $value );
+                }
+            ?>
         </td>
         <?php $column_counter++; ?>
     <?php } ?>
