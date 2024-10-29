@@ -395,22 +395,55 @@
 
 
     function bp_get_asset_icon( $type ) {
-        if ( $type ) {
+        if ( $type && bp_use_group_icons() ) {
             $type_group = bp_get_group_by_type_id( $type );
+
             if ( $type_group ) {
                 $group_name = bp_get_group_by_id( $type_group, 'name' );
                 switch ( $group_name ) {
+                    case 'Bullion':
+                        $fa_code = 'fad fa-coins';
+                        break;
                     case 'Cash':
-                        $fa_code = 'fal fa-money-bill-wave';
+                        $fa_code = bp_get_currency_icon();
+                        break;
+                    case 'Collectibles':
+                        $fa_code = 'fad fa-album-collection';
+                        break;
+                    case 'Crypto':
+                        $fa_code = 'fab fa-bitcoin';
+                        break;
+                    case 'Securities':
+                        $fa_code = 'fad fa-lock';
                         break;
                     default:
                         $fa_code = '';
                 };
-                if ( ! empty( $fa_code ) ) {
-                    return sprintf( '<i class="%s"></i>', $fa_code );
+
+                if ( ! empty( $group_name ) && ! empty( $fa_code ) ) {
+                    return sprintf( '<span class="icon-holder"><i class="%s" title="%s"></i></span>', $fa_code, $group_name );
                 }
             }
         }
 
-        return false;
+        return '';
+    }
+
+
+    function bp_get_currency_icon() {
+        $currency = get_option( 'bp_currency' );
+        switch( $currency ) {
+            case '$':
+                $icon = 'fas fa-dollar-sign';
+                break;
+            case '£':
+                $icon = 'fas fa-pound-sign';
+                break;
+            case '¥':
+                $icon = 'fas fa-yen-sign';
+                break;
+            default:
+                $icon = 'fas fa-euro-sign';
+        }
+        return $icon;
     }

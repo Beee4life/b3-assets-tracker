@@ -1,4 +1,6 @@
 <?php
+    use function Env\env;
+
     /**
      * Check if a type/position is closed before start date
      *
@@ -72,27 +74,6 @@
     }
 
 
-    /**
-     * Check if asset is hidden, closed or not started yet
-     *
-     * @param $type
-     * @param $data
-     *
-     * @return bool
-     */
-    // function bp_is_visible( $type, $data = [] ) : bool {
-    //     $added  = bp_is_type_added( (int) $type, $data );
-    //     $closed = bp_is_type_closed( (int) $type, $data );
-    //     $hidden = bp_is_type_hidden( (int) $type );
-    //
-    //     if ( ! $added || $closed || $hidden ) {
-    //         return false;
-    //     }
-    //
-    //     return true;
-    // }
-
-
     function b3_validate_shortcode_fields( $attributes = [] ) {
         if ( ! $attributes ) {
             return false;
@@ -118,5 +99,10 @@
 
 
     function bp_show_admin_links() {
-        return '1' === getenv( 'SHOW_ADMIN_LINKS' ) ? true : false;
+        return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+    }
+
+
+    function bp_use_group_icons() {
+        return ! is_admin() && '1' == env( 'USE_GROUP_ICONS' ) ? true : false;
     }
