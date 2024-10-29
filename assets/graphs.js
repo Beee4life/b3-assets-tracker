@@ -39,9 +39,10 @@ jQuery(document).ready(function () {
                     title : 'Assets per type',
                     is3D : true,
                     // pieHole : 0.1,
+                    // @TODO: check for legend position
                     pieSliceText: 'label',
                     width: '100%',
-                    height: 500
+                    height: 400
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -50,6 +51,7 @@ jQuery(document).ready(function () {
                     title : 'Assets per group',
                     is3D : true,
                     // pieHole : 0.1,
+                    // @TODO: check for legend position
                     pieSliceText: 'label',
                     width: '100%',
                     height: 500
