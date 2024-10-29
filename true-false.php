@@ -53,9 +53,7 @@
             $dates = array_keys( $data );
 
             if ( ! empty( $dates ) ) {
-                $table      = $wpdb->prefix . 'asset_types';
-                $types      = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM %i WHERE id = %d", $table, $type ) );
-                $added      = isset( $types[ 0 ]->added ) ? $types[ 0 ]->added : false;
+                $added      = bp_get_type_by_id( $type, 'added' );
                 $start_date = $dates[ 0 ];
 
                 if ( $added && 1 < count( $dates ) ) {
