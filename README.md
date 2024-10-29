@@ -40,6 +40,10 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.9.0 - 29.10.24
+* fix dashboard for 1 date
+* disable continues for added
+
 1.8.0 - 28.10.24
 * improve graph shortcode
 * improve stuff for front-end renders
