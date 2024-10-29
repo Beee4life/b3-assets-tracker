@@ -103,6 +103,15 @@
     }
 
 
+    function bp_show_edit_links() {
+        if ( current_user_can( 'manage_options' ) || true === apply_filters( 'bp_show_edit_links', false ) ) {
+            return true;
+        };
+
+        return false;
+    }
+
+
     function bp_use_group_icons() {
         return ! is_admin() && '1' == env( 'USE_GROUP_ICONS' ) ? true : false;
     }

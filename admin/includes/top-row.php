@@ -68,7 +68,7 @@
                             $week_day = gmdate( 'l', strtotime( $value ) );
                             $value    = bp_format_value( $value, 'date' );
 
-                            if ( current_user_can( 'manage_options' ) ) {
+                            if ( bp_show_edit_links() ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -80,7 +80,7 @@
                     } elseif ( $show_diff ) {
                         if ( $column_counter < ( $amount_cols - 1 ) ) {
                             $value = bp_format_value( $value, 'date' );
-                            if ( current_user_can( 'manage_options' ) ) {
+                            if ( bp_show_edit_links() ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -96,7 +96,7 @@
                             $week_day = gmdate( 'D', strtotime( $value ) );
                             $value    = bp_format_value( $value, 'date' );
 
-                            if ( current_user_can( 'manage_options' ) ) {
+                            if ( bp_show_edit_links() ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -105,7 +105,7 @@
 
                     } elseif ( ! $show_diff && 1 < $column_counter ) {
                         $value = bp_format_value( $value, 'date' );
-                        if ( current_user_can( 'manage_options' ) ) {
+                        if ( bp_show_edit_links() ) {
                             echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                         } else {
                             echo esc_html( $value );
