@@ -112,6 +112,7 @@
                     'asset_type'  => 'all',
                     'asset_group' => '',
                     'type'        => 'line',
+                    'legend'      => 'right',
                     'footer'      => 'false',
                 ], $attr );
 
@@ -170,6 +171,7 @@
                         'asset_group' => $asset_groups,
                         'asset_type'  => $asset_types,
                         'graph_type'  => $graph_type,
+                        'legend'      => $shortcode_attributes[ 'legend' ],
                         'currency'    => get_option( 'bp_currency' ),
                         'data'        => $processed_data,
                     ];
