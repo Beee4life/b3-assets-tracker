@@ -53,8 +53,10 @@
             if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
-
-            $entry_row[]  = $type->name;
+            $icon         = bp_get_asset_icon( $type->id );
+            // echo '<pre>'; var_dump($icon); echo '</pre>'; exit;
+            $type_label   = is_admin() ? $type->name : sprintf( '%s%s', $icon, $type->name );
+            $entry_row[]  = $type_label;
             $date_counter = 1;
 
             foreach( $data as $date => $date_entries ) {
