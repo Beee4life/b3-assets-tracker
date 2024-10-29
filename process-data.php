@@ -54,7 +54,6 @@
                 continue;
             }
             $icon         = bp_get_asset_icon( $type->id );
-            // echo '<pre>'; var_dump($icon); echo '</pre>'; exit;
             $type_label   = is_admin() ? $type->name : sprintf( '%s%s', $icon, $type->name );
             $entry_row[]  = $type_label;
             $date_counter = 1;
@@ -103,7 +102,11 @@
             $all_rows[] = $entry_row;
         }
 
-        $total_row = [ 'Total' ];
+        if ( bp_use_group_icons() ) {
+            $total_row = [ sprintf( '<span class="icon-holder"><i class="%s" title="Total"></i></span>Total', 'far fa-plus' ) ];
+        } else {
+            $total_row = [ 'Total' ];
+        }
 
         foreach( $totals as $counter => $total ) {
             $total_row[] = bp_format_value( $total );
