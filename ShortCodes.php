@@ -164,7 +164,6 @@
                 }
 
                 if ( 1 < count( $grouped_data ) ) {
-                    $processed_data = [];
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                     $chart_args = [
