@@ -169,8 +169,8 @@
                         'asset_group' => $asset_groups,
                         'asset_type'  => $asset_types,
                         'graph_type'  => $graph_type,
-                        'legend'      => $shortcode_attributes[ 'legend' ],
                         'currency'    => get_option( 'bp_currency' ),
+                        'legend'      => $shortcode_attributes[ 'legend' ],
                         'data'        => $processed_data,
                     ];
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
