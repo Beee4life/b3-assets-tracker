@@ -66,6 +66,7 @@
         <td class="<?php echo esc_attr( $td_class ); ?>">
             <?php
                 if ( 1 == $column_counter ) {
+                    // not escaped because of fa icon
                     echo $value;
                 } else {
                     echo esc_html( $value );
