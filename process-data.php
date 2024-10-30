@@ -138,7 +138,7 @@
      *
      * @return array|false
      */
-    function bp_process_data_for_chart( $data, string|array $asset_types, array $asset_groups, $graph_type = false ) {
+    function bp_process_data_for_chart( $data, string|array $asset_types, string|array $asset_groups, $graph_type = false ) {
         if ( ! is_array( $data ) || ! isset( $asset_types ) ) {
             return false;
         }
@@ -194,21 +194,39 @@
                         }
                     }
                 } elseif ( ! empty( $asset_groups ) ) {
-                    if ( 1 == count( $asset_groups ) ) {
+                    if ( 'all' == $asset_groups ) {
+                        $day_value = 0;
+                        foreach( $date_entries as $asset_row ) {
+                            $type_id = (int) $asset_row->type;
+                            // if ( ! bp_is_type_added( $type_id, $data ) ) {
+                            //     continue;
+                            // }
+                            if ( bp_is_type_closed( $type_id, $data ) ) {
+                                continue;
+                            }
+                            if ( bp_is_type_hidden( $type_id ) ) {
+                                continue;
+                            }
+                            $day_value = $day_value + $asset_row->value;
+                        }
+                        $entry_row[] = $day_value;
+
+                    } elseif ( is_array( $asset_groups ) && 1 == count( $asset_groups ) ) {
                         $day_value = 0;
                         foreach( $date_entries as $asset_row ) {
                             $day_value = $day_value + $asset_row->value;
                         }
                         $entry_row[] = (float) $day_value;
+
                     } elseif ( 1 < count( $asset_groups ) ) {
                         $day_values = [];
                         foreach( $asset_groups as $asset_group_id ) {
                             if ( ! in_array( (int) $asset_group_id, $day_values ) ) {
-                                $day_values[$asset_group_id] = 0;
+                                $day_values[ $asset_group_id ] = 0;
                             }
                             foreach( $date_entries as $asset_row ) {
                                 if ( $asset_group_id == $asset_row->asset_group ) {
-                                    $day_values[$asset_group_id] = $day_values[$asset_group_id] + $asset_row->value;
+                                    $day_values[ $asset_group_id ] = $day_values[ $asset_group_id ] + $asset_row->value;
                                 }
                             }
                         }
