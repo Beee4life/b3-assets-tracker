@@ -95,14 +95,14 @@
                     <div id="asset-groups" class="dropdown-check-list" tabindex="100">
                         <div class="anchor">Select Group(s) &darr;</div>
                         <ul class="items">
-                            <?php foreach( $asset_groups as $id => $group ) { ?>
+                            <?php foreach( $asset_groups as $id => $label ) { ?>
                                 <li>
                                     <label>
                                         <?php $checked = ''; ?>
-                                        <?php if ( is_array( $selected_asset_groups ) && in_array( $group->id, $selected_asset_groups ) ) { ?>
+                                        <?php if ( is_array( $selected_asset_groups ) && in_array( $id, $selected_asset_groups ) ) { ?>
                                             <?php $checked = ' checked="checked"'; ?>
                                         <?php } ?>
-                                        <?php echo sprintf( '<input type="checkbox" name="asset_group[]" value="%s" %s>%s</input>', esc_attr( $group->id ), esc_attr( $checked ), esc_html( $group->name ) ); ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="asset_group[]" value="%s" %s>%s</input>', esc_attr( $id ), esc_attr( $checked ), esc_html( $label ) ); ?>
                                     </label>
                                 </li>
                             <?php } ?>
