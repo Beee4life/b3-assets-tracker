@@ -122,7 +122,7 @@
                         if ( $validated ) {
                             $asset_types  = isset( $_POST[ 'asset_type' ] ) ? wp_unslash( $_POST[ 'asset_type' ] ) : [];
                             $asset_types  = in_array( 'all', $asset_types ) ? 'all' : $asset_types;
-                            $asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : [];
+                            $asset_groups = isset( $_POST[ 'asset_group' ] ) ? wp_unslash( $_POST[ 'asset_group' ] ) : [];
                             $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
                             $date_until   = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
