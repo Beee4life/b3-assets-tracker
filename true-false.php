@@ -97,7 +97,11 @@
 
 
     function bp_show_admin_links() {
-        return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+        if ( is_admin() ) {
+            return true;
+        } else {
+            return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+        }
     }
 
 
