@@ -1,6 +1,7 @@
 <thead>
 <tr class="toprow">
     <?php $column_counter = 1; ?>
+    <?php $show_edit_link = bp_show_edit_links(); ?>
     <?php foreach( $row as $value ) { ?>
         <?php
             $td_class = '';
@@ -68,7 +69,7 @@
                             $week_day = gmdate( 'l', strtotime( $value ) );
                             $value    = bp_format_value( $value, 'date' );
 
-                            if ( bp_show_edit_links() ) {
+                            if ( $show_edit_link ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -80,7 +81,7 @@
                     } elseif ( $show_diff ) {
                         if ( $column_counter < ( $amount_cols - 1 ) ) {
                             $value = bp_format_value( $value, 'date' );
-                            if ( bp_show_edit_links() ) {
+                            if ( $show_edit_link ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -96,7 +97,7 @@
                             $week_day = gmdate( 'D', strtotime( $value ) );
                             $value    = bp_format_value( $value, 'date' );
 
-                            if ( bp_show_edit_links() ) {
+                            if ( $show_edit_link ) {
                                 echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                             } else {
                                 echo esc_html( $value );
@@ -105,7 +106,7 @@
 
                     } elseif ( ! $show_diff && 1 < $column_counter ) {
                         $value = bp_format_value( $value, 'date' );
-                        if ( bp_show_edit_links() ) {
+                        if ( $show_edit_link ) {
                             echo sprintf( '<a href="%s">%s</a>', esc_url_raw( $edit_url ), esc_html( $value ) );
                         } else {
                             echo esc_html( $value );
