@@ -50,11 +50,24 @@
     }
 
 
-    function bp_get_asset_groups() {
+    function bp_get_asset_groups( $return = 'all' ) {
         global $wpdb;
         $table = $wpdb->prefix . 'asset_groups';
+        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY name", $table ) );
 
-        return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY name", $table ) );
+        if ( 'all' === $return ) {
+            return $results;
+        } elseif ( 'id_name' === $return ) {
+            foreach( $results as $row ) {
+                $types[$row->id] = $row->name;
+            }
+
+            if ( isset( $types ) ) {
+                return $types;
+            }
+        }
+
+        return [];
     }
 
 
@@ -169,14 +182,14 @@
      *
      * @return array|object|stdClass[]|null
      */
-    function bp_get_results_range( string $from, string $until, string|array $asset_type, array $asset_group = [], $show_all = false ) {
+    function bp_get_results_range( string $from, string $until, string|array $asset_type, string|array $asset_group = [], $show_all = false ) {
         global $wpdb;
         $table_assets = $wpdb->prefix . 'asset_data';
         $table_groups = $wpdb->prefix . 'asset_groups';
         $table_types  = $wpdb->prefix . 'asset_types';
 
         if ( $from && $until ) {
-            if ( 'all' == $asset_type ) {
+            if ( 'all' == $asset_type || 'all' == $asset_group ) {
                 // weekly stats/shortcode
                 if ( $show_all ) {
                     // dashboard
@@ -328,7 +341,7 @@
         $top_row = false;
 
         if ( 'line' === $graph_type ) {
-            if ( 'all' == $asset_types ) {
+            if ( 'all' == $asset_types || 'all' == $asset_groups ) {
                 $top_row = [ 'Week', 'Value' ];
 
             } elseif ( ! empty( $asset_types ) ) {
