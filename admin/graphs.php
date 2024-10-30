@@ -12,7 +12,8 @@
         $add_graph             = false;
         $all_dates             = array_values( bp_get_dates() );
         $all_data              = bp_get_data();
-        $asset_groups          = bp_get_asset_groups();
+        $asset_groups          = bp_get_asset_groups( 'id_name' );
+        $asset_groups[ 'all' ] = 'All';
         $asset_types           = bp_get_asset_types( 'id_name' );
         $asset_types[ 'all' ]  = 'All';
         $dates                 = array_keys( $all_data );
@@ -23,7 +24,7 @@
         $graph_options         = bp_get_graph_types();
         $grouped_data          = [];
         $last_date             = end( $dates );
-        $selected_asset_types  = '';
+        $selected_asset_types  = [];
         $selected_asset_groups = [];
         $show_asset_groups     = true;
         $show_asset_types      = true;
@@ -35,8 +36,13 @@
             $date_from             = isset( $_POST[ 'graph_type' ] ) && str_starts_with( sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ), 'total' ) ? '' : $date_from;
             $date_until            = ! empty( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : $date_until;
             $graph_type            = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : $graph_type;
-            $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? wp_unslash( $_POST[ 'asset_type' ] ) : '';
-            $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'asset_group' ] ) ) : $selected_asset_groups;
+            $selected_asset_types  = isset( $_POST[ 'asset_type' ] ) ? wp_unslash( $_POST[ 'asset_type' ] ) : $selected_asset_types;
+            $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? wp_unslash( $_POST[ 'asset_group' ] ) : $selected_asset_groups;
+
+            if ( is_array( $selected_asset_types ) && 1 < count( $selected_asset_types ) && in_array( 'all', $selected_asset_types ) ) {
+                // empty types on error
+                $selected_asset_types = [];
+            }
         }
 
         if ( ! empty( $_POST ) ) {

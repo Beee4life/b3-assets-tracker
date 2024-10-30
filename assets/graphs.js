@@ -6,6 +6,7 @@ jQuery(document).ready(function () {
 
         function drawChart() {
             var currency = chart_vars.currency;
+            var legend_position = chart_vars.legend;
             var data = google.visualization.arrayToDataTable(chart_vars.data);
 
             if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
@@ -26,7 +27,7 @@ jQuery(document).ready(function () {
                     hAxis: {title: 'Week'},
                     vAxis: {title: 'Value', format: currency + ' #,###' },
                     curveType: 'function',
-                    legend: { position: 'right' },
+                    legend: { position: legend_position },
                     series: {5: {type: 'line'}},
                     width: '100%',
                     height: 500
@@ -38,9 +39,10 @@ jQuery(document).ready(function () {
                     title : 'Assets per type',
                     is3D : true,
                     // pieHole : 0.1,
+                    // @TODO: check for legend position
                     pieSliceText: 'label',
                     width: '100%',
-                    height: 500
+                    height: 400
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -49,6 +51,7 @@ jQuery(document).ready(function () {
                     title : 'Assets per group',
                     is3D : true,
                     // pieHole : 0.1,
+                    // @TODO: check for legend position
                     pieSliceText: 'label',
                     width: '100%',
                     height: 500

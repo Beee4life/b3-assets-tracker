@@ -11,7 +11,7 @@
         $grouped_data = [];
         $max_date     = gmdate( 'Y-m-d', ( time() + WEEK_IN_SECONDS ) );
         $types        = bp_get_asset_types();
-        
+
         if ( $edit_date ) {
             $data         = bp_get_data( $edit_date );
             $grouped_data = $data;
@@ -36,7 +36,7 @@
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-                
+
                 do_action( 'bp_admin_menu' );
             ?>
 
@@ -101,7 +101,7 @@
                             <?php } ?>
                         </table>
                         <br>
-                        <input type="submit" class="admin-button admin-button-small" />
+                        <input type="submit" class="admin-button admin-button-small" value="Submit" />
                     </form>
                 </div>
             <?php } else { ?>

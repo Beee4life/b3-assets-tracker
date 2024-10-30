@@ -1,4 +1,6 @@
 <?php
+    use function Env\env;
+
     /**
      * Check if a type/position is closed before start date
      *
@@ -51,9 +53,7 @@
             $dates = array_keys( $data );
 
             if ( ! empty( $dates ) ) {
-                $table      = $wpdb->prefix . 'asset_types';
-                $types      = $wpdb->get_results( $wpdb->prepare( "SELECT added FROM %i WHERE id = %d", $table, $type ) );
-                $added      = isset( $types[ 0 ]->added ) ? $types[ 0 ]->added : false;
+                $added      = bp_get_type_by_id( $type, 'added' );
                 $start_date = $dates[ 0 ];
 
                 if ( $added && 1 < count( $dates ) ) {
@@ -70,27 +70,6 @@
 
         return false;
     }
-
-
-    /**
-     * Check if asset is hidden, closed or not started yet
-     *
-     * @param $type
-     * @param $data
-     *
-     * @return bool
-     */
-    // function bp_is_visible( $type, $data = [] ) : bool {
-    //     $added  = bp_is_type_added( (int) $type, $data );
-    //     $closed = bp_is_type_closed( (int) $type, $data );
-    //     $hidden = bp_is_type_hidden( (int) $type );
-    //
-    //     if ( ! $added || $closed || $hidden ) {
-    //         return false;
-    //     }
-    //
-    //     return true;
-    // }
 
 
     function b3_validate_shortcode_fields( $attributes = [] ) {
@@ -118,5 +97,23 @@
 
 
     function bp_show_admin_links() {
-        return '1' === getenv( 'SHOW_ADMIN_LINKS' ) ? true : false;
+        if ( is_admin() ) {
+            return true;
+        } else {
+            return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+        }
+    }
+
+
+    function bp_show_edit_links() {
+        if ( current_user_can( 'manage_options' ) || true === apply_filters( 'bp_show_edit_links', false ) ) {
+            return true;
+        };
+
+        return false;
+    }
+
+
+    function bp_use_group_icons() {
+        return ! is_admin() && '1' == env( 'USE_GROUP_ICONS' ) ? true : false;
     }

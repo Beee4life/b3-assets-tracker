@@ -112,6 +112,7 @@
                     'asset_type'  => 'all',
                     'asset_group' => '',
                     'type'        => 'line',
+                    'legend'      => 'right',
                     'footer'      => 'false',
                 ], $attr );
 
@@ -157,13 +158,11 @@
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
-                    $date_from    = '';
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                    $grouped_data = bp_get_results_range( $date_from, $date_until, [], [] );
+                    $grouped_data = bp_get_results_range( '', $date_until, [], [] );
                 }
 
                 if ( 1 < count( $grouped_data ) ) {
-                    $processed_data = [];
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                     $chart_args = [
@@ -171,6 +170,7 @@
                         'asset_type'  => $asset_types,
                         'graph_type'  => $graph_type,
                         'currency'    => get_option( 'bp_currency' ),
+                        'legend'      => $shortcode_attributes[ 'legend' ],
                         'data'        => $processed_data,
                     ];
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
