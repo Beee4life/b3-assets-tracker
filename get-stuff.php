@@ -52,7 +52,7 @@
 
     function bp_get_asset_groups( $return = 'all' ) {
         global $wpdb;
-        $table = $wpdb->prefix . 'asset_groups';
+        $table   = $wpdb->prefix . 'asset_groups';
         $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY name", $table ) );
 
         if ( 'all' === $return ) {
