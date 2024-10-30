@@ -206,9 +206,6 @@
 
                     } elseif ( 1 < count( $asset_group ) ) {
                         $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i INNER JOIN %i ON %i.type = %i.id WHERE type IN (" . implode( ',', $asset_types ) . ") AND date BETWEEN %s AND %s ORDER BY date, type ASC", $table_assets, $table_types, $table_assets, $table_types, $from, $until ) );
-                        if ( 'development' === WP_ENV ) {
-                            error_log($query);
-                        }
                     }
                 }
             }
