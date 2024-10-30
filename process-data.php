@@ -221,9 +221,9 @@
         } elseif ( 'total_type' === $graph_type ) {
             // @TODO: fix this like groups
             foreach( $data as $asset_row ) {
-                if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
-                    // continue;
-                }
+                // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                //     continue;
+                // }
                 if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
                     continue;
                 }
@@ -238,12 +238,12 @@
         } elseif ( 'total_group' === $graph_type ) {
             $groups = [];
             foreach( $data as $asset_row ) {
-                if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
-                    // continue;
-                }
-                if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
-                    // continue;
-                }
+                // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                //     continue;
+                // }
+                // if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                //     continue;
+                // }
                 if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                     continue;
                 }
