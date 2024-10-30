@@ -12,7 +12,8 @@
         $add_graph             = false;
         $all_dates             = array_values( bp_get_dates() );
         $all_data              = bp_get_data();
-        $asset_groups          = bp_get_asset_groups();
+        $asset_groups          = bp_get_asset_groups( 'id_name' );
+        $asset_groups[ 'all' ] = 'All';
         $asset_types           = bp_get_asset_types( 'id_name' );
         $asset_types[ 'all' ]  = 'All';
         $dates                 = array_keys( $all_data );
