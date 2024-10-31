@@ -106,7 +106,7 @@
                 </div>
             <?php } else { ?>
                 <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
-                    Add types first
+                    <?php esc_html_e( 'Add types first', 'yoft' ); ?>
                 </a>
             <?php } ?>
         </div>

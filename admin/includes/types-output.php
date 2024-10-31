@@ -10,10 +10,10 @@
                 <thead>
                     <tr>
                         <th>
-                            Order
+                            <?php esc_html_e( 'Order', 'b3-assets-tracker' ); ?>
                         </th>
                         <th>
-                            Name
+                            <?php esc_html_e( 'Name', 'b3-assets-tracker' ); ?>
                         </th>
                         <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
                             <th class="data-id">
@@ -21,21 +21,21 @@
                             </th>
                         <?php } ?>
                         <th class="asset-group">
-                            Group
+                            <?php esc_html_e( 'Group', 'b3-assets-tracker' ); ?>
                         </th>
                         <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
                             <th class="added">
-                                Added
+                                <?php esc_html_e( 'Added', 'b3-assets-tracker' ); ?>
                             </th>
                         <?php } ?>
                         <th class="closed">
-                            Closed
+                            <?php esc_html_e( 'Closed', 'b3-assets-tracker' ); ?>
                         </th>
                         <th class="hide-asset">
-                            Hide
+                            <?php esc_html_e( 'Hide', 'b3-assets-tracker' ); ?>
                         </th>
                         <th class="delete-asset">
-                            Delete
+                            <?php esc_html_e( 'Delete', 'b3-assets-tracker' ); ?>
                         </th>
                     </tr>
                 </thead>
@@ -85,7 +85,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" value="Delete (selected) type(s)" />
+            <input type="submit" class="admin-button admin-button-small" value="<?php esc_html_e( 'Delete selected type(s)', 'b3-assets-tracker' ); ?>" />
         </form>
     <?php } ?>
 

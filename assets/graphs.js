@@ -6,14 +6,13 @@ jQuery(document).ready(function () {
 
         function drawChart() {
             var currency = chart_vars.currency;
-            var legend_position = chart_vars.legend;
             var data = google.visualization.arrayToDataTable(chart_vars.data);
 
             if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                 var options = {
                     title : 'Totals',
-                    hAxis: {title: 'Date'},
-                    vAxis: {title: 'Value', format: currency + " #.###" },
+                    hAxis: {title: chart_vars.h_axis_title},
+                    vAxis: {title: chart_vars.v_axis_title, format: currency + " #.###" },
                     curveType: 'function',
                     legend: 'none',
                     width: '100%',
@@ -24,10 +23,10 @@ jQuery(document).ready(function () {
             } else if ( chart_vars.graph_type === 'line' ) {
                 var options = {
                     title : 'Week diff',
-                    hAxis: {title: 'Week'},
-                    vAxis: {title: 'Value', format: currency + ' #,###' },
+                    hAxis: {title: chart_vars.h_axis_title},
+                    vAxis: {title: chart_vars.v_axis_title, format: currency + ' #.###' },
                     curveType: 'function',
-                    legend: { position: legend_position },
+                    legend: { position: chart_vars.legend },
                     series: {5: {type: 'line'}},
                     width: '100%',
                     height: 500
@@ -39,7 +38,7 @@ jQuery(document).ready(function () {
                     title : 'Assets per type',
                     is3D : true,
                     // pieHole : 0.1,
-                    legend: { position: legend_position, maxLines: 3 },
+                    legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
                     width: '100%',
                     height: 400,

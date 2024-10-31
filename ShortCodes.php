@@ -32,9 +32,9 @@
             if ( empty( $attributes[ 'from' ] ) || empty( $attributes[ 'until' ] ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
                     if ( empty( ! $attributes[ 'till' ] ) ) {
-                        return sprintf( '<p>[%s]</p>', 'Shortcode is using old till value' ) ;
+                        return sprintf( '<p>[%s]</p>', esc_html__( 'Shortcode is using old till value', 'b3-assets-tracker' ) ) ;
                     } else {
-                        return sprintf( '<p>[%s]</p>', 'Shortcode is missing 1 or more attributes' ) ;
+                        return sprintf( '<p>[%s]</p>', esc_html__( 'Shortcode is missing 1 or more attributes', 'b3-assets-tracker' ) ) ;
                     }
                 } else {
                     return '';
@@ -55,10 +55,10 @@
                     ob_start();
                     $amount_columns   = $grouped_data[ 0 ];
                     $scroll_class     = 15 < $amount_columns ? ' tablescroll' : '';
-                    $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html( 'Table scrolls horizontally.' ) );
+                    $shortcode_notice = sprintf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html__( 'Table scrolls horizontally.' ) );
 
                     if ( ! is_admin() && 6 < count( $amount_columns ) || is_admin() && 15 < count( $amount_columns ) ) {
-                        printf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html( 'Table scrolls horizontally.' ) );
+                        printf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html__( 'Table scrolls horizontally.' ) );
                     }
 
                     echo '<div id="data-output"><div id="data">';
@@ -68,14 +68,14 @@
                     if ( 'true' == $attributes[ 'footer' ] ) {
                         $page_id = get_page_by_path( 'assets-tracker' );
                         if ( $page_id ) {
-                            $message = sprintf( 'This data comes from a WordPress %s I created to track my assets and easily share it within the site.', sprintf( '<a href="%s">%s</a>', '/assets-tracker/', 'plugin' ) );
+                            $message = sprintf( esc_html__( 'This data comes from a WordPress %s I created to track my assets and easily share it within the site.', 'b3-assets-tracker' ), sprintf( '<a href="%s">%s</a>', '/assets-tracker/', 'plugin' ) );
                         } else {
                             $post    = get_post( get_the_ID() );
                             $post_ts = gmdate( 'U', strtotime( $post->post_date ) );
                             if ( 1726701314 <= (int) $post_ts ) {
                                 $message = 'Deze data komt uit een WordPress plugin die ik zelf geschreven heb om mijn assets te kunnen tracken en sharen.';
                             } else {
-                                $message = 'This data comes from a WordPress plugin I created to track my assets and easily share it within the site.';
+                                $message = esc_html__( 'This data comes from a WordPress plugin I created to track my assets and easily share it within the site.', 'b3-assets-tracker' );
                             }
                         }
                         echo sprintf( '<div class="shortcode-footer">%s</div>', esc_html( $message ) );
@@ -86,9 +86,9 @@
                 }
             } else {
                 if ( current_user_can( 'manage_options' ) ) {
-                    return '<p>Niet genoeg data voor resultaten.</p>';
+                    return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for results.', 'b3-assets-tracker' ) );
                 } else {
-                    return '<p>Er is iets verkeerd gegaan met de resultaten.</p>';
+                    return sprintf( '<p>%s</p>', esc_html__( 'Something went wrong with the results.', 'b3-assets-tracker' ) );
                 }
             }
         }
@@ -120,9 +120,9 @@
                 if ( ! $validated_shortcode_field ) {
                     if ( current_user_can( 'manage_options' ) ) {
                         if ( ! empty( $shortcode_attributes[ 'till' ] ) ) {
-                            return sprintf( '<p>[%s]</p>', 'Shortcode is using old till value' ) ;
+                            return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for results.', 'b3-assets-tracker' ) );
                         } else {
-                            return sprintf( '<p>[%s]</p>', 'Shortcode is missing 1 or more attributes' ) ;
+                            return sprintf( '<p>[%s]</p>', esc_html__( 'Shortcode is missing 1 or more attributes', 'b3-assets-tracker' ) );
                         }
                     } else {
                         return '';
@@ -180,9 +180,9 @@
 
                 } else {
                     if ( current_user_can( 'manage_options' ) ) {
-                        return '<p>Er is te weinig data om weer te geven. Check de shortcode in de content.</p>';
+                        return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for to display. Check the shortcode in the content.', 'b3-assets-tracker' ) );
                     } else {
-                        return '<p>Er is iets verkeerd gegaan met de resultaten.</p>';
+                        return sprintf( '<p>%s</p>', esc_html__( 'Something went wrong with the results.', 'b3-assets-tracker' ) );
                     }
                 }
             }

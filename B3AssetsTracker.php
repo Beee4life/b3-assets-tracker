@@ -134,16 +134,18 @@
                                 $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                                 $chart_args = [
-                                    'asset_group' => $asset_groups,
-                                    'asset_type'  => $asset_types,
-                                    'graph_type'  => $graph_type,
-                                    'legend'      => 'right',
-                                    'margin_left' => 30,
-                                    'currency'    => get_option( 'bp_currency' ),
-                                    'data'        => $processed_data,
+                                    'asset_group'  => $asset_groups,
+                                    'asset_type'   => $asset_types,
+                                    'graph_type'   => $graph_type,
+                                    'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
+                                    'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
+                                    'legend'       => 'right',
+                                    'margin_left'  => 30,
+                                    'currency'     => get_option( 'bp_currency' ),
+                                    'data'         => $processed_data,
                                 ];
                                 wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
-                                wp_localize_script( 'charts', 'chart_vars', $chart_args );
+                                wp_localize_script( 'graphs', 'chart_vars', $chart_args );
                             }
                         }
                     }

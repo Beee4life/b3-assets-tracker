@@ -7,22 +7,30 @@
         <thead>
         <tr>
             <?php if ( ! empty( $graph_options ) && $show_graph_options ) { ?>
-                <th>Graph type</th>
+                <th>
+                    <?php esc_html_e( 'Graph type', 'b3-assets-tracker' ); ?>
+                </th>
             <?php } ?>
             <th>
-                From
+                <?php esc_html_e( 'From', 'b3-assets-tracker' ); ?>
             </th>
             <th>
-                Till
+                <?php esc_html_e( 'Until', 'b3-assets-tracker' ); ?>
             </th>
             <?php if ( $show_all_option ) { ?>
-                <th class="checkbox">Show all</th>
+                <th class="checkbox">
+                    <?php esc_html_e( 'Show all', 'b3-assets-tracker' ); ?>
+                </th>
             <?php } ?>
             <?php if ( $show_asset_types ) { ?>
-                <th class="asset-types">Asset type(s)</th>
+                <th class="asset-types">
+                    <?php esc_html_e( 'Asset type(s)', 'b3-assets-tracker' ); ?>
+                </th>
             <?php } ?>
             <?php if ( $show_asset_groups ) { ?>
-                <th class="asset-groups">Asset group(s)</th>
+                <th class="asset-groups">
+                    <?php esc_html_e( 'Asset group(s)', 'b3-assets-tracker' ); ?>
+                </th>
             <?php } ?>
             <th class="submit">&nbsp;</th>
         </tr>
@@ -43,7 +51,7 @@
             <td>
                 <label>
                     <select name="stats_from">
-                        <?php echo sprintf( '<option value="">%s</option>', 'Start' ); ?>
+                        <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'From', 'b3-assets-tracker' ) ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
                             <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_from, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                         <?php } ?>
@@ -53,7 +61,7 @@
             <td>
                 <label>
                     <select name="stats_until" required>
-                        <?php echo sprintf( '<option value="">%s</option>', 'End' ); ?>
+                        <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'Until', 'b3-assets-tracker' ) ); ?>
                         <?php foreach( $all_dates as $date ) { ?>
                             <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_until, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                         <?php } ?>
@@ -70,7 +78,9 @@
             <?php if ( $show_asset_types && $asset_types ) { ?>
                 <td class="asset-types">
                     <div id="asset-types" class="dropdown-check-list" tabindex="100">
-                        <div class="anchor">Select Type(s) &darr;</div>
+                        <div class="anchor">
+                            <?php esc_html_e( 'Select Type(s)', 'b3-assets-tracker' ); ?> &darr;
+                        </div>
                         <ul class="items">
                             <?php foreach( $asset_types as $id => $name ) { ?>
                                 <?php if ( 'all' != $id && bp_is_type_hidden( $id ) ) { ?>
@@ -93,7 +103,9 @@
             <?php if ( $show_asset_groups && $asset_groups ) { ?>
                 <td class="asset-groups">
                     <div id="asset-groups" class="dropdown-check-list" tabindex="100">
-                        <div class="anchor">Select Group(s) &darr;</div>
+                        <div class="anchor">
+                            <?php esc_html_e( 'Select Group(s)', 'b3-assets-tracker' ); ?> &darr;
+                        </div>
                         <ul class="items">
                             <?php foreach( $asset_groups as $id => $label ) { ?>
                                 <li>

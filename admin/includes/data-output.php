@@ -17,6 +17,6 @@
 </table>
 <?php if ( ! is_admin() && $col_breakpoint <= $amount_cols ) { ?>
     <div class="table_note">
-        Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile).
+        <?php esc_html_e( 'Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile).', 'b3-assets-tracker' ); ?>
     </div>
 <?php } ?>

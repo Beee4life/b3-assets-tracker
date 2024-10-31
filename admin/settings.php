@@ -6,13 +6,13 @@
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
-        
+
         $dash               = '-';
         $period             = '.';
         $slash              = '/';
         $stored_date_format = get_option( 'bp_date_format' );
         $stored_currency    = get_option( 'bp_currency' );
-        
+
         $currencies = [
             '€',
             '$',
@@ -25,7 +25,7 @@
             $slash,
             $period
         ];
-        
+
         $date_formats = [];
         foreach( $date_separators as $date_separator ) {
             $date_formats[ $date_separator ] = [
@@ -47,7 +47,7 @@
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-                
+
                 do_action( 'bp_admin_menu' );
             ?>
 
@@ -57,7 +57,7 @@
                     <table class="settings">
                         <tr>
                             <th>
-                                Currency
+                                <?php esc_html_e( 'Currency', 'b3-assets-tracker' ); ?>
                             </th>
                             <td>
                                 <label>
@@ -89,7 +89,7 @@
                         </tr>
                     </table>
                     <br>
-                    <input type="submit" class="admin-button admin-button-small" />
+                    <input name="" type="submit" value="<?php esc_attr_e( 'Save', 'b3-assets-tracker' ); ?>" />
                 </form>
             </div>
 
