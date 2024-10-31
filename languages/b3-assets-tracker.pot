@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-10-31 22:34+0100\n"
+"POT-Creation-Date: 2024-10-31 22:36+0100\n"
 "PO-Revision-Date: 2024-10-31 22:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -89,6 +89,10 @@ msgstr ""
 #: admin/add-data.php:109 admin/dashboard.php:104 admin/data.php:70
 #: admin/graphs.php:80
 msgid "Add types first"
+msgstr ""
+
+#: admin/add-type.php:12
+msgid "Update"
 msgstr ""
 
 #: admin/dashboard.php:109 admin/data.php:76
