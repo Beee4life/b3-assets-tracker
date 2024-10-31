@@ -112,7 +112,7 @@
                     'asset_type'  => 'all',
                     'asset_group' => '',
                     'type'        => 'line',
-                    'legend'      => 'right',
+                    'legend'      => 'top',
                     'footer'      => 'false',
                 ], $attr );
 
