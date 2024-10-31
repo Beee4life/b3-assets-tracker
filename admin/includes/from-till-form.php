@@ -123,7 +123,7 @@
                 </td>
             <?php } ?>
             <td class="submit">
-                <input type="submit" class="admin-button admin-button-small" value="Filter" />
+                <input type="submit" class="" value="<?php esc_attr_e( 'Filter', 'b3-assets-tracker' ); ?>" />
             </td>
         </tr>
         </tbody>

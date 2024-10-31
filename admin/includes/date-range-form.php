@@ -10,5 +10,5 @@
         </select>
     </label>
 
-    <input name="" type="submit" value="Filter" />
+    <input name="" type="submit" value="<?php esc_attr_e( 'Filter', 'b3-assets-tracker' ); ?>" />
 </form>

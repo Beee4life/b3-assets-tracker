@@ -89,7 +89,7 @@
                     </label>
                 </td>
                 <td>
-                    <input type="submit" class="admin-button admin-button-small" value="<?php echo esc_attr( $button_label ); ?>" />
+                    <input type="submit" class="" value="<?php echo esc_attr( $button_label ); ?>" />
                 </td>
             </tr>
             </tbody>

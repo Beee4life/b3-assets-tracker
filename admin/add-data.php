@@ -101,7 +101,7 @@
                             <?php } ?>
                         </table>
                         <br>
-                        <input type="submit" class="admin-button admin-button-small" value="Submit" />
+                        <input type="submit" class="" value="Submit" />
                     </form>
                 </div>
             <?php } else { ?>

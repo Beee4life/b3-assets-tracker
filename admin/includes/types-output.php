@@ -85,7 +85,7 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" class="admin-button admin-button-small" value="<?php esc_html_e( 'Delete selected type(s)', 'b3-assets-tracker' ); ?>" />
+            <input type="submit" class="" value="<?php esc_attr_e( 'Delete selected type(s)', 'b3-assets-tracker' ); ?>" />
         </form>
     <?php } ?>
 
