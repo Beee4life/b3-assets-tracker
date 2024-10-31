@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-10-31 22:36+0100\n"
+"POT-Creation-Date: 2024-10-31 22:44+0100\n"
 "PO-Revision-Date: 2024-10-31 22:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -109,6 +109,10 @@ msgstr ""
 
 #: admin/includes/date-range-form.php:6 admin/includes/remove-date-form.php:10
 msgid "All"
+msgstr ""
+
+#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:126
+msgid "Filter"
 msgstr ""
 
 #: admin/includes/from-till-form.php:11
