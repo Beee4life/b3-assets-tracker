@@ -101,12 +101,12 @@
             <?php } elseif ( empty( $types ) ) { ?>
                 <div id="data-output">
                     <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
-                        <?php esc_html_e( 'Add types first', 'yoft' ); ?>
+                        <?php esc_html_e( 'Add types first', 'b3-assets-tracker' ); ?>
                     </a>
                 </div>
             <?php } else { ?>
                 <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-add-data' ) ); ?>">
-                    <?php esc_html_e( 'Add data now', 'yoft' ); ?>
+                    <?php esc_html_e( 'Add data now', 'b3-assets-tracker' ); ?>
                 </a>
             <?php } ?>
         </div>
