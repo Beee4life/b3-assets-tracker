@@ -1,6 +1,7 @@
 <?php
-    $amount_rows  = count( $grouped_data );
-    $amount_cols  = count( $grouped_data[ 0 ] );
+    $amount_rows    = count( $grouped_data );
+    $amount_cols    = count( $grouped_data[ 0 ] );
+    $col_breakpoint = apply_filters( 'b3_scroll_columns', 9 );
 ?>
 
 <table class="data-output<?php echo esc_attr( $scroll_class ); ?>">
@@ -14,7 +15,7 @@
         <?php $row_counter++; ?>
     <?php } ?>
 </table>
-<?php if ( ! is_admin() && 9 <= $amount_cols ) { ?>
+<?php if ( ! is_admin() && $col_breakpoint <= $amount_cols ) { ?>
     <div class="table_note">
         Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile).
     </div>
