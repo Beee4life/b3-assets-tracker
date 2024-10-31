@@ -43,7 +43,7 @@ jQuery(document).ready(function () {
                     pieSliceText: 'label',
                     width: '100%',
                     height: 400,
-                    chartArea: { left: 0 }
+                    chartArea: { left: chart_vars.margin_left }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 

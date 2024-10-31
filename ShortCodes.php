@@ -171,6 +171,7 @@
                         'graph_type'  => $graph_type,
                         'currency'    => get_option( 'bp_currency' ),
                         'legend'      => $shortcode_attributes[ 'legend' ],
+                        'margin_left' => 30,
                         'data'        => $processed_data,
                     ];
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );

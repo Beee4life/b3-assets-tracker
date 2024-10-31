@@ -137,6 +137,8 @@
                                     'asset_group' => $asset_groups,
                                     'asset_type'  => $asset_types,
                                     'graph_type'  => $graph_type,
+                                    'legend'      => 'right',
+                                    'margin_left' => 30,
                                     'currency'    => get_option( 'bp_currency' ),
                                     'data'        => $processed_data,
                                 ];
