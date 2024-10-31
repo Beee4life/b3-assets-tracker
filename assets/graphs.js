@@ -39,10 +39,11 @@ jQuery(document).ready(function () {
                     title : 'Assets per type',
                     is3D : true,
                     // pieHole : 0.1,
-                    // @TODO: check for legend position
+                    legend: { position: legend_position, maxLines: 3 },
                     pieSliceText: 'label',
                     width: '100%',
-                    height: 400
+                    height: 400,
+                    chartArea: { left: 0 }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -71,6 +72,11 @@ jQuery(document).ready(function () {
                 };
                 var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
             }
+
+            // google.visualization.events.addListener(chart, 'ready', function () {
+            //     chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+            // });
+
             chart.draw(data, options);
         }
     } else {
