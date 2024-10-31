@@ -9,7 +9,7 @@
         $current_type = isset( $_GET[ 'type_id' ] ) ? (int) $_GET[ 'type_id' ] : '';
         $asset_groups = bp_get_asset_groups();
         $asset_types  = bp_get_asset_types();
-        $button_label = isset( $_GET[ 'type_id' ] ) ? esc_attr__( 'Update', 'b3-assets-tracker' ) : esc_atrr__( 'Add', 'b3-assets-tracker' );
+        $button_label = isset( $_GET[ 'type_id' ] ) ? esc_attr__( 'Update', 'b3-assets-tracker' ) : esc_attr__( 'Add', 'b3-assets-tracker' );
         $preset_types = bp_get_preset_types();
         $closed_value = '';
         $group_value  = '';

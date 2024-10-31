@@ -95,6 +95,10 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: admin/add-type.php:12
+msgid "Add"
+msgstr ""
+
 #: admin/dashboard.php:109 admin/data.php:76
 msgid "Add data now"
 msgstr ""
