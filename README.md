@@ -41,7 +41,7 @@ composer require "Beee4life/b3-assets-tracker"
 ## CHANGELOG
 
 1.12.0 - 0x.11.24
-* ?
+* add graph title override
 
 1.11.0 - 01.11.24
 * fix diff with non-existing values
