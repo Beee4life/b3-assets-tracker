@@ -19,7 +19,7 @@ jQuery(document).ready(function () {
                     legend: 'none',
                     width: '100%',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -31,7 +31,7 @@ jQuery(document).ready(function () {
                     curveType: 'function',
                     legend: { position: chart_vars.legend },
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
                     legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -53,7 +53,7 @@ jQuery(document).ready(function () {
                     // @TODO: check for legend position
                     pieSliceText: 'label',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
