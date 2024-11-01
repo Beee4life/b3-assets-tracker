@@ -163,6 +163,7 @@
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );
+                $margin_left = 'auto';
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
@@ -174,7 +175,7 @@
                         'graph_type'  => $graph_type,
                         'currency'    => get_option( 'bp_currency' ),
                         'legend'      => $shortcode_attributes[ 'legend' ],
-                        'margin_left' => 30,
+                        'margin_left' => $margin_left,
                         'data'        => $processed_data,
                     ];
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
