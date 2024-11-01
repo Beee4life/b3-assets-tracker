@@ -1,5 +1,5 @@
-// src: https://developers.google.com/chart/interactive/docs/gallery/linechart
-// src: https://developers.google.com/chart/interactive/docs/gallery/piechart
+// info: https://developers.google.com/chart/interactive/docs/gallery/linechart
+// info: https://developers.google.com/chart/interactive/docs/gallery/piechart
 jQuery(document).ready(function () {
     if (typeof(chart_vars) != "undefined" && chart_vars !== null) {
         google.charts.load('current', {'packages':['corechart', 'bar']});
@@ -30,8 +30,6 @@ jQuery(document).ready(function () {
                     vAxis: {title: chart_vars.v_axis_title, format: currency + ' #.###' },
                     curveType: 'function',
                     legend: { position: chart_vars.legend },
-                    series: {5: {type: 'line'}},
-                    width: '100%',
                     height: 500,
                     chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
@@ -41,10 +39,8 @@ jQuery(document).ready(function () {
                 var options = {
                     title : graph_title,
                     is3D : true,
-                    // pieHole : 0.1,
                     legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
-                    width: '100%',
                     height: 500,
                     chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
@@ -54,10 +50,8 @@ jQuery(document).ready(function () {
                 var options = {
                     title : graph_title,
                     is3D : true,
-                    // pieHole : 0.1,
                     // @TODO: check for legend position
                     pieSliceText: 'label',
-                    width: '100%',
                     height: 500,
                     chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
@@ -71,7 +65,6 @@ jQuery(document).ready(function () {
                     hAxis: {title: 'Week'},
                     seriesType: 'bars',
                     series: {5: {type: 'line'}},
-                    width: '100%',
                     height: 500
                 };
                 var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
