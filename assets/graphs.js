@@ -17,7 +17,8 @@ jQuery(document).ready(function () {
                     curveType: 'function',
                     legend: 'none',
                     width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { left: chart_vars.margin_left }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -30,7 +31,8 @@ jQuery(document).ready(function () {
                     legend: { position: chart_vars.legend },
                     series: {5: {type: 'line'}},
                     width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { left: chart_vars.margin_left }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -42,7 +44,7 @@ jQuery(document).ready(function () {
                     legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
                     width: '100%',
-                    height: 400,
+                    height: 500,
                     chartArea: { left: chart_vars.margin_left }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -55,7 +57,8 @@ jQuery(document).ready(function () {
                     // @TODO: check for legend position
                     pieSliceText: 'label',
                     width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { left: chart_vars.margin_left }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
