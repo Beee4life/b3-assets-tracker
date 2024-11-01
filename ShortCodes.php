@@ -106,7 +106,6 @@
             if ( ! is_admin() ) {
                 $shortcode_attributes = shortcode_atts( [
                     'from'        => '',
-                    'till'        => '',
                     'until'       => '',
                     'dates'       => '',
                     'asset_type'  => 'all',
