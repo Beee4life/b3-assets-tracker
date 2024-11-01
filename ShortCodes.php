@@ -111,6 +111,7 @@
                     'dates'       => '',
                     'asset_type'  => 'all',
                     'asset_group' => '',
+                    'title'       => '',
                     'type'        => 'line',
                     'legend'      => 'right',
                     'footer'      => 'false',
@@ -162,12 +163,15 @@
                     $grouped_data = bp_get_results_range( '', $date_until, [], [] );
                 }
 
+                $graph_title = bp_get_graph_title( $shortcode_attributes );
+
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                     $chart_args = [
                         'asset_group' => $asset_groups,
                         'asset_type'  => $asset_types,
+                        'graph_title' => $graph_title,
                         'graph_type'  => $graph_type,
                         'currency'    => get_option( 'bp_currency' ),
                         'legend'      => $shortcode_attributes[ 'legend' ],

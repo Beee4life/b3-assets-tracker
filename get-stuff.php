@@ -460,3 +460,39 @@
         }
         return $icon;
     }
+
+
+    function bp_get_graph_title( $shortcode_attributes = [] ) {
+        if ( empty( $shortcode_attributes ) ) {
+            return '';
+        }
+
+        if ( ! empty( $shortcode_attributes[ 'title' ] ) ) {
+            return $shortcode_attributes[ 'title' ];
+        }
+
+        $title = esc_html__( 'Total', 'b3-assets-tracker' );
+
+        if ( ! empty( $shortcode_attributes[ 'type' ] ) ) {
+            $type = $shortcode_attributes[ 'type' ];
+            switch($type) {
+                case 'line':
+                    if ( 'all' == $shortcode_attributes[ 'asset_type' ] ) {
+                        $title = esc_html__( 'Total assets value', 'b3-assets-tracker' );
+                    } else {
+                        $title = esc_html__( 'Week diff', 'b3-assets-tracker' );
+                    }
+                    break;
+                case 'total_type':
+                    $title = esc_html__( 'Assets per type', 'b3-assets-tracker' );
+                    break;
+                case 'total_group':
+                    $title = esc_html__( 'Assets per group', 'b3-assets-tracker' );
+                    break;
+                default:
+                    $title = esc_html__( 'Total', 'b3-assets-tracker' );
+            }
+        }
+
+        return $title;
+    }

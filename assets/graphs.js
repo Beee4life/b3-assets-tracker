@@ -6,11 +6,12 @@ jQuery(document).ready(function () {
 
         function drawChart() {
             var currency = chart_vars.currency;
+            var graph_title = chart_vars.graph_title;
             var data = google.visualization.arrayToDataTable(chart_vars.data);
 
             if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                 var options = {
-                    title : 'Totals',
+                    title : graph_title,
                     hAxis: {title: chart_vars.h_axis_title},
                     vAxis: {title: chart_vars.v_axis_title, format: currency + " #.###" },
                     curveType: 'function',
@@ -22,7 +23,7 @@ jQuery(document).ready(function () {
 
             } else if ( chart_vars.graph_type === 'line' ) {
                 var options = {
-                    title : 'Week diff',
+                    title : graph_title,
                     hAxis: {title: chart_vars.h_axis_title},
                     vAxis: {title: chart_vars.v_axis_title, format: currency + ' #.###' },
                     curveType: 'function',
@@ -35,7 +36,7 @@ jQuery(document).ready(function () {
 
             } else if ( chart_vars.graph_type === 'total_type' ) {
                 var options = {
-                    title : 'Assets per type',
+                    title : graph_title,
                     is3D : true,
                     // pieHole : 0.1,
                     legend: { position: chart_vars.legend, maxLines: 3 },
@@ -48,7 +49,7 @@ jQuery(document).ready(function () {
 
             } else if ( chart_vars.graph_type === 'total_group' ) {
                 var options = {
-                    title : 'Assets per group',
+                    title : graph_title,
                     is3D : true,
                     // pieHole : 0.1,
                     // @TODO: check for legend position
