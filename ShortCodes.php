@@ -162,21 +162,23 @@
                     $grouped_data = bp_get_results_range( '', $date_until, [], [] );
                 }
 
-                $graph_title = bp_get_graph_title( $shortcode_attributes );
-                $margin_left = 'auto';
+                $graph_title  = bp_get_graph_title( $shortcode_attributes );
+                $margin_left  = 0;
+                $margin_right = 0;
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                     $chart_args = [
-                        'asset_group' => $asset_groups,
-                        'asset_type'  => $asset_types,
-                        'graph_title' => $graph_title,
-                        'graph_type'  => $graph_type,
-                        'currency'    => get_option( 'bp_currency' ),
-                        'legend'      => $shortcode_attributes[ 'legend' ],
-                        'margin_left' => $margin_left,
-                        'data'        => $processed_data,
+                        'asset_group'  => $asset_groups,
+                        'asset_type'   => $asset_types,
+                        'graph_title'  => $graph_title,
+                        'graph_type'   => $graph_type,
+                        'currency'     => get_option( 'bp_currency' ),
+                        'legend'       => $shortcode_attributes[ 'legend' ],
+                        'margin_left'  => $margin_left,
+                        'margin_right' => $margin_right,
+                        'data'         => $processed_data,
                     ];
                     wp_localize_script( 'graphs', 'chart_vars', $chart_args );
 

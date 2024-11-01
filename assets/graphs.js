@@ -1,4 +1,5 @@
 // src: https://developers.google.com/chart/interactive/docs/gallery/linechart
+// src: https://developers.google.com/chart/interactive/docs/gallery/piechart
 jQuery(document).ready(function () {
     if (typeof(chart_vars) != "undefined" && chart_vars !== null) {
         google.charts.load('current', {'packages':['corechart', 'bar']});
@@ -18,7 +19,7 @@ jQuery(document).ready(function () {
                     legend: 'none',
                     width: '100%',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left }
+                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -32,7 +33,7 @@ jQuery(document).ready(function () {
                     series: {5: {type: 'line'}},
                     width: '100%',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left }
+                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -45,7 +46,7 @@ jQuery(document).ready(function () {
                     pieSliceText: 'label',
                     width: '100%',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left }
+                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -55,10 +56,10 @@ jQuery(document).ready(function () {
                     is3D : true,
                     // pieHole : 0.1,
                     // @TODO: check for legend position
-                    pieSliceText: 'label',
+                    // pieSliceText: 'label',
                     width: '100%',
                     height: 500,
-                    chartArea: { left: chart_vars.margin_left }
+                    chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
