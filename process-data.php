@@ -77,9 +77,9 @@
 
                 $end_value_row = (float) $value;
                 if ( $show_diff && $total_columns == $date_counter ) {
-                    $diff          = bp_calculate_diff( $date_from, $date_until, $type->id );
-                    $entry_row[]   = bp_format_value( (float) $diff );
-                    $total_diff    = $total_diff + $diff;
+                    $diff        = bp_calculate_diff( $date_from, $date_until, $type->id );
+                    $entry_row[] = bp_format_value( (float) $diff );
+                    $total_diff  = $total_diff + $diff;
 
                     if ( '0.00' != $start_value_row ) {
                         $diff_percent = ( $diff / $start_value_row ) * 100;
@@ -103,9 +103,9 @@
         }
 
         if ( bp_use_group_icons() ) {
-            $total_row = [ sprintf( '<span class="icon-holder"><i class="%s" title="Total"></i></span>Total', 'far fa-plus' ) ];
+            $total_row = [ sprintf( '<span class="icon-holder"><i class="%s" title="Total"></i></span>%s', 'far fa-plus', esc_html__( 'Total', 'b3-assets-tracker' ) ) ];
         } else {
-            $total_row = [ 'Total' ];
+            $total_row = [ esc_html__( 'Total', 'b3-assets-tracker' ) ];
         }
 
         foreach( $totals as $counter => $total ) {

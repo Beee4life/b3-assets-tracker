@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.11.0 - XX.10.24
+* ?
+
 1.10.0 - 29.10.24
 * add group icons
 

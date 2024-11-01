@@ -2,13 +2,15 @@
     <?php // @TODO: add nonce ?>
     <label>
         <select name="bp_remove_date">
-            <?php echo sprintf( '<option value="">%s</option>', 'Select date' ); ?>
+            <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'Select date', 'b3-assets-tracker' ) ); ?>
             <?php foreach( $all_dates as $date ) { ?>
                 <?php echo sprintf( '<option value="%s">%s</option>', esc_attr( $date ), esc_html( bp_format_value( $date, 'date' ) ) ); ?>
             <?php } ?>
-            <option value="all">All</option>
+            <option value="all">
+                <?php esc_html_e( 'All', 'b3-assets-tracker' ); ?>
+            </option>
         </select>
     </label>
 
-    <input name="" type="submit" value="Remove" />
+    <input name="" type="submit" value="<?php esc_attr_e( 'Remove', 'b3-assets-tracker' ); ?>" />
 </form>

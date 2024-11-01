@@ -4,9 +4,11 @@
         <?php if ( $current_type ) { ?>
             <input name="update_type" type="hidden" value="<?php echo esc_attr( $current_type ); ?>" />
         <?php } ?>
-        
+
         <?php if ( $preset_types ) { ?>
-            <h2>Preset choices</h2>
+            <h2>
+                <?php esc_html_e( 'Preset choices', 'b3-assets-tracker' ); ?>
+            </h2>
             <table class="data-input">
                 <?php foreach( $preset_types as $id => $label ) { ?>
                     <tr>
@@ -20,30 +22,32 @@
                 <?php } ?>
             </table>
         <?php } ?>
-        
+
         <?php if ( $preset_types ) { ?>
-            <h2>Free choices</h2>
+            <h2>
+                <?php esc_html_e( 'Free choices', 'b3-assets-tracker' ); ?>
+            </h2>
         <?php } ?>
 
         <table class="data-input">
             <thead>
             <tr>
                 <th>
-                    Type (name)
+                    <?php esc_html_e( 'Type (name)', 'b3-assets-tracker' ); ?>
                 </th>
                 <th>
-                    Order
+                    <?php esc_html_e( 'Order', 'b3-assets-tracker' ); ?>
                 </th>
                 <?php if ( ! empty( $asset_groups ) ) { ?>
                     <th class="asset-group">
-                        Group
+                        <?php esc_html_e( 'Group', 'b3-assets-tracker' ); ?>
                     </th>
                 <?php } ?>
                 <th class="checkbox closed">
-                    Closed
+                    <?php esc_html_e( 'Closed', 'b3-assets-tracker' ); ?>
                 </th>
                 <th class="checkbox hide-type">
-                    Hide
+                    <?php esc_html_e( 'Hide', 'b3-assets-tracker' ); ?>
                 </th>
                 <th>&nbsp;</th>
             </tr>
@@ -64,7 +68,9 @@
                     <td class="asset-group">
                         <label>
                             <select name="bp_asset_group">
-                                <option value="">Group</option>
+                                <option value="">
+                                    <?php esc_attr_e( 'Group', 'b3-assets-tracker' ); ?>
+                                </option>
                                 <?php foreach( $asset_groups as $group ) { ?>
                                     <?php echo sprintf( '<option value="%s" %s>%s</option>', esc_attr( $group->id ), selected( $group->id, $group_value ), esc_attr( $group->name ) ); ?>
                                 <?php } ?>
@@ -83,7 +89,7 @@
                     </label>
                 </td>
                 <td>
-                    <input type="submit" class="admin-button admin-button-small" value="<?php echo esc_attr( $button_label ); ?>" />
+                    <input type="submit" class="" value="<?php echo esc_attr( $button_label ); ?>" />
                 </td>
             </tr>
             </tbody>

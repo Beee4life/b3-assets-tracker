@@ -77,7 +77,7 @@
                         }
 
                     } else {
-                        echo sprintf( '<a href="%s">%s</a>', esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ), 'Add types first' );
+                        echo sprintf( '<a href="%s">%s</a>', esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ), esc_html__( 'Add types first', 'b3-assets-tracker' ) );
                     }
                 ?>
             </div>

@@ -95,8 +95,8 @@
     function bp_get_graph_types() {
         $types = [
             // 'bar'   => 'BarChart',
-            'line'  => 'LineChart',
-            'total_type' => 'Per type (PieChart)',
+            'line'        => 'LineChart',
+            'total_type'  => 'Per type (PieChart)',
             'total_group' => 'Per group (PieChart)',
         ];
 
@@ -249,24 +249,11 @@
     function bp_calculate_diff( $date_from, $date_until, $type ) {
         if ( $date_from && $date_until && $type ) {
             global $wpdb;
-            $table   = $wpdb->prefix . 'asset_data';
-            $results = $wpdb->get_results( $wpdb->prepare( "SELECT value FROM %i WHERE date BETWEEN %s AND %s AND type = %d", $table, $date_from, $date_until, $type ) );
+            $start_value = bp_get_value_on_date( $date_from, $type );
+            $end_value   = bp_get_value_on_date( $date_until, $type );
+            $diff        = $end_value - $start_value;
 
-            if ( 1 == count( $results ) ) {
-                $start_value = 0;
-                $last_item   = end( $results );
-                $end_value   = $last_item->value;
-
-            } elseif ( 1 < count( $results ) ) {
-                $start_value = $results[ 0 ]->value;
-                $last_item   = end( $results );
-                $end_value   = $last_item->value;
-            }
-            if ( isset( $end_value ) && isset( $start_value ) ) {
-                $diff = $end_value - $start_value;
-
-                return $diff;
-            }
+            return $diff;
         }
 
         return 0;
@@ -283,7 +270,7 @@
     }
 
 
-    function bp_get_value_on_date( $data ) {
+    function bp_get_value_on_date( $data, $type = false ) {
         if ( ! $data ) {
             return '0.00';
         }
@@ -291,10 +278,24 @@
         $total = 0;
         if ( is_string( $data ) ) {
             // date only
-            // get rows where date = $data
             global $wpdb;
-            $date = gmdate( 'Y-m-d', strtotime( $data ) );
-            $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE date = %s", $wpdb->prefix . 'asset_data', $date ) );
+            $table = $wpdb->prefix . 'asset_data';
+            $date  = gmdate( 'Y-m-d', strtotime( $data ) );
+
+            if ( $type ) {
+                $row = $wpdb->get_row( $wpdb->prepare( "SELECT value FROM %i WHERE date = %s AND type = %d", $table, $date, $type ) );
+
+                if ( isset( $row->value ) && ! empty( $row->value ) ) {
+                    $value = $row->value;
+                } else {
+                    $value = 0;
+                }
+
+                return $value;
+
+            } else {
+                $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE date = %s", $table, $date ) );
+            }
 
         } elseif ( is_array( $data ) ) {
             $results = $data;

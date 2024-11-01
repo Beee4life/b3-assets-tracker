@@ -6,7 +6,7 @@
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( esc_html( __( 'Sorry, you do not have sufficient permissions to access this page.', 'b3-assets-tracker' ) ) );
         }
-        
+
         $all_dates    = array_values( bp_get_dates() );
         $amount       = 8; // default: 8
         $data         = bp_get_data( '', 'reverse', $amount );
@@ -19,11 +19,11 @@
             $months     = [];
             $show_diff  = false;
             $show_total = true;
-            
+
             foreach( $all_dates as $date ) {
                 $year_month = gmdate( 'Ym', strtotime( $date ) );
                 $month      = gmdate( 'F Y', strtotime( $date ) );
-                
+
                 if ( ! array_key_exists( $year_month, $months ) ) {
                     $months[ $year_month ] = $month;
                 }
@@ -33,7 +33,7 @@
                 if ( ! empty( $_POST[ 'bp_date_range' ] ) ) {
                     $date_range   = sanitize_text_field( wp_unslash( $_POST[ 'bp_date_range' ] ) );
                     $grouped_data = bp_get_data( $date_range );
-                    
+
                     if ( 1 < count( $grouped_data ) ) {
                         $show_diff  = true;
                         $show_total = true;
@@ -46,7 +46,7 @@
                 // default view
                 $grouped_data = $data;
             }
-            
+
             $grouped_data = bp_process_data_for_table( $grouped_data, $show_diff, $show_total );
         }
         ?>
@@ -60,20 +60,20 @@
                 if ( function_exists( 'bp_show_error_messages' ) ) {
                     bp_show_error_messages();
                 }
-                
+
                 do_action( 'bp_admin_menu' );
             ?>
-            
+
             <?php if ( empty( $grouped_data ) && empty( $types ) ) { ?>
                 <div id="data-input">
                     <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
-                        Add types first
+                        <?php esc_html_e( 'Add types first', 'b3-assets-tracker' ); ?>
                     </a>
                 </div>
             <?php } elseif ( empty( $grouped_data ) && empty( ! $types ) ) { ?>
                 <div id="data-input">
                     <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-add-data' ) ); ?>">
-                        Add data now
+                        <?php esc_html_e( 'Add data now', 'b3-assets-tracker' ); ?>
                     </a>
                 </div>
             <?php } else { ?>

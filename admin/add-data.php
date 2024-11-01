@@ -101,12 +101,12 @@
                             <?php } ?>
                         </table>
                         <br>
-                        <input type="submit" class="admin-button admin-button-small" value="Submit" />
+                        <input type="submit" class="" value="Submit" />
                     </form>
                 </div>
             <?php } else { ?>
                 <a href="<?php echo esc_url_raw( admin_url( 'admin.php?page=bp-assets-types' ) ); ?>">
-                    Add types first
+                    <?php esc_html_e( 'Add types first', 'b3-assets-tracker' ); ?>
                 </a>
             <?php } ?>
         </div>

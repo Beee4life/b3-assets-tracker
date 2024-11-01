@@ -1,0 +1,271 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: B3 Assets Tracker\n"
+"POT-Creation-Date: 2024-10-31 22:44+0100\n"
+"PO-Revision-Date: 2024-10-31 22:05+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: languages\n"
+
+#: B3AssetsTracker.php:140
+msgid "Date"
+msgstr ""
+
+#: B3AssetsTracker.php:141
+msgid "Value"
+msgstr ""
+
+#: ShortCodes.php:35
+msgid "Shortcode is using old till value"
+msgstr ""
+
+#: ShortCodes.php:37 ShortCodes.php:125
+msgid "Shortcode is missing 1 or more attributes"
+msgstr ""
+
+#: ShortCodes.php:58 ShortCodes.php:61
+msgid "Table scrolls horizontally."
+msgstr ""
+
+#: ShortCodes.php:71
+#, php-format
+msgid "This data comes from a WordPress %s I created to track my assets and easily share it within the site."
+msgstr ""
+
+#: ShortCodes.php:78
+msgid "This data comes from a WordPress plugin I created to track my assets and easily share it within the site."
+msgstr ""
+
+#: ShortCodes.php:89 ShortCodes.php:123
+msgid "Not enough data for results."
+msgstr ""
+
+#: ShortCodes.php:91 ShortCodes.php:185
+msgid "Something went wrong with the results."
+msgstr ""
+
+#: ShortCodes.php:183
+msgid "Not enough data for to display. Check the shortcode in the content."
+msgstr ""
+
+#: actions-bp.php:11
+msgid "Dashboard"
+msgstr ""
+
+#: actions-bp.php:12
+msgid "Data"
+msgstr ""
+
+#: actions-bp.php:13
+msgid "Add data"
+msgstr ""
+
+#: actions-bp.php:14
+msgid "Graphs"
+msgstr ""
+
+#: actions-bp.php:15
+msgid "Types"
+msgstr ""
+
+#: actions-bp.php:16
+msgid "Settings"
+msgstr ""
+
+#: admin/add-data.php:7 admin/add-type.php:7 admin/dashboard.php:7
+#: admin/data.php:7 admin/graphs.php:7 admin/settings.php:7
+msgid "Sorry, you do not have sufficient permissions to access this page."
+msgstr ""
+
+#: admin/add-data.php:109 admin/dashboard.php:104 admin/data.php:70
+#: admin/graphs.php:80
+msgid "Add types first"
+msgstr ""
+
+#: admin/add-type.php:12
+msgid "Update"
+msgstr ""
+
+#: admin/add-type.php:12
+msgid "Add"
+msgstr ""
+
+#: admin/dashboard.php:109 admin/data.php:76
+msgid "Add data now"
+msgstr ""
+
+#: admin/includes/data-output.php:20
+msgid "Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile)."
+msgstr ""
+
+#: admin/includes/date-range-form.php:6 admin/includes/remove-date-form.php:10
+msgid "All"
+msgstr ""
+
+#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:126
+msgid "Filter"
+msgstr ""
+
+#: admin/includes/from-till-form.php:11
+msgid "Graph type"
+msgstr ""
+
+#: admin/includes/from-till-form.php:15 admin/includes/from-till-form.php:54
+msgid "From"
+msgstr ""
+
+#: admin/includes/from-till-form.php:18 admin/includes/from-till-form.php:64
+msgid "Until"
+msgstr ""
+
+#: admin/includes/from-till-form.php:22
+msgid "Show all"
+msgstr ""
+
+#: admin/includes/from-till-form.php:27
+msgid "Asset type(s)"
+msgstr ""
+
+#: admin/includes/from-till-form.php:32
+msgid "Asset group(s)"
+msgstr ""
+
+#: admin/includes/from-till-form.php:82
+msgid "Select Type(s)"
+msgstr ""
+
+#: admin/includes/from-till-form.php:107
+msgid "Select Group(s)"
+msgstr ""
+
+#: admin/includes/remove-date-form.php:5
+msgid "Select date"
+msgstr ""
+
+#: admin/includes/remove-date-form.php:15
+msgid "Remove"
+msgstr ""
+
+#: admin/includes/types-input.php:10
+msgid "Preset choices"
+msgstr ""
+
+#: admin/includes/types-input.php:28
+msgid "Free choices"
+msgstr ""
+
+#: admin/includes/types-input.php:36
+msgid "Type (name)"
+msgstr ""
+
+#: admin/includes/types-input.php:39 admin/includes/types-output.php:13
+msgid "Order"
+msgstr ""
+
+#: admin/includes/types-input.php:43 admin/includes/types-input.php:72
+#: admin/includes/types-output.php:24
+msgid "Group"
+msgstr ""
+
+#: admin/includes/types-input.php:47 admin/includes/types-output.php:32
+msgid "Closed"
+msgstr ""
+
+#: admin/includes/types-input.php:50 admin/includes/types-output.php:35
+msgid "Hide"
+msgstr ""
+
+#: admin/includes/types-output.php:16
+msgid "Name"
+msgstr ""
+
+#: admin/includes/types-output.php:28
+msgid "Added"
+msgstr ""
+
+#: admin/includes/types-output.php:38
+msgid "Delete"
+msgstr ""
+
+#: admin/includes/types-output.php:88
+msgid "Delete selected type(s)"
+msgstr ""
+
+#: admin/settings.php:60
+msgid "Currency"
+msgstr ""
+
+#: admin/settings.php:92
+msgid "Save"
+msgstr ""
+
+#: do-stuff.php:30
+msgid "You did not select an asset type or group."
+msgstr ""
+
+#: do-stuff.php:40
+msgid "If you select \"All\", you can't select any other types. Please select the types again."
+msgstr ""
+
+#: do-stuff.php:47
+msgid "You need to select an an asset type OR group, not both."
+msgstr ""
+
+#: do-stuff.php:57
+msgid "You didn't select a start date."
+msgstr ""
+
+#: do-stuff.php:65
+msgid "You don't need a start date for a total. The until date is used for that."
+msgstr ""
+
+#: form-handling.php:12
+msgid "No date selected."
+msgstr ""
+
+#: forms/form--add-data.php:11 forms/form--add-type.php:11
+#: forms/form--delete-data.php:7 forms/form--delete-type.php:12
+#: forms/form--settings.php:6
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: forms/form--add-data.php:68
+msgid "Values updated."
+msgstr ""
+
+#: forms/form--add-data.php:89
+msgid "Values inserted."
+msgstr ""
+
+#: forms/form--add-type.php:18
+msgid "No type selected."
+msgstr ""
+
+#: forms/form--add-type.php:55
+msgid "Type updated."
+msgstr ""
+
+#: forms/form--add-type.php:93
+msgid "Type inserted."
+msgstr ""
+
+#: forms/form--delete-data.php:26
+msgid "Date removed."
+msgstr ""
+
+#: forms/form--settings.php:21
+msgid "Settings saved."
+msgstr ""
+
+#: process-data.php:106 process-data.php:108
+msgid "Total"
+msgstr ""
