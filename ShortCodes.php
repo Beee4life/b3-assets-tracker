@@ -172,9 +172,11 @@
                     $chart_args = [
                         'asset_group'  => $asset_groups,
                         'asset_type'   => $asset_types,
+                        'currency'     => get_option( 'bp_currency' ),
                         'graph_title'  => $graph_title,
                         'graph_type'   => $graph_type,
-                        'currency'     => get_option( 'bp_currency' ),
+                        'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
+                        'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
                         'legend'       => $shortcode_attributes[ 'legend' ],
                         'margin_left'  => $margin_left,
                         'margin_right' => $margin_right,
