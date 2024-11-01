@@ -56,7 +56,7 @@ jQuery(document).ready(function () {
                     is3D : true,
                     // pieHole : 0.1,
                     // @TODO: check for legend position
-                    // pieSliceText: 'label',
+                    pieSliceText: 'label',
                     width: '100%',
                     height: 500,
                     chartArea: { left: chart_vars.margin_left, right: chart_vars.margin_right }
