@@ -7,8 +7,8 @@ jQuery(document).ready(function () {
 
         function drawChart() {
             var currency = chart_vars.currency;
-            var graph_title = chart_vars.graph_title;
             var data = google.visualization.arrayToDataTable(chart_vars.data);
+            var graph_title = chart_vars.graph_title;
 
             if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                 var options = {
