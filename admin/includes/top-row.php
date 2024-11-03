@@ -92,7 +92,7 @@
 
                     } elseif ( $show_total ) {
                         if ( $column_counter == $amount_cols ) {
-                            echo 'Total %';
+                            esc_html_e( 'Total %', 'b3-assets-tracker' );
                         } else {
                             $week_day = gmdate( 'D', strtotime( $value ) );
                             $value    = bp_format_value( $value, 'date' );

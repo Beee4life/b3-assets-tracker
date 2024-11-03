@@ -24,12 +24,12 @@
             <?php } ?>
             <?php if ( $show_asset_types ) { ?>
                 <th class="asset-types">
-                    <?php esc_html_e( 'Asset type(s)', 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( 'Asset types', 'b3-assets-tracker' ); ?>
                 </th>
             <?php } ?>
             <?php if ( $show_asset_groups ) { ?>
                 <th class="asset-groups">
-                    <?php esc_html_e( 'Asset group(s)', 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( 'Asset groups', 'b3-assets-tracker' ); ?>
                 </th>
             <?php } ?>
             <th class="submit">&nbsp;</th>
@@ -79,7 +79,7 @@
                 <td class="asset-types">
                     <div id="asset-types" class="dropdown-check-list" tabindex="100">
                         <div class="anchor">
-                            <?php esc_html_e( 'Select Type(s)', 'b3-assets-tracker' ); ?> &darr;
+                            <?php esc_html_e( 'Select type(s)', 'b3-assets-tracker' ); ?> &darr;
                         </div>
                         <ul class="items">
                             <?php foreach( $asset_types as $id => $name ) { ?>

@@ -2,12 +2,14 @@
     /*
         Plugin Name:    B3 : Assets Tracker
         Description:    This plugin gives you the option to track and analyze your (financial) assets.
-        Version:        1.11.0
+        Version:        1.12.0
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
         License:        GPL v2 (or later)
         License URI:    https://www.gnu.org/licenses/gpl-2.0.html
+        Text Domain:    b3-assets-tracker
+        Domain Path:    /languages
     */
 
     if ( ! defined( 'ABSPATH' ) ) {
@@ -35,6 +37,7 @@
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
                 add_action( 'wp_enqueue_scripts',       [ $this, 'bp_add_css_front' ] );
                 add_action( 'admin_enqueue_scripts',    [ $this, 'bp_add_css_admin' ] );
+                add_action( 'init',                     [ $this, 'bp_load_textdomain' ] );
 
                 include 'actions.php';
                 include 'data.php';
@@ -86,6 +89,10 @@
             }
 
 
+            public function bp_load_textdomain() {
+                load_plugin_textdomain( 'b3-assets-tracker', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+            }
+
             /**
              * Add admin page
              */
@@ -131,17 +138,26 @@
                             $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
 
                             if ( ! empty( $grouped_data ) ) {
-                                $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                                $processed_data   = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                                $graph_title_args = [
+                                    'type'       => $graph_type,
+                                    'asset_type' => $asset_types,
+                                ];
+                                $graph_title      = bp_get_graph_title( $graph_title_args );
+                                $margin_left      = 'auto';
+                                $margin_right     = 'auto';
 
                                 $chart_args = [
                                     'asset_group'  => $asset_groups,
                                     'asset_type'   => $asset_types,
+                                    'currency'     => get_option( 'bp_currency' ),
+                                    'graph_title'  => $graph_title,
                                     'graph_type'   => $graph_type,
                                     'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
                                     'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
                                     'legend'       => 'right',
-                                    'margin_left'  => 30,
-                                    'currency'     => get_option( 'bp_currency' ),
+                                    'margin_left'  => $margin_left,
+                                    'margin_right' => $margin_right,
                                     'data'         => $processed_data,
                                 ];
                                 wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );

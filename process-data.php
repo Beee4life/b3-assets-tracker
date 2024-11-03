@@ -11,7 +11,7 @@
         $date_from     = isset( $first_item[ 0 ]->date ) ? $first_item[ 0 ]->date : '';
         $last_item     = end( $grouped_data );
         $date_until    = isset( $last_item[ 0 ]->date ) ? $last_item[ 0 ]->date : '';
-        $top_row       = [ 'Asset' ];
+        $top_row       = [ esc_html__( 'Asset', 'b3-assets-tracker' ) ];
         $start_value   = bp_get_value_on_date( $first_item );
         $end_value     = bp_get_value_on_date( $last_item );
         $total_counter = 0;
@@ -31,12 +31,12 @@
         }
 
         if ( $show_diff ) {
-            $top_row[]  = sprintf( 'Diff in %s', get_option( 'bp_currency' ) );
-            $top_row[]  = 'Diff in %';
+            $top_row[]  = sprintf( esc_html__( 'Diff in %s', 'b3-assets-tracker' ), get_option( 'bp_currency' ) );
+            $top_row[]  = esc_html__( 'Diff in %', 'b3-assets-tracker' );
         }
 
         if ( $show_total ) {
-            $top_row[] = '% of total';
+            $top_row[] = esc_html__( '% of total', 'b3-assets-tracker' );
         }
 
         $all_rows[]    = $top_row;

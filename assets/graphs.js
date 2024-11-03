@@ -1,4 +1,5 @@
-// src: https://developers.google.com/chart/interactive/docs/gallery/linechart
+// info: https://developers.google.com/chart/interactive/docs/gallery/linechart
+// info: https://developers.google.com/chart/interactive/docs/gallery/piechart
 jQuery(document).ready(function () {
     if (typeof(chart_vars) != "undefined" && chart_vars !== null) {
         google.charts.load('current', {'packages':['corechart', 'bar']});
@@ -7,54 +8,52 @@ jQuery(document).ready(function () {
         function drawChart() {
             var currency = chart_vars.currency;
             var data = google.visualization.arrayToDataTable(chart_vars.data);
+            var graph_title = chart_vars.graph_title;
 
             if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                 var options = {
-                    title : 'Totals',
+                    title : graph_title,
                     hAxis: {title: chart_vars.h_axis_title},
                     vAxis: {title: chart_vars.v_axis_title, format: currency + " #.###" },
                     curveType: 'function',
                     legend: 'none',
                     width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             } else if ( chart_vars.graph_type === 'line' ) {
                 var options = {
-                    title : 'Week diff',
+                    title : graph_title,
                     hAxis: {title: chart_vars.h_axis_title},
                     vAxis: {title: chart_vars.v_axis_title, format: currency + ' #.###' },
                     curveType: 'function',
                     legend: { position: chart_vars.legend },
-                    series: {5: {type: 'line'}},
-                    width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             } else if ( chart_vars.graph_type === 'total_type' ) {
                 var options = {
-                    title : 'Assets per type',
+                    title : graph_title,
                     is3D : true,
-                    // pieHole : 0.1,
                     legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
-                    width: '100%',
-                    height: 400,
-                    chartArea: { left: chart_vars.margin_left }
+                    height: 500,
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
             } else if ( chart_vars.graph_type === 'total_group' ) {
                 var options = {
-                    title : 'Assets per group',
+                    title : graph_title,
                     is3D : true,
-                    // pieHole : 0.1,
                     // @TODO: check for legend position
                     pieSliceText: 'label',
-                    width: '100%',
-                    height: 500
+                    height: 500,
+                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -66,7 +65,6 @@ jQuery(document).ready(function () {
                     hAxis: {title: 'Week'},
                     seriesType: 'bars',
                     series: {5: {type: 'line'}},
-                    width: '100%',
                     height: 500
                 };
                 var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));

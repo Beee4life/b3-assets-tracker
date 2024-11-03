@@ -50,7 +50,7 @@
                         <table class="add-data">
                             <tr>
                                 <th>
-                                    Date
+                                    <?php echo esc_html__( 'Date', 'b3-assets-tracker' ); ?>
                                 </th>
                                 <td>
                                     <label>
@@ -58,7 +58,9 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <b>Status</b>
+                                    <b>
+                                        <?php echo esc_html__( 'Status', 'b3-assets-tracker' ); ?>
+                                    </b>
                                 </td>
                             </tr>
                             <?php foreach( $types as $type ) { ?>
@@ -87,13 +89,13 @@
                                     <td>
                                         <?php
                                             if ( ! empty( $type->hide ) ) {
-                                                echo 'Hidden';
+                                                echo esc_html__( 'Hidden', 'b3-assets-tracker' );
                                             }
                                             if ( ! empty( $type->hide ) && ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
                                                 echo ' & ';
                                             }
                                             if ( ! empty( $type->closed ) && '0000-00-00' !== $type->closed ) {
-                                                echo 'Closed';
+                                                echo esc_html__( 'Closed', 'b3-assets-tracker' );
                                             }
                                         ?>
                                     </td>
@@ -101,7 +103,7 @@
                             <?php } ?>
                         </table>
                         <br>
-                        <input type="submit" class="" value="Submit" />
+                        <input type="submit" class="" value="<?php esc_attr_e( 'Save', 'b3-assets-tracker' ); ?>" />
                     </form>
                 </div>
             <?php } else { ?>
