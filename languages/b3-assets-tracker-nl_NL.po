@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-03 20:14+0100\n"
-"PO-Revision-Date: 2024-11-03 20:14+0100\n"
+"POT-Creation-Date: 2024-11-03 20:17+0100\n"
+"PO-Revision-Date: 2024-11-03 20:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -322,6 +322,10 @@ msgstr "Activa per type"
 msgid "Assets per group"
 msgstr "Activa per groep"
 
+#: process-data.php:14
+msgid "Asset"
+msgstr "Activa"
+
 #: process-data.php:34
 #, php-format
 msgid "Diff in %s"
@@ -330,3 +334,8 @@ msgstr "Verschil in %s"
 #: process-data.php:35
 msgid "Diff in %"
 msgstr "Verschil in %"
+
+#: process-data.php:39
+#, no-php-format
+msgid "% of total"
+msgstr "% van totaal"
