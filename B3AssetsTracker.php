@@ -90,7 +90,7 @@
 
 
             public function bp_load_textdomain() {
-                load_plugin_textdomain( 'wpdocs_textdomain', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+                load_plugin_textdomain( 'b3-assets-tracker', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
             }
 
             /**
