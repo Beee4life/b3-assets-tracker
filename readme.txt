@@ -1,7 +1,7 @@
 === B3 : Assets Tracker ===
 Contributors: Beee
 Tags: financial, tracking, assets
-Requires at least: 4.6
+Requires at least: 6.2
 Tested up to: 6.6.2
 Requires PHP: 8.0
 Stable tag: 1.12.0
