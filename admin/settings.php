@@ -71,7 +71,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Date format
+                                <?php esc_html_e( 'Date format', 'b3-assets-tracker' ); ?>
                             </th>
                             <td>
                                 <label>

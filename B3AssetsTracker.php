@@ -8,6 +8,8 @@
         License:        GPL2
         License:        GPL v2 (or later)
         License URI:    https://www.gnu.org/licenses/gpl-2.0.html
+        Text Domain:    b3-assets-tracker
+        Domain Path:    /languages
     */
 
     if ( ! defined( 'ABSPATH' ) ) {
@@ -35,6 +37,7 @@
                 add_action( 'admin_menu',               [ $this, 'bp_admin_pages' ] );
                 add_action( 'wp_enqueue_scripts',       [ $this, 'bp_add_css_front' ] );
                 add_action( 'admin_enqueue_scripts',    [ $this, 'bp_add_css_admin' ] );
+                add_action( 'init',                     [ $this, 'bp_load_textdomain' ] );
 
                 include 'actions.php';
                 include 'data.php';
@@ -85,6 +88,10 @@
                 ];
             }
 
+
+            public function bp_load_textdomain() {
+                load_plugin_textdomain( 'wpdocs_textdomain', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+            }
 
             /**
              * Add admin page

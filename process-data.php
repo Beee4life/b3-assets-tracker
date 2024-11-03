@@ -31,8 +31,8 @@
         }
 
         if ( $show_diff ) {
-            $top_row[]  = sprintf( 'Diff in %s', get_option( 'bp_currency' ) );
-            $top_row[]  = 'Diff in %';
+            $top_row[]  = sprintf( esc_html__( 'Diff in %s', 'b3-assets-tracker' ), get_option( 'bp_currency' ) );
+            $top_row[]  = esc_html__( 'Diff in %', 'b3-assets-tracker' );
         }
 
         if ( $show_total ) {
