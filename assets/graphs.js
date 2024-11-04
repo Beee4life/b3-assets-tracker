@@ -18,8 +18,7 @@ jQuery(document).ready(function () {
                     curveType: 'function',
                     legend: 'none',
                     width: '100%',
-                    height: 500,
-                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    height: 500
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
