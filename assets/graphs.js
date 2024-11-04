@@ -29,8 +29,7 @@ jQuery(document).ready(function () {
                     vAxis: {title: chart_vars.v_axis_title, format: currency + ' #.###' },
                     curveType: 'function',
                     legend: { position: chart_vars.legend },
-                    height: 500,
-                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    height: 500
                 };
                 var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
@@ -40,8 +39,7 @@ jQuery(document).ready(function () {
                     is3D : true,
                     legend: { position: chart_vars.legend, maxLines: 3 },
                     pieSliceText: 'label',
-                    height: 500,
-                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    height: 500
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -51,8 +49,7 @@ jQuery(document).ready(function () {
                     is3D : true,
                     // @TODO: check for legend position
                     pieSliceText: 'label',
-                    height: 500,
-                    chartArea: { top: 0, left: chart_vars.margin_left, right: chart_vars.margin_right }
+                    height: 500
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
