@@ -136,14 +136,23 @@
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types || 'all' == $asset_groups ? true : false;
                             $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
+                            $h_axis_title = esc_html__( 'Date', 'b3-assets-tracker' );
+                            $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
 
                             if ( ! empty( $grouped_data ) ) {
                                 $processed_data   = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+
+                                if ( 'bar' === $graph_type ) {
+                                    $h_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
+                                    $v_axis_title = esc_html__( 'Asset', 'b3-assets-tracker' );
+                                }
+
                                 $graph_title_args = [
                                     'type'       => $graph_type,
                                     'asset_type' => $asset_types,
                                 ];
                                 $graph_title      = bp_get_graph_title( $graph_title_args );
+                                $margin_top       = 'auto';
                                 $margin_left      = 'auto';
                                 $margin_right     = 'auto';
 
@@ -153,9 +162,10 @@
                                     'currency'     => get_option( 'bp_currency' ),
                                     'graph_title'  => $graph_title,
                                     'graph_type'   => $graph_type,
-                                    'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
-                                    'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
+                                    'h_axis_title' => $h_axis_title,
+                                    'v_axis_title' => $v_axis_title,
                                     'legend'       => 'right',
+                                    'margin_top'   => $margin_top,
                                     'margin_left'  => $margin_left,
                                     'margin_right' => $margin_right,
                                     'data'         => $processed_data,
