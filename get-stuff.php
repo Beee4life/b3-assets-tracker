@@ -236,11 +236,30 @@
             }
 
         } elseif ( $until ) {
-            if ( empty( $asset_type ) ) {
+            if ( ! empty( $asset_type ) ) {
+                $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE type IN (" . implode( ',', $asset_type ) . ") AND date = %s", $table_assets, $until ) );
+
+            } elseif ( ! empty( $asset_group ) ) {
+                $types = $wpdb->get_results( $wpdb->prepare( "SELECT id FROM %i WHERE asset_group IN (" . implode( ',', $asset_group ) . ")", $table_types ) );
+                if ( ! empty( $types ) ) {
+                    foreach( $types as $type ) {
+                        $asset_types[] = (int) $type->id;
+                    }
+                }
+                if ( ! empty( $asset_types ) ) {
+                    if ( 1 == count( $asset_group ) ) {
+                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE type IN (" . implode( ',', $asset_types ) . ") AND date = %s ORDER BY type ASC", $table_assets, $until ) );
+
+                    } elseif ( 1 < count( $asset_group ) ) {
+                        $results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i INNER JOIN %i ON %i.type = %i.id WHERE type IN (" . implode( ',', $asset_types ) . ") AND date = %s ORDER BY date, type ASC", $table_assets, $table_types, $table_assets, $table_types, $until ) );
+                    }
+                }
+                $grouped_data = [];
+                // @TODO: format results
+
+            } else {
                 // get pie chart for totals on this date
                 $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE date = %s", $table_assets, $until ) );
-            } else {
-                $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE type IN (" . implode( ',', $asset_type ) . ") AND date = %s", $table_assets, $until ) );
             }
 
             return $grouped_data;
@@ -481,8 +500,7 @@
         $title = esc_html__( 'Total', 'b3-assets-tracker' );
 
         if ( ! empty( $args[ 'type' ] ) ) {
-            $type = $args[ 'type' ];
-            switch($type) {
+            switch( $args[ 'type' ] ) {
                 case 'bar':
                     $title = esc_html__( 'Assets per type', 'b3-assets-tracker' );
                     break;
