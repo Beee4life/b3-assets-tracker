@@ -94,10 +94,10 @@
 
     function bp_get_graph_types() {
         $types = [
-            // 'bar'   => 'BarChart',
-            'line'        => 'LineChart',
-            'total_type'  => 'Per type (PieChart)',
-            'total_group' => 'Per group (PieChart)',
+            'bar'         => esc_attr__( 'Bar chart', 'b3-assets-tracker' ),
+            'line'        => esc_attr__( 'Line chart', 'b3-assets-tracker' ),
+            'total_type'  => esc_attr__( 'Per type (Pie chart)', 'b3-assets-tracker' ),
+            'total_group' => esc_attr__( 'Per group (Pie chart)', 'b3-assets-tracker' ),
         ];
 
         return $types;
@@ -236,8 +236,12 @@
             }
 
         } elseif ( $until ) {
-            // get pie chart for totals on this date
-            $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE date = %s", $table_assets, $until ) );
+            if ( empty( $asset_type ) ) {
+                // get pie chart for totals on this date
+                $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE date = %s", $table_assets, $until ) );
+            } else {
+                $grouped_data = $wpdb->get_results( $wpdb->prepare( "SELECT * from %i WHERE type IN (" . implode( ',', $asset_type ) . ") AND date = %s", $table_assets, $until ) );
+            }
 
             return $grouped_data;
         }
@@ -341,7 +345,10 @@
     function bp_get_chart_toprow( $data, $asset_types = [], $asset_groups = [], $graph_type = false ) {
         $top_row = false;
 
-        if ( 'line' === $graph_type ) {
+        if ( 'bar' === $graph_type ) {
+            $top_row = [ 'Asset', 'Value' ];
+
+        } elseif ( 'line' === $graph_type ) {
             if ( 'all' == $asset_types || 'all' == $asset_groups ) {
                 $top_row = [ 'Week', 'Value' ];
 
@@ -462,22 +469,25 @@
     }
 
 
-    function bp_get_graph_title( $shortcode_attributes = [] ) {
-        if ( empty( $shortcode_attributes ) ) {
+    function bp_get_graph_title( $args = [] ) {
+        if ( empty( $args ) ) {
             return '';
         }
 
-        if ( ! empty( $shortcode_attributes[ 'title' ] ) ) {
-            return $shortcode_attributes[ 'title' ];
+        if ( ! empty( $args[ 'title' ] ) ) {
+            return $args[ 'title' ];
         }
 
         $title = esc_html__( 'Total', 'b3-assets-tracker' );
 
-        if ( ! empty( $shortcode_attributes[ 'type' ] ) ) {
-            $type = $shortcode_attributes[ 'type' ];
+        if ( ! empty( $args[ 'type' ] ) ) {
+            $type = $args[ 'type' ];
             switch($type) {
+                case 'bar':
+                    $title = esc_html__( 'Assets per type', 'b3-assets-tracker' );
+                    break;
                 case 'line':
-                    if ( 'all' == $shortcode_attributes[ 'asset_type' ] ) {
+                    if ( 'all' == $args[ 'asset_type' ] ) {
                         $title = esc_html__( 'Total assets value', 'b3-assets-tracker' );
                     } else {
                         $title = esc_html__( 'Week diff', 'b3-assets-tracker' );
