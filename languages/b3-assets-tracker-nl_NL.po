@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-05 21:20+0100\n"
-"PO-Revision-Date: 2024-11-05 21:22+0100\n"
+"POT-Creation-Date: 2024-11-05 22:08+0100\n"
+"PO-Revision-Date: 2024-11-05 22:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -16,13 +16,17 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages\n"
 
-#: B3AssetsTracker.php:156 ShortCodes.php:176 admin/add-data.php:53
+#: B3AssetsTracker.php:140 ShortCodes.php:176 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:157 ShortCodes.php:177
+#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:177
 msgid "Value"
 msgstr "Waarde"
+
+#: B3AssetsTracker.php:148 process-data.php:14
+msgid "Asset"
+msgstr "Activa"
 
 #: ShortCodes.php:35
 msgid "Shortcode is using old till value"
@@ -175,30 +179,36 @@ msgstr "Selecteer type(s)"
 msgid "Select Group(s)"
 msgstr "Selecteer groep(en)"
 
-#: admin/includes/graphs-help.php:5
-msgid "Line chart"
-msgstr "Lijngrafiek"
+#: admin/includes/graphs-help.php:5 get-stuff.php:97
+msgid "Bar chart"
+msgstr "Staafdiagram"
 
-#: admin/includes/graphs-help.php:10
+#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:24
 msgid "Choose either asset types or groups, not both."
 msgstr "Kies een activa type OF groep, niet beide."
 
-#: admin/includes/graphs-help.php:13
+#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:40
+#, fuzzy
+#| msgid "End date is required."
+msgid "Only end date is needed/required."
+msgstr "Eind datum is verplicht."
+
+#: admin/includes/graphs-help.php:19 get-stuff.php:98
+msgid "Line chart"
+msgstr "Lijndiagram"
+
+#: admin/includes/graphs-help.php:27
 msgid "Start and end date are required."
 msgstr "Start en eind datum zijn verplicht."
 
-#: admin/includes/graphs-help.php:19
+#: admin/includes/graphs-help.php:33
 msgid "Pie chart"
-msgstr "Taartgrafiek"
+msgstr "Cirkeldiagram"
 
-#: admin/includes/graphs-help.php:23
+#: admin/includes/graphs-help.php:37
 msgid "Asset group/type is ignored (because it's defines by graph type)."
 msgstr ""
 "Activa groep/type wordt genegeerd (want het grafiek type bepaalt de output)."
-
-#: admin/includes/graphs-help.php:26
-msgid "End date is required."
-msgstr "Eind datum is verplicht."
 
 #: admin/includes/remove-date-form.php:5
 msgid "Select date"
@@ -277,11 +287,11 @@ msgstr ""
 msgid "You need to select an an asset type OR group, not both."
 msgstr "U moet een activa type OF groep selecteren, niet beide."
 
-#: do-stuff.php:57
+#: do-stuff.php:61
 msgid "You didn't select a start date."
 msgstr "Je hebt geen startdatum geselecteerd."
 
-#: do-stuff.php:65
+#: do-stuff.php:69
 msgid ""
 "You don't need a start date for a total. The until date is used for that."
 msgstr ""
@@ -326,30 +336,34 @@ msgstr "Data verwijderd."
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
-#: get-stuff.php:474 get-stuff.php:493 process-data.php:106
+#: get-stuff.php:99
+msgid "Per type (Pie chart)"
+msgstr "Alleen de eind datum is nodig/verplicht."
+
+#: get-stuff.php:100
+msgid "Per group (Pie chart)"
+msgstr "Per groep (cirkeldiagram)"
+
+#: get-stuff.php:481 get-stuff.php:503 process-data.php:106
 #: process-data.php:108
 msgid "Total"
 msgstr "Totaal"
 
-#: get-stuff.php:481
-msgid "Total assets value"
-msgstr "Totale waarde activa"
-
-#: get-stuff.php:483
-msgid "Week diff"
-msgstr "Week verschil"
-
-#: get-stuff.php:487
+#: get-stuff.php:487 get-stuff.php:497
 msgid "Assets per type"
 msgstr "Activa per type"
 
-#: get-stuff.php:490
+#: get-stuff.php:491
+msgid "Total assets value"
+msgstr "Totale waarde activa"
+
+#: get-stuff.php:493
+msgid "Week diff"
+msgstr "Week verschil"
+
+#: get-stuff.php:500
 msgid "Assets per group"
 msgstr "Activa per groep"
-
-#: process-data.php:14
-msgid "Asset"
-msgstr "Activa"
 
 #: process-data.php:34
 #, php-format
