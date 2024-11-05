@@ -145,7 +145,25 @@
 
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
 
-        if ( 'line' === $graph_type ) {
+        if ( 'bar' === $graph_type ) {
+            foreach( $data as $asset_entry ) {
+                $type_id = (int) $asset_entry->type;
+
+                if ( ! bp_is_type_added( $type_id, $data ) ) {
+                    // continue;
+                }
+                if ( bp_is_type_closed( $type_id, $data ) ) {
+                    continue;
+                }
+                if ( bp_is_type_hidden( $type_id ) ) {
+                    continue;
+                }
+                $entry_row   = [ bp_get_type_by_id( $type_id, 'name' ) ];
+                $entry_row[] = (float) $asset_entry->value;
+                $all_rows[]  = $entry_row;
+            }
+
+        } elseif ( 'line' === $graph_type ) {
             // @TODO: check if range spans NYE
             $a_lot = 10 < count( $data ) ? false : true;
             foreach( $data as $date => $date_entries ) {
@@ -259,9 +277,9 @@
                 // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
                 //     continue;
                 // }
-                // if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
-                //     continue;
-                // }
+                if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                    continue;
+                }
                 if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
                     continue;
                 }
@@ -287,17 +305,8 @@
                 $all_rows[]  = $entry_row;
             }
 
-        } elseif ( str_starts_with( $graph_type, 'total_' ) ) {
-            if ( 'all' == $asset_types ) {
-                foreach( $data as $asset_row ) {
-                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
-                        continue;
-                    }
-
-                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
-                    $all_rows[] = $entry_row;
-                }
-            }
+        } else {
+            error_log('Catch else in process-data.php');
         }
 
         return $all_rows;
