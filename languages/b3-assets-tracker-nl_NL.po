@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-03 20:26+0100\n"
-"PO-Revision-Date: 2024-11-03 20:28+0100\n"
+"POT-Creation-Date: 2024-11-05 21:20+0100\n"
+"PO-Revision-Date: 2024-11-05 21:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages\n"
 
-#: B3AssetsTracker.php:156 ShortCodes.php:178 admin/add-data.php:53
+#: B3AssetsTracker.php:156 ShortCodes.php:176 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:157 ShortCodes.php:179
+#: B3AssetsTracker.php:157 ShortCodes.php:177
 msgid "Value"
 msgstr "Waarde"
 
@@ -57,11 +57,11 @@ msgstr ""
 msgid "Not enough data for results."
 msgstr "Niet genoeg gegevens voor resultaten."
 
-#: ShortCodes.php:91 ShortCodes.php:193
+#: ShortCodes.php:91 ShortCodes.php:192
 msgid "Something went wrong with the results."
 msgstr "Er is iets misgegaan met de resultaten."
 
-#: ShortCodes.php:191
+#: ShortCodes.php:190
 msgid "Not enough data for to display. Check the shortcode in the content."
 msgstr ""
 "Niet genoeg gegevens om weer te geven. Controleer de shortcode in de inhoud."
@@ -174,6 +174,31 @@ msgstr "Selecteer type(s)"
 #: admin/includes/from-till-form.php:107
 msgid "Select Group(s)"
 msgstr "Selecteer groep(en)"
+
+#: admin/includes/graphs-help.php:5
+msgid "Line chart"
+msgstr "Lijngrafiek"
+
+#: admin/includes/graphs-help.php:10
+msgid "Choose either asset types or groups, not both."
+msgstr "Kies een activa type OF groep, niet beide."
+
+#: admin/includes/graphs-help.php:13
+msgid "Start and end date are required."
+msgstr "Start en eind datum zijn verplicht."
+
+#: admin/includes/graphs-help.php:19
+msgid "Pie chart"
+msgstr "Taartgrafiek"
+
+#: admin/includes/graphs-help.php:23
+msgid "Asset group/type is ignored (because it's defines by graph type)."
+msgstr ""
+"Activa groep/type wordt genegeerd (want het grafiek type bepaalt de output)."
+
+#: admin/includes/graphs-help.php:26
+msgid "End date is required."
+msgstr "Eind datum is verplicht."
 
 #: admin/includes/remove-date-form.php:5
 msgid "Select date"
@@ -312,7 +337,7 @@ msgstr "Totale waarde activa"
 
 #: get-stuff.php:483
 msgid "Week diff"
-msgstr ""
+msgstr "Week verschil"
 
 #: get-stuff.php:487
 msgid "Assets per type"
