@@ -140,7 +140,7 @@
                             $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
 
                             if ( ! empty( $grouped_data ) ) {
-                                $processed_data   = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                                $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
 
                                 if ( 'bar' === $graph_type ) {
                                     $h_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
