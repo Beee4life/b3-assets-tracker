@@ -96,8 +96,8 @@
         $types = [
             'bar'         => esc_attr__( 'Bar chart', 'b3-assets-tracker' ),
             'line'        => esc_attr__( 'Line chart', 'b3-assets-tracker' ),
-            'total_type'  => esc_attr__( 'Per type (Pie chart)', 'b3-assets-tracker' ),
-            'total_group' => esc_attr__( 'Per group (Pie chart)', 'b3-assets-tracker' ),
+            'total_type'  => esc_attr__( 'Pie chart (per type)', 'b3-assets-tracker' ),
+            'total_group' => esc_attr__( 'Pie chart (per group)', 'b3-assets-tracker' ),
         ];
 
         return $types;
