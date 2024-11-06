@@ -81,13 +81,13 @@
                     <?php include 'includes/date-range-form.php'; ?>
                     <?php include 'includes/remove-date-form.php'; ?>
                     <p>
-                        <?php echo sprintf( 'The last %d entries are shown or a specific range, selected above.', (int) $amount ); ?>
+                        <?php echo sprintf( esc_html__( 'The last %d entries are shown or a specific range, selected above.', 'b3-assets-tracker' ), (int) $amount ); ?>
                     </p>
                 </div>
 
                 <div id="data-output">
                     <?php if ( 15 < count( $grouped_data[ 0 ] ) ) { ?>
-                        <?php echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', 'Table scrolls horizontally.' ); ?>
+                        <?php echo sprintf( '<div class="shortcode-notice tablescroll">%s</div>', esc_html__( 'Table scrolls horizontally.', 'b3-assets-tracker' ) ); ?>
                     <?php } ?>
                     <?php include 'includes/data-output.php'; ?>
                 </div>

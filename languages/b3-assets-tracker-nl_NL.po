@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-06 23:48+0100\n"
-"PO-Revision-Date: 2024-11-06 23:49+0100\n"
+"POT-Creation-Date: 2024-11-06 23:53+0100\n"
+"PO-Revision-Date: 2024-11-06 23:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -36,7 +36,7 @@ msgstr "Shortcode gebruikt de oude ‘tot’ waarde"
 msgid "Shortcode is missing 1 or more attributes"
 msgstr "Shortcode mist 1 of meer attributen"
 
-#: ShortCodes.php:58 ShortCodes.php:61
+#: ShortCodes.php:58 ShortCodes.php:61 admin/data.php:90
 msgid "Table scrolls horizontally."
 msgstr "Tabel scrollt horizontaal."
 
@@ -132,6 +132,13 @@ msgstr "Toevoegen"
 #: admin/dashboard.php:109 admin/data.php:76
 msgid "Add data now"
 msgstr "Voeg nu gegevens toe"
+
+#: admin/data.php:84
+#, php-format
+msgid "The last %d entries are shown or a specific range, selected above."
+msgstr ""
+"De laatste %d entries worden getoond of een specifieke range, hierboven "
+"geselecteerd."
 
 #: admin/includes/data-output.php:20
 msgid ""
