@@ -1,3 +1,4 @@
+// info: https://developers.google.com/chart/interactive/docs/gallery/barchart
 // info: https://developers.google.com/chart/interactive/docs/gallery/linechart
 // info: https://developers.google.com/chart/interactive/docs/gallery/piechart
 jQuery(document).ready(function () {
