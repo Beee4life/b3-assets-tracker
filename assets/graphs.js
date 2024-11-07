@@ -16,7 +16,6 @@ jQuery(document).ready(function () {
                     hAxis: {title: chart_vars.h_axis_title, format: currency + " #.###"},
                     vAxis: {title: chart_vars.v_axis_title },
                     animation: {startup: true, duration: 500 },
-                    legend: 'none',
                     width: '100%',
                     height: 500,
                     chartArea: { top: chart_vars.margin_top, left: chart_vars.margin_left, right: chart_vars.margin_right }
