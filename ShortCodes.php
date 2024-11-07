@@ -166,7 +166,7 @@
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
-                    $margin_top = is_page_template( 'templates/tpl-dashboard.php' ) ? 20 : 'auto';
+                    $margin_top     = apply_filters( 'b3_chart_top_margin', 'auto' );
 
                     $chart_args = [
                         'asset_group'  => $asset_groups,
