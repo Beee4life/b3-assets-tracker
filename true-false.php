@@ -11,12 +11,18 @@
      */
     function bp_is_type_closed( $type, $data ) {
         if ( $type && $data ) {
+            if ( is_array( $data ) ) {
+                $dates        = array_keys( $data );
+                $compare_date = $dates[ 0 ];
+            } elseif ( is_string( $data ) ) {
+                $compare_date = $data;
+            }
+
             global $wpdb;
-            $dates   = array_keys( $data );
             $table   = $wpdb->prefix . 'asset_types';
             $results = $wpdb->get_results( $wpdb->prepare( "SELECT closed FROM %i WHERE id = %d", $table, $type ) );
 
-            if ( ! empty( $results[ 0 ]->closed ) && '0000-00-00' !== $results[ 0 ]->closed && $results[ 0 ]->closed < $dates[ 0 ] ) {
+            if ( ! empty( $results[ 0 ]->closed ) && '0000-00-00' !== $results[ 0 ]->closed && $results[ 0 ]->closed < $compare_date ) {
                 return true;
             }
         }
@@ -47,21 +53,25 @@
      *
      * @return bool
      */
-    function bp_is_type_added( $type, $data = [] ) {
+    function bp_is_type_added( $type, $data ) {
         if ( $type && $data ) {
             global $wpdb;
-            $dates = array_keys( $data );
 
-            if ( ! empty( $dates ) ) {
-                $added      = bp_get_type_by_id( $type, 'added' );
+            $added = bp_get_type_by_id( $type, 'added' );
+
+            if ( is_array( $data ) ) {
+                $dates      = array_keys( $data );
                 $start_date = $dates[ 0 ];
 
                 if ( $added && 1 < count( $dates ) ) {
                     $end_date = end( $dates );
-                } else {
-                    $end_date = $start_date;
                 }
+            } elseif ( is_string( $data ) ) {
+                $start_date = $data;
+                $end_date   = $data;
+            }
 
+            if ( ! empty( $added ) && isset( $end_date ) ) {
                 if ( $added <= $end_date ) {
                     return true;
                 }

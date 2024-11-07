@@ -149,10 +149,10 @@
             foreach( $data as $asset_entry ) {
                 $type_id = (int) $asset_entry->type;
 
-                if ( ! bp_is_type_added( $type_id, $data ) ) {
-                    // continue;
+                if ( ! bp_is_type_added( $type_id, $asset_entry->date ) ) {
+                    continue;
                 }
-                if ( bp_is_type_closed( $type_id, $data ) ) {
+                if ( bp_is_type_closed( $type_id, $asset_entry->date ) ) {
                     continue;
                 }
                 if ( bp_is_type_hidden( $type_id ) ) {
