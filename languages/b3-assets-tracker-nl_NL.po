@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-03 20:26+0100\n"
-"PO-Revision-Date: 2024-11-03 20:28+0100\n"
+"POT-Creation-Date: 2024-11-06 23:53+0100\n"
+"PO-Revision-Date: 2024-11-06 23:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -16,13 +16,17 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages\n"
 
-#: B3AssetsTracker.php:156 ShortCodes.php:178 admin/add-data.php:53
+#: B3AssetsTracker.php:139 ShortCodes.php:176 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:157 ShortCodes.php:179
+#: B3AssetsTracker.php:140 B3AssetsTracker.php:146 ShortCodes.php:177
 msgid "Value"
 msgstr "Waarde"
+
+#: B3AssetsTracker.php:147 process-data.php:14
+msgid "Asset"
+msgstr "Activa"
 
 #: ShortCodes.php:35
 msgid "Shortcode is using old till value"
@@ -32,7 +36,7 @@ msgstr "Shortcode gebruikt de oude ‘tot’ waarde"
 msgid "Shortcode is missing 1 or more attributes"
 msgstr "Shortcode mist 1 of meer attributen"
 
-#: ShortCodes.php:58 ShortCodes.php:61
+#: ShortCodes.php:58 ShortCodes.php:61 admin/data.php:90
 msgid "Table scrolls horizontally."
 msgstr "Tabel scrollt horizontaal."
 
@@ -57,11 +61,11 @@ msgstr ""
 msgid "Not enough data for results."
 msgstr "Niet genoeg gegevens voor resultaten."
 
-#: ShortCodes.php:91 ShortCodes.php:193
+#: ShortCodes.php:91 ShortCodes.php:192
 msgid "Something went wrong with the results."
 msgstr "Er is iets misgegaan met de resultaten."
 
-#: ShortCodes.php:191
+#: ShortCodes.php:190
 msgid "Not enough data for to display. Check the shortcode in the content."
 msgstr ""
 "Niet genoeg gegevens om weer te geven. Controleer de shortcode in de inhoud."
@@ -129,6 +133,13 @@ msgstr "Toevoegen"
 msgid "Add data now"
 msgstr "Voeg nu gegevens toe"
 
+#: admin/data.php:84
+#, php-format
+msgid "The last %d entries are shown or a specific range, selected above."
+msgstr ""
+"De laatste %d entries worden getoond of een specifieke range, hierboven "
+"geselecteerd."
+
 #: admin/includes/data-output.php:20
 msgid ""
 "Table scrolls horizontally (shift + mousewheel on desktop, swipe on mobile)."
@@ -174,6 +185,35 @@ msgstr "Selecteer type(s)"
 #: admin/includes/from-till-form.php:107
 msgid "Select Group(s)"
 msgstr "Selecteer groep(en)"
+
+#: admin/includes/graphs-help.php:5 get-stuff.php:97
+msgid "Bar chart"
+msgstr "Staafdiagram"
+
+#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:24
+msgid "Choose either asset types or groups, not both."
+msgstr "Kies een activa type OF groep, niet beide."
+
+#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:40
+msgid "Only end date is needed/required."
+msgstr "Alleen de eind datum is nodig/verplicht."
+
+#: admin/includes/graphs-help.php:19 get-stuff.php:98
+msgid "Line chart"
+msgstr "Lijndiagram"
+
+#: admin/includes/graphs-help.php:27
+msgid "Start and end date are required."
+msgstr "Start en eind datum zijn verplicht."
+
+#: admin/includes/graphs-help.php:33
+msgid "Pie chart"
+msgstr "Cirkeldiagram"
+
+#: admin/includes/graphs-help.php:37
+msgid "Asset group/type is ignored (because it's defines by graph type)."
+msgstr ""
+"Activa groep/type wordt genegeerd (want het grafiek type bepaalt de output)."
 
 #: admin/includes/remove-date-form.php:5
 msgid "Select date"
@@ -301,30 +341,34 @@ msgstr "Data verwijderd."
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
-#: get-stuff.php:474 get-stuff.php:493 process-data.php:106
+#: get-stuff.php:99
+msgid "Pie chart (per type)"
+msgstr "Cirkeldiagram (per type)"
+
+#: get-stuff.php:100
+msgid "Pie chart (per group)"
+msgstr "Cirkeldiagram (per groep)"
+
+#: get-stuff.php:500 get-stuff.php:521 process-data.php:106
 #: process-data.php:108
 msgid "Total"
 msgstr "Totaal"
 
-#: get-stuff.php:481
-msgid "Total assets value"
-msgstr "Totale waarde activa"
-
-#: get-stuff.php:483
-msgid "Week diff"
-msgstr ""
-
-#: get-stuff.php:487
+#: get-stuff.php:505 get-stuff.php:515
 msgid "Assets per type"
 msgstr "Activa per type"
 
-#: get-stuff.php:490
+#: get-stuff.php:509
+msgid "Total assets value"
+msgstr "Totale waarde activa"
+
+#: get-stuff.php:511
+msgid "Week diff"
+msgstr "Week verschil"
+
+#: get-stuff.php:518
 msgid "Assets per group"
 msgstr "Activa per groep"
-
-#: process-data.php:14
-msgid "Asset"
-msgstr "Activa"
 
 #: process-data.php:34
 #, php-format
@@ -339,3 +383,9 @@ msgstr "Verschil in %"
 #, no-php-format
 msgid "% of total"
 msgstr "% van totaal"
+
+#~ msgid "Per type (Pie chart)"
+#~ msgstr "Per type (cirkeldiagram)"
+
+#~ msgid "Per group (Pie chart)"
+#~ msgstr "Per groep (cirkeldiagram)"
