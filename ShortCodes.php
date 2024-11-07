@@ -166,6 +166,7 @@
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                    $margin_top = is_page_template( 'templates/tpl-dashboard.php' ) ? 20 : 'auto';
 
                     $chart_args = [
                         'asset_group'  => $asset_groups,
@@ -176,7 +177,7 @@
                         'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
                         'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
                         'legend'       => $shortcode_attributes[ 'legend' ],
-                        'margin_top'   => 'auto',
+                        'margin_top'   => $margin_top,
                         'margin_left'  => 'auto',
                         'margin_right' => 'auto',
                         'data'         => $processed_data,
