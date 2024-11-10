@@ -40,6 +40,9 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
+1.14.0 - xx.11.24
+* ?
+
 1.13.0 - 03.11.24
 * add bar chart
 * style chart
