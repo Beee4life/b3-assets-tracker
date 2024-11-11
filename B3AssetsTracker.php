@@ -184,7 +184,7 @@
                     wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                     wp_enqueue_style( 'bp-assets-front' );
 
-                    // @TODO: add IF is shortcode used
+                    // @TODO: add check IF shortcode is used
                     wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                     wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
                 }
