@@ -40,7 +40,11 @@ composer require "Beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
-1.14.0 - xx.11.24
+1.15.0 - xx.11.24
+* add date input for added
+* add date input for closed
+
+1.14.0 - 11.11.24
 * ?
 
 1.13.0 - 03.11.24

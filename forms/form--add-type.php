@@ -19,17 +19,20 @@
                         }
                     } else {
                         if ( isset( $_POST[ 'update_type' ] ) ) {
-                            $type_id    = (int) $_POST[ 'update_type' ];
-                            $close_date = bp_get_type_by_id( $type_id, 'closed' );
-                            $closed     = ! empty( $_POST[ 'bp_closed' ] ) ? true : false;
+                            $type_id       = (int) $_POST[ 'update_type' ];
+                            $stored_added  = bp_get_type_by_id( $type_id, 'added' );
+                            $stored_closed = bp_get_type_by_id( $type_id, 'closed' );
+                            $change_added  = ! empty( $_POST[ 'bp_added' ] ) ? wp_unslash( $_POST[ 'bp_added' ] ) : false;
+                            $change_closed = ! empty( $_POST[ 'bp_closed' ] ) ? wp_unslash( $_POST[ 'bp_closed' ] ) : false;
+                            $add_date      = $stored_added;
+                            $close_date    = $stored_closed;
 
-                            if ( $closed && ( ! $close_date || '0000-00-00' == $closed ) ) {
-                                $close_date = gmdate( 'Y-m-d', time() );
+                            if ( $stored_added !== $change_added ) {
+                                $add_date = $change_added;
+                            }
 
-                            } elseif ( ! $closed && '0000-00-00' !== $close_date ) {
-                                $close_date = '';
-                            } elseif ( '0000-00-00' !== $close_date && 'development' === WP_ENV ) {
-                                error_log('HIT else close date');
+                            if ( $stored_closed !== $change_closed ) {
+                                $close_date = $change_closed;
                             }
 
                             $data = [
@@ -37,6 +40,7 @@
                                 'ordering'    => ! empty( $_POST[ 'bp_order' ] ) ? (int) $_POST[ 'bp_order' ] : 1,
                                 'asset_group' => ! empty( $_POST[ 'bp_asset_group' ] ) ? (int) $_POST[ 'bp_asset_group' ] : false,
                                 'hide'        => ! empty( $_POST[ 'bp_hide' ] ) ? (int) $_POST[ 'bp_hide' ] : '',
+                                'added'       => $add_date,
                                 'closed'      => $close_date,
                             ];
 
@@ -48,6 +52,7 @@
                                 '%d',
                                 '%d',
                                 '%d',
+                                '%s',
                                 '%s',
                             ];
                             $updated = $wpdb->update( $table_types, $data, $where, $format );
