@@ -23,11 +23,9 @@
                         <th class="asset-group">
                             <?php esc_html_e( 'Group', 'b3-assets-tracker' ); ?>
                         </th>
-                        <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
-                            <th class="added">
-                                <?php esc_html_e( 'Added', 'b3-assets-tracker' ); ?>
-                            </th>
-                        <?php } ?>
+                        <th class="added">
+                            <?php esc_html_e( 'Added', 'b3-assets-tracker' ); ?>
+                        </th>
                         <th class="closed">
                             <?php esc_html_e( 'Closed', 'b3-assets-tracker' ); ?>
                         </th>
@@ -64,11 +62,9 @@
                             <td class="asset-group">
                                 <?php echo esc_html( bp_get_group_by_id( $type->asset_group ) ); ?>
                             </td>
-                            <?php if ( current_user_can( 'setup_network' ) && is_admin() ) { ?>
-                                <td class="added">
-                                    <?php echo isset( $type->added ) && '0000-00-00' !== $type->added ? esc_html( bp_format_value( $type->added, 'date' ) ) : ''; ?>
-                                </td>
-                            <?php } ?>
+                            <td class="added">
+                                <?php echo isset( $type->added ) && '0000-00-00' !== $type->added ? esc_html( bp_format_value( $type->added, 'date' ) ) : ''; ?>
+                            </td>
                             <td class="closed">
                                 <?php echo isset( $type->closed ) && '0000-00-00' !== $type->closed ? esc_html( bp_format_value( $type->closed, 'date' ) ) : ''; ?>
                             </td>
