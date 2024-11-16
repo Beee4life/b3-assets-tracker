@@ -79,7 +79,6 @@
                 <td>
                     <label>
                         <select name="stats_from">
-                            <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'From', 'b3-assets-tracker' ) ); ?>
                             <?php foreach( $all_dates as $date ) { ?>
                                 <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_from, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                             <?php } ?>
@@ -89,7 +88,6 @@
                 <td>
                     <label>
                         <select name="stats_until">
-                            <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'Until', 'b3-assets-tracker' ) ); ?>
                             <?php foreach( $all_dates as $date ) { ?>
                                 <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_until, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
                             <?php } ?>
