@@ -13,15 +13,30 @@ jQuery(document).ready(function () {
 
             if ( chart_vars.graph_type === 'bar' ) {
                 var options = {
-                    title : graph_title,
+                    title: graph_title,
                     hAxis: {title: chart_vars.h_axis_title, format: currency + " #.###"},
-                    vAxis: {title: chart_vars.v_axis_title },
-                    animation: {startup: true, duration: 500 },
+                    vAxis: {title: chart_vars.v_axis_title},
+                    animation: {startup: true, duration: 500},
                     width: '100%',
+                    height: 500,
+                    chartArea: {
+                        top: chart_vars.margin_top,
+                        left: chart_vars.margin_left,
+                        right: chart_vars.margin_right
+                    }
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+            } else if ( chart_vars.graph_type === 'pie' ) {
+                var options = {
+                    title : graph_title,
+                    is3D : true,
+                    legend: { position: chart_vars.legend, maxLines: 3 },
+                    pieSliceText: 'label',
                     height: 500,
                     chartArea: { top: chart_vars.margin_top, left: chart_vars.margin_left, right: chart_vars.margin_right }
                 };
-                var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
             } else if ( chart_vars.graph_type === 'line' && chart_vars.asset_type === 'all' ) {
                 var options = {

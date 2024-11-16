@@ -41,9 +41,13 @@
             $selected_asset_groups = isset( $_POST[ 'asset_group' ] ) ? wp_unslash( $_POST[ 'asset_group' ] ) : $selected_asset_groups;
             $selected_dates        = isset( $_POST[ 'bp_dates' ] ) ? wp_unslash( $_POST[ 'bp_dates' ] ) : [];
 
-            if ( is_array( $selected_asset_types ) && 1 < count( $selected_asset_types ) && in_array( 'all', $selected_asset_types ) ) {
+            if ( str_starts_with( $graph_type, 'total_' ) ) {
+                $selected_asset_types  = [];
+                $selected_asset_groups = [];
+
+            } elseif ( is_array( $selected_asset_types ) && 1 < count( $selected_asset_types ) && in_array( 'all', $selected_asset_types ) ) {
                 // empty types on error
-                $selected_asset_types = [];
+                $selected_asset_types = [ 'all' ];
             }
         }
 

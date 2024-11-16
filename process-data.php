@@ -145,22 +145,51 @@
 
         $all_rows[] = bp_get_chart_toprow( $data, $asset_types, $asset_groups, $graph_type );
 
-        if ( 'bar' === $graph_type ) {
-            foreach( $data as $asset_entry ) {
-                $type_id = (int) $asset_entry->type;
+        if ( in_array( $graph_type, [ 'bar', 'pie' ] ) ) {
+            if ( ! empty( $asset_types ) ) {
+                foreach( $data as $asset_row ) {
+                    // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                    //     continue;
+                    // }
+                    if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                        continue;
+                    }
+                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                        continue;
+                    }
 
-                if ( ! bp_is_type_added( $type_id, $asset_entry->date ) ) {
-                    continue;
+                    $entry_row  = [ bp_get_type_by_id( $asset_row->type ), (float) $asset_row->value ];
+                    $all_rows[] = $entry_row;
                 }
-                if ( bp_is_type_closed( $type_id, $asset_entry->date ) ) {
-                    continue;
+            } elseif ( ! empty( $asset_groups ) ) {
+                foreach( $data as $asset_row ) {
+                    // if ( ! bp_is_type_added( (int) $asset_row->type, $data ) ) {
+                    //     continue;
+                    // }
+                    if ( bp_is_type_closed( (int) $asset_row->type, $data ) ) {
+                        continue;
+                    }
+                    if ( bp_is_type_hidden( (int) $asset_row->type ) ) {
+                        continue;
+                    }
+
+                    $type_rows[] = $asset_row;
                 }
-                if ( bp_is_type_hidden( $type_id ) ) {
-                    continue;
+
+                $group_rows = [];
+                foreach( $type_rows as $type_row ) {
+                    // group by asset_group
+                    $asset_group_id   = (int) $type_row->asset_group;
+                    $asset_group_name = bp_get_group_by_id( $asset_group_id, 'name' );
+
+                    if ( ! array_key_exists( $asset_group_name, $group_rows ) ) {
+                        $group_rows[ $asset_group_name ] = 0;
+                    }
+                    $group_rows[ $asset_group_name ] = $group_rows[ $asset_group_name ] + $type_row->value;
                 }
-                $entry_row   = [ bp_get_type_by_id( $type_id, 'name' ) ];
-                $entry_row[] = (float) $asset_entry->value;
-                $all_rows[]  = $entry_row;
+                foreach( $group_rows as $label => $value ) {
+                    $all_rows[] = [ $label, $value ];
+                }
             }
 
         } elseif ( 'line' === $graph_type ) {

@@ -123,7 +123,7 @@
                 wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
 
                 if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
-                    if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
+                    if ( isset( $_POST[ 'show_graph' ] ) ) {
                         $validated = b3_validate_graph_fields( $_POST );
 
                         if ( $validated ) {
@@ -136,7 +136,7 @@
                             $dates        = isset( $_POST[ 'bp_dates' ] ) ? wp_unslash( $_POST[ 'bp_dates' ] ) : [];
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types || 'all' == $asset_groups ? true : false;
-                            $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, $asset_types, $asset_groups, $show_all );
+                            $grouped_data = bp_get_results_range( $dates, $asset_types, $asset_groups, $show_all );
                             $h_axis_title = esc_html__( 'Date', 'b3-assets-tracker' );
                             $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
 

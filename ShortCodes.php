@@ -44,7 +44,7 @@
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'until' ] ) );
             $dates        = [ $date_from, $date_until ];
-            $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, 'all' );
+            $grouped_data = bp_get_results_range( $dates, 'all' );
             $show_diff    = 1 < count( $grouped_data ) ? true : false;
 
             if ( ! empty( count( $grouped_data ) ) ) {
@@ -155,12 +155,13 @@
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
                         $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
                         $dates        = [ $date_from, $date_until ];
-                        $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, $asset_types, [], $show_all );
+                        $grouped_data = bp_get_results_range( $dates, $asset_types, [], $show_all );
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                    $grouped_data = bp_get_results_range( '', $date_until, [ $date_until ], [], [] );
+                    $dates        = [ $date_until ];
+                    $grouped_data = bp_get_results_range( $dates, [], [] );
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );
