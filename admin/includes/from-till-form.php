@@ -11,12 +11,18 @@
                     <?php esc_html_e( 'Graph type', 'b3-assets-tracker' ); ?>
                 </th>
             <?php } ?>
-            <th>
-                <?php esc_html_e( 'From', 'b3-assets-tracker' ); ?>
-            </th>
-            <th>
-                <?php esc_html_e( 'Until', 'b3-assets-tracker' ); ?>
-            </th>
+            <?php if ( $show_graph_options ) { ?>
+                <th>
+                    <?php esc_html_e( 'Dates', 'b3-assets-tracker' ); ?>
+                </th>
+            <?php } else { ?>
+                <th>
+                    <?php esc_html_e( 'From', 'b3-assets-tracker' ); ?>
+                </th>
+                <th>
+                    <?php esc_html_e( 'Until', 'b3-assets-tracker' ); ?>
+                </th>
+            <?php } ?>
             <?php if ( $show_all_option ) { ?>
                 <th class="checkbox">
                     <?php esc_html_e( 'Show all', 'b3-assets-tracker' ); ?>
@@ -48,26 +54,49 @@
                     </label>
                 </td>
             <?php } ?>
-            <td>
-                <label>
-                    <select name="stats_from">
-                        <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'From', 'b3-assets-tracker' ) ); ?>
-                        <?php foreach( $all_dates as $date ) { ?>
-                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_from, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
-                        <?php } ?>
-                    </select>
-                </label>
-            </td>
-            <td>
-                <label>
-                    <select name="stats_until" required>
-                        <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'Until', 'b3-assets-tracker' ) ); ?>
-                        <?php foreach( $all_dates as $date ) { ?>
-                            <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_until, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
-                        <?php } ?>
-                    </select>
-                </label>
-            </td>
+            <?php if ( $show_graph_options ) { ?>
+                <td class="dates">
+                    <div id="dates" class="dropdown-check-list" tabindex="100">
+                        <div class="anchor">
+                            <?php esc_html_e( 'Select date(s)', 'b3-assets-tracker' ); ?> &darr;
+                        </div>
+                        <ul class="items">
+                            <?php foreach( $all_dates as $date ) { ?>
+                                <li>
+                                    <label>
+                                        <?php $checked = ''; ?>
+                                        <?php if ( is_array( $selected_dates ) && in_array( $date, $selected_dates ) ) { ?>
+                                            <?php $checked = ' checked="checked"'; ?>
+                                        <?php } ?>
+                                        <?php echo sprintf( '<input type="checkbox" name="bp_dates[]" value="%s" %s>%s</input>', esc_attr( $date ), esc_attr( $checked ), esc_html( bp_format_value( $date, 'date' ) ) ); ?>
+                                    </label>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </td>
+            <?php } else { ?>
+                <td>
+                    <label>
+                        <select name="stats_from">
+                            <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'From', 'b3-assets-tracker' ) ); ?>
+                            <?php foreach( $all_dates as $date ) { ?>
+                                <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_from, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
+                            <?php } ?>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select name="stats_until">
+                            <?php echo sprintf( '<option value="">%s</option>', esc_attr__( 'Until', 'b3-assets-tracker' ) ); ?>
+                            <?php foreach( $all_dates as $date ) { ?>
+                                <?php echo sprintf( '<option value="%s" %s>%s%s</option>', esc_attr( $date ), selected( $date_until, $date ), esc_html( bp_format_value( $date, 'date' ) ), sprintf( ' (%s)', esc_html( gmdate( 'D', strtotime( $date ) ) ) ) ); ?>
+                            <?php } ?>
+                        </select>
+                    </label>
+                </td>
+            <?php } ?>
             <?php if ( $show_all_option ) { ?>
                 <td class="checkbox">
                     <label>
