@@ -7,10 +7,10 @@
 
             <ul>
                 <li>
-                    <?php esc_html_e( 'Choose either asset types or groups, not both.', 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( "Select only 1 date.", 'b3-assets-tracker' ); ?>
                 </li>
                 <li>
-                    <?php esc_html_e( "Only end date is needed/required.", 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( 'Choose either asset types or groups, not both.', 'b3-assets-tracker' ); ?>
                 </li>
             </ul>
         </li>
@@ -21,10 +21,10 @@
 
             <ul>
                 <li>
-                    <?php esc_html_e( 'Choose either asset types or groups, not both.', 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( 'Min. 2 dates are needed.', 'b3-assets-tracker' ); ?>
                 </li>
                 <li>
-                    <?php esc_html_e( 'Start and end date are required.', 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( 'Choose either asset types or groups, not both.', 'b3-assets-tracker' ); ?>
                 </li>
             </ul>
         </li>
@@ -34,10 +34,10 @@
             </div>
             <ul>
                 <li>
-                    <?php esc_html_e( "Asset group/type is ignored (because it's defines by graph type).", 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( "Select only 1 date.", 'b3-assets-tracker' ); ?>
                 </li>
                 <li>
-                    <?php esc_html_e( "Only end date is needed/required.", 'b3-assets-tracker' ); ?>
+                    <?php esc_html_e( "Asset group/type is ignored (because it's defines by graph type).", 'b3-assets-tracker' ); ?>
                 </li>
             </ul>
         </li>
