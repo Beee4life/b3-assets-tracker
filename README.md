@@ -44,6 +44,7 @@ composer require "Beee4life/b3-assets-tracker"
 * add date input for added
 * add date input for closed
 * add conditional top margin
+* allow for multiple date selection
 
 1.13.0 - 03.11.24
 * add bar chart
