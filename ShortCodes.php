@@ -43,7 +43,8 @@
 
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'until' ] ) );
-            $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+            $dates        = [ $date_from, $date_until ];
+            $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, 'all' );
             $show_diff    = 1 < count( $grouped_data ) ? true : false;
 
             if ( ! empty( count( $grouped_data ) ) ) {
@@ -150,16 +151,16 @@
                             }
                         }
 
-                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'until' ] ) ) {
+                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) && ! empty( $shortcode_attributes[ 'until' ] ) ) {
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
-                        $date_until   = ! empty( $shortcode_attributes[ 'until' ] ) ? $shortcode_attributes[ 'until' ] : '';
                         $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                        $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, [], $show_all );
+                        $dates        = [ $date_from, $date_until ];
+                        $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, $asset_types, [], $show_all );
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                    $grouped_data = bp_get_results_range( '', $date_until, [], [] );
+                    $grouped_data = bp_get_results_range( '', $date_until, [ $date_until ], [], [] );
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );

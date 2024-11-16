@@ -133,9 +133,10 @@
                             $asset_groups = in_array( 'all', $asset_groups ) ? 'all' : $asset_groups;
                             $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
                             $date_until   = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
+                            $dates        = isset( $_POST[ 'bp_dates' ] ) ? wp_unslash( $_POST[ 'bp_dates' ] ) : [];
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types || 'all' == $asset_groups ? true : false;
-                            $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
+                            $grouped_data = bp_get_results_range( $date_from, $date_until, $dates, $asset_types, $asset_groups, $show_all );
                             $h_axis_title = esc_html__( 'Date', 'b3-assets-tracker' );
                             $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
 

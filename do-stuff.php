@@ -24,6 +24,24 @@
         }
 
         if ( isset( $post_data[ 'show_graph' ] ) ) {
+            if ( empty( $post_data[ 'bp_dates' ] ) ) {
+                if ( function_exists( 'bp_errors' ) ) {
+                    bp_errors()->add( 'error_no_dates', esc_html( __( 'You did\'t select any dates. At least one is needed, depending on your selected graph type.', 'b3-assets-tracker' ) ) );
+
+                    return false;
+                }
+            }
+
+            if ( isset( $post_data[ 'graph_type' ] ) && 'line' === $post_data[ 'graph_type' ] ) {
+                if ( 1 == count( $post_data[ 'bp_dates' ] ) ) {
+                    if ( function_exists( 'bp_errors' ) ) {
+                        bp_errors()->add( 'error_more_dates', esc_html( __( 'You need at least 2 dates for a line chart.', 'b3-assets-tracker' ) ) );
+
+                        return false;
+                    }
+                }
+            }
+
             if ( ! isset( $post_data[ 'asset_type' ] ) && ! isset( $post_data[ 'asset_group' ] )  ) {
                 if ( isset( $post_data[ 'graph_type' ] ) && strpos( $post_data[ 'graph_type' ], 'total_' ) === false ) {
                     if ( function_exists( 'bp_errors' ) ) {
@@ -54,15 +72,15 @@
             if ( isset( $post_data[ 'graph_type' ] ) && 'line' === $post_data[ 'graph_type' ] ) {
                 if ( empty( $post_data[ 'stats_from' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
-                        bp_errors()->add( 'error_no_start_date', esc_html( __( 'You didn\'t select a start date.', 'b3-assets-tracker' ) ) );
+                        // bp_errors()->add( 'error_no_start_date', esc_html( __( 'You didn\'t select a start date.', 'b3-assets-tracker' ) ) );
 
-                        return false;
+                        // return false;
                     }
                 }
             } elseif ( isset( $post_data[ 'graph_type' ] ) && 'total_type' === $post_data[ 'graph_type' ] ) {
                 if ( ! empty( $post_data[ 'stats_from' ] ) ) {
                     if ( function_exists( 'bp_errors' ) ) {
-                        bp_errors()->add( 'warning_no_start_date_needed', esc_html( __( 'You don\'t need a start date for a total. The until date is used for that.', 'b3-assets-tracker' ) ) );
+                        // bp_errors()->add( 'warning_no_start_date_needed', esc_html( __( 'You don\'t need a start date for a total. The until date is used for that.', 'b3-assets-tracker' ) ) );
                     }
                 }
             }
