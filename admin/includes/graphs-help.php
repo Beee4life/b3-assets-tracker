@@ -24,6 +24,9 @@
                     <?php esc_html_e( 'Min. 2 dates are needed.', 'b3-assets-tracker' ); ?>
                 </li>
                 <li>
+                    <?php esc_html_e( 'If you select 2 dates, the oldest is used as start date, the newest as end date.', 'b3-assets-tracker' ); ?>
+                </li>
+                <li>
                     <?php esc_html_e( 'Choose either asset types or groups, not both.', 'b3-assets-tracker' ); ?>
                 </li>
             </ul>
