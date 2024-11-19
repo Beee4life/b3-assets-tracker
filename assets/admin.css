@@ -165,7 +165,8 @@
 
 /* https://stackoverflow.com/questions/19206919/how-to-create-checkbox-inside-dropdown */
 td.asset-groups,
-td.asset-types {
+td.asset-types,
+td.dates {
     position: relative;
 }
 
@@ -197,6 +198,10 @@ td.asset-types {
     background: white;
     position:   absolute;
     top:        2.5rem;
-    width:      300px;
+    width:      200px;
     z-index:    20;
+}
+
+#dates.dropdown-check-list.visible .items {
+    width: 120px;
 }

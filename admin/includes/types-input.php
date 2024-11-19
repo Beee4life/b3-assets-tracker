@@ -43,9 +43,14 @@
                         <?php esc_html_e( 'Group', 'b3-assets-tracker' ); ?>
                     </th>
                 <?php } ?>
-                <th class="checkbox closed">
-                    <?php esc_html_e( 'Closed', 'b3-assets-tracker' ); ?>
-                </th>
+                <?php if ( $current_type ) { ?>
+                    <th class="added">
+                        <?php esc_html_e( 'Added', 'b3-assets-tracker' ); ?>
+                    </th>
+                    <th class="closed">
+                        <?php esc_html_e( 'Closed', 'b3-assets-tracker' ); ?>
+                    </th>
+                <?php } ?>
                 <th class="checkbox hide-type">
                     <?php esc_html_e( 'Hide', 'b3-assets-tracker' ); ?>
                 </th>
@@ -78,11 +83,18 @@
                         </label>
                     </td>
                 <?php } ?>
-                <td class="checkbox closed">
-                    <label>
-                        <input name="bp_closed" type="checkbox" value="1" <?php checked( $closed_value ); ?> />
-                    </label>
-                </td>
+                <?php if ( $current_type ) { ?>
+                    <td>
+                        <label>
+                            <input name="bp_added" type="date" class="" min="" value="<?php echo esc_attr( $added_value ); ?>" max="<?php echo esc_attr( gmdate( 'Y-m-d', time() ) ); ?>" />
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input name="bp_closed" type="date" class="" min="" value="<?php echo esc_attr( $closed_value ); ?>" max="<?php echo esc_attr( gmdate( 'Y-m-d', time() ) ); ?>" />
+                        </label>
+                    </td>
+                <?php } ?>
                 <td class="checkbox hide-type">
                     <label>
                         <input name="bp_hide" type="checkbox" value="1" <?php checked( $hide_value ); ?> />

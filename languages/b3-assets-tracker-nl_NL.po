@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-06 23:53+0100\n"
-"PO-Revision-Date: 2024-11-06 23:53+0100\n"
+"POT-Creation-Date: 2024-11-19 20:26+0100\n"
+"PO-Revision-Date: 2024-11-19 20:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -16,15 +16,35 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages\n"
 
-#: B3AssetsTracker.php:139 ShortCodes.php:176 admin/add-data.php:53
+#: B3AssetsTracker.php:103 actions-bp.php:12
+msgid "Data"
+msgstr "Gegevens"
+
+#: B3AssetsTracker.php:105 actions-bp.php:13
+msgid "Add data"
+msgstr "Gegevens toevoegen"
+
+#: B3AssetsTracker.php:107 actions-bp.php:15
+msgid "Types"
+msgstr "Types"
+
+#: B3AssetsTracker.php:109 actions-bp.php:14
+msgid "Graphs"
+msgstr "Grafieken"
+
+#: B3AssetsTracker.php:111 actions-bp.php:16
+msgid "Settings"
+msgstr "Instellingen"
+
+#: B3AssetsTracker.php:140 ShortCodes.php:179 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:140 B3AssetsTracker.php:146 ShortCodes.php:177
+#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:180
 msgid "Value"
 msgstr "Waarde"
 
-#: B3AssetsTracker.php:147 process-data.php:14
+#: B3AssetsTracker.php:148 process-data.php:14
 msgid "Asset"
 msgstr "Activa"
 
@@ -32,15 +52,15 @@ msgstr "Activa"
 msgid "Shortcode is using old till value"
 msgstr "Shortcode gebruikt de oude ‘tot’ waarde"
 
-#: ShortCodes.php:37 ShortCodes.php:125
+#: ShortCodes.php:37 ShortCodes.php:126
 msgid "Shortcode is missing 1 or more attributes"
 msgstr "Shortcode mist 1 of meer attributen"
 
-#: ShortCodes.php:58 ShortCodes.php:61 admin/data.php:90
+#: ShortCodes.php:59 ShortCodes.php:62 admin/data.php:90
 msgid "Table scrolls horizontally."
 msgstr "Tabel scrollt horizontaal."
 
-#: ShortCodes.php:71
+#: ShortCodes.php:72
 #, php-format
 msgid ""
 "This data comes from a WordPress %s I created to track my assets and easily "
@@ -49,7 +69,7 @@ msgstr ""
 "Deze gegevens zijn afkomstig van een WordPress %s die ik heb gemaakt om mijn "
 "activa bij te houden en deze gemakkelijk binnen de site te delen."
 
-#: ShortCodes.php:78
+#: ShortCodes.php:79
 msgid ""
 "This data comes from a WordPress plugin I created to track my assets and "
 "easily share it within the site."
@@ -57,15 +77,15 @@ msgstr ""
 "Deze gegevens zijn afkomstig van een WordPress plug-in die ik heb gemaakt om "
 "mijn activa bij te houden en deze gemakkelijk binnen de site te delen."
 
-#: ShortCodes.php:89 ShortCodes.php:123
+#: ShortCodes.php:90 ShortCodes.php:124
 msgid "Not enough data for results."
 msgstr "Niet genoeg gegevens voor resultaten."
 
-#: ShortCodes.php:91 ShortCodes.php:192
+#: ShortCodes.php:92 ShortCodes.php:195
 msgid "Something went wrong with the results."
 msgstr "Er is iets misgegaan met de resultaten."
 
-#: ShortCodes.php:190
+#: ShortCodes.php:193
 msgid "Not enough data for to display. Check the shortcode in the content."
 msgstr ""
 "Niet genoeg gegevens om weer te geven. Controleer de shortcode in de inhoud."
@@ -73,26 +93,6 @@ msgstr ""
 #: actions-bp.php:11
 msgid "Dashboard"
 msgstr "Dashboard"
-
-#: actions-bp.php:12
-msgid "Data"
-msgstr "Gegevens"
-
-#: actions-bp.php:13
-msgid "Add data"
-msgstr "Gegevens toevoegen"
-
-#: actions-bp.php:14
-msgid "Graphs"
-msgstr "Grafieken"
-
-#: actions-bp.php:15
-msgid "Types"
-msgstr "Types"
-
-#: actions-bp.php:16
-msgid "Settings"
-msgstr "Instellingen"
 
 #: admin/add-data.php:7 admin/add-type.php:7 admin/dashboard.php:7
 #: admin/data.php:7 admin/graphs.php:7 admin/settings.php:7
@@ -107,8 +107,8 @@ msgstr "Status"
 msgid "Hidden"
 msgstr "Verborgen"
 
-#: admin/add-data.php:98 admin/includes/types-input.php:47
-#: admin/includes/types-output.php:32
+#: admin/add-data.php:98 admin/includes/types-input.php:51
+#: admin/includes/types-output.php:30
 msgid "Closed"
 msgstr "Gesloten"
 
@@ -116,8 +116,8 @@ msgstr "Gesloten"
 msgid "Save"
 msgstr "Opslaan"
 
-#: admin/add-data.php:111 admin/dashboard.php:104 admin/data.php:70
-#: admin/graphs.php:80
+#: admin/add-data.php:111 admin/dashboard.php:105 admin/data.php:70
+#: admin/graphs.php:86
 msgid "Add types first"
 msgstr "Voeg eerst types toe"
 
@@ -129,7 +129,7 @@ msgstr "Bijwerken"
 msgid "Add"
 msgstr "Toevoegen"
 
-#: admin/dashboard.php:109 admin/data.php:76
+#: admin/dashboard.php:110 admin/data.php:76
 msgid "Add data now"
 msgstr "Voeg nu gegevens toe"
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "All"
 msgstr "Alle"
 
-#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:126
+#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:153
 msgid "Filter"
 msgstr "Filter"
 
@@ -158,62 +158,78 @@ msgstr "Filter"
 msgid "Graph type"
 msgstr "Type grafiek"
 
-#: admin/includes/from-till-form.php:15 admin/includes/from-till-form.php:54
+#: admin/includes/from-till-form.php:16
+msgid "Dates"
+msgstr "Datums"
+
+#: admin/includes/from-till-form.php:20
 msgid "From"
 msgstr "Van"
 
-#: admin/includes/from-till-form.php:18 admin/includes/from-till-form.php:64
+#: admin/includes/from-till-form.php:23
 msgid "Until"
 msgstr "Tot"
 
-#: admin/includes/from-till-form.php:22
+#: admin/includes/from-till-form.php:28
 msgid "Show all"
 msgstr "Toon alles"
 
-#: admin/includes/from-till-form.php:27
+#: admin/includes/from-till-form.php:33
 msgid "Asset types"
 msgstr "Activatypes"
 
-#: admin/includes/from-till-form.php:32
+#: admin/includes/from-till-form.php:38
 msgid "Asset groups"
 msgstr "Activagroepen"
 
-#: admin/includes/from-till-form.php:82
+#: admin/includes/from-till-form.php:61
+msgid "Select date(s)"
+msgstr "Selecteer datums"
+
+#: admin/includes/from-till-form.php:109
 msgid "Select type(s)"
 msgstr "Selecteer type(s)"
 
-#: admin/includes/from-till-form.php:107
+#: admin/includes/from-till-form.php:134
 msgid "Select Group(s)"
 msgstr "Selecteer groep(en)"
 
-#: admin/includes/graphs-help.php:5 get-stuff.php:97
+#: admin/includes/graphs-help.php:5 get-stuff.php:99
 msgid "Bar chart"
 msgstr "Staafdiagram"
 
-#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:24
+#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:40
+msgid "Select only 1 date."
+msgstr "Selecteer 1 datum."
+
+#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:30
 msgid "Choose either asset types or groups, not both."
 msgstr "Kies een activa type OF groep, niet beide."
 
-#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:40
-msgid "Only end date is needed/required."
-msgstr "Alleen de eind datum is nodig/verplicht."
-
-#: admin/includes/graphs-help.php:19 get-stuff.php:98
+#: admin/includes/graphs-help.php:19 get-stuff.php:100
 msgid "Line chart"
 msgstr "Lijndiagram"
 
-#: admin/includes/graphs-help.php:27
-msgid "Start and end date are required."
-msgstr "Start en eind datum zijn verplicht."
+#: admin/includes/graphs-help.php:24
+msgid "Min. 2 dates are needed."
+msgstr "Minimaal 2 datums zijn vereist."
 
-#: admin/includes/graphs-help.php:33
+#: admin/includes/graphs-help.php:27
+msgid ""
+"If you select 2 dates, the oldest is used as start date, the newest as end "
+"date."
+msgstr ""
+"Als je 2 datums selecteer, wordt de oudste als start datum en de nieuwste "
+"als eind datum gekozen."
+
+#: admin/includes/graphs-help.php:36 get-stuff.php:101
 msgid "Pie chart"
 msgstr "Cirkeldiagram"
 
-#: admin/includes/graphs-help.php:37
+#: admin/includes/graphs-help.php:43
 msgid "Asset group/type is ignored (because it's defines by graph type)."
 msgstr ""
-"Activa groep/type wordt genegeerd (want het grafiek type bepaalt de output)."
+"Activa groep/type wordt genegeerd (want het type grafiek bepaalt de output)."
 
 #: admin/includes/remove-date-form.php:5
 msgid "Select date"
@@ -243,12 +259,16 @@ msgstr "Type (naam)"
 msgid "Order"
 msgstr "Volgorde"
 
-#: admin/includes/types-input.php:43 admin/includes/types-input.php:72
+#: admin/includes/types-input.php:43 admin/includes/types-input.php:77
 #: admin/includes/types-output.php:24
 msgid "Group"
 msgstr "Groep"
 
-#: admin/includes/types-input.php:50 admin/includes/types-output.php:35
+#: admin/includes/types-input.php:48 admin/includes/types-output.php:27
+msgid "Added"
+msgstr "Toegevoegd"
+
+#: admin/includes/types-input.php:55 admin/includes/types-output.php:33
 msgid "Hide"
 msgstr "Verberg"
 
@@ -256,15 +276,11 @@ msgstr "Verberg"
 msgid "Name"
 msgstr "Naam"
 
-#: admin/includes/types-output.php:28
-msgid "Added"
-msgstr "Toegevoegd"
-
-#: admin/includes/types-output.php:38
+#: admin/includes/types-output.php:36
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: admin/includes/types-output.php:88
+#: admin/includes/types-output.php:84
 msgid "Delete selected type(s)"
 msgstr "Geselecteerde type(n) verwijderen"
 
@@ -276,32 +292,45 @@ msgstr "Valuta"
 msgid "Date format"
 msgstr "Datum formaat"
 
-#: do-stuff.php:30
+#: do-stuff.php:29
+msgid ""
+"You did't select any dates. At least one is needed, depending on your "
+"selected graph type."
+msgstr ""
+"Je hebt geen datums geselecteerd. Minimaal 1 datum is vereist, afhankelijk "
+"van de geselecteerde type grafiek."
+
+#: do-stuff.php:38
+msgid "You need only 1 date for a bar chart."
+msgstr "Je hebt slechts 1 datum nodig voor een staafdiagram."
+
+#: do-stuff.php:47
+msgid "You need at least 2 dates for a line chart."
+msgstr "Minimaal 2 datums zijn nodig voor een lijngrafiek."
+
+#: do-stuff.php:57
 msgid "You did not select an asset type or group."
 msgstr "Je hebt geen asset type of groep geselecteerd."
 
-#: do-stuff.php:40
-msgid ""
-"If you select \"All\", you can't select any other types. Please select the "
-"types again."
-msgstr ""
-"Als u 'Alle' selecteert, kunt u geen andere types selecteren. Selecteer de "
-"types opnieuw."
-
-#: do-stuff.php:47
+#: do-stuff.php:64
 msgid "You need to select an an asset type OR group, not both."
 msgstr "U moet een activa type OF groep selecteren, niet beide."
 
-#: do-stuff.php:57
-msgid "You didn't select a start date."
-msgstr "Je hebt geen startdatum geselecteerd."
-
-#: do-stuff.php:65
+#: do-stuff.php:75
 msgid ""
-"You don't need a start date for a total. The until date is used for that."
+"If you select 'All', you can't select any other types. Please select the "
+"types again."
 msgstr ""
-"Voor een totaal heb je geen startdatum nodig. Daarvoor wordt de ‘tot’ datum "
-"gebruikt."
+"Als u 'Alle' selecteert, kunt je geen andere types selecteren. Selecteer de "
+"types opnieuw."
+
+#: do-stuff.php:86
+msgid ""
+"If you select 'All', you can't select any other groups. Please select the "
+"groups again."
+msgstr ""
+"Als u 'Alle' selecteert, kunt je geen andere groepen selecteren. Selecteer "
+"de groepen opnieuw."
 
 #: form-handling.php:12
 msgid "No date selected."
@@ -325,11 +354,11 @@ msgstr "Waarden ingevoegd."
 msgid "No type selected."
 msgstr "Geen type geselecteerd."
 
-#: forms/form--add-type.php:55
+#: forms/form--add-type.php:60
 msgid "Type updated."
 msgstr "Type bijgewerkt."
 
-#: forms/form--add-type.php:93
+#: forms/form--add-type.php:98
 msgid "Type inserted."
 msgstr "Type ingevoegd."
 
@@ -341,32 +370,32 @@ msgstr "Data verwijderd."
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
-#: get-stuff.php:99
-msgid "Pie chart (per type)"
-msgstr "Cirkeldiagram (per type)"
+#: get-stuff.php:102
+msgid "Total per type"
+msgstr "Totaal per type"
 
-#: get-stuff.php:100
-msgid "Pie chart (per group)"
-msgstr "Cirkeldiagram (per groep)"
+#: get-stuff.php:103
+msgid "Total per group"
+msgstr "Totaal per groep"
 
-#: get-stuff.php:500 get-stuff.php:521 process-data.php:106
+#: get-stuff.php:416 get-stuff.php:437 process-data.php:106
 #: process-data.php:108
 msgid "Total"
 msgstr "Totaal"
 
-#: get-stuff.php:505 get-stuff.php:515
+#: get-stuff.php:421 get-stuff.php:431
 msgid "Assets per type"
 msgstr "Activa per type"
 
-#: get-stuff.php:509
+#: get-stuff.php:425
 msgid "Total assets value"
 msgstr "Totale waarde activa"
 
-#: get-stuff.php:511
+#: get-stuff.php:427
 msgid "Week diff"
 msgstr "Week verschil"
 
-#: get-stuff.php:518
+#: get-stuff.php:434
 msgid "Assets per group"
 msgstr "Activa per groep"
 
@@ -383,6 +412,27 @@ msgstr "Verschil in %"
 #, no-php-format
 msgid "% of total"
 msgstr "% van totaal"
+
+#~ msgid "Only end date is needed/required."
+#~ msgstr "Alleen de eind datum is nodig/verplicht."
+
+#~ msgid "Start and end date are required."
+#~ msgstr "Start en eind datum zijn verplicht."
+
+#~ msgid "You didn't select a start date."
+#~ msgstr "Je hebt geen startdatum geselecteerd."
+
+#~ msgid ""
+#~ "You don't need a start date for a total. The until date is used for that."
+#~ msgstr ""
+#~ "Voor een totaal heb je geen startdatum nodig. Daarvoor wordt de ‘tot’ "
+#~ "datum gebruikt."
+
+#~ msgid "Pie chart (per type)"
+#~ msgstr "Cirkeldiagram (per type)"
+
+#~ msgid "Pie chart (per group)"
+#~ msgstr "Cirkeldiagram (per groep)"
 
 #~ msgid "Per type (Pie chart)"
 #~ msgstr "Per type (cirkeldiagram)"

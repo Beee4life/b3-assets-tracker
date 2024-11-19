@@ -2,7 +2,7 @@
     /*
         Plugin Name:    B3 : Assets Tracker
         Description:    This plugin gives you the option to track and analyze your (financial) assets.
-        Version:        1.13.0
+        Version:        1.14.0
         Author:         Beee
         Author URI:     https://berryplasman.com
         License:        GPL2
@@ -100,15 +100,15 @@
                 include 'admin/dashboard.php';
                 add_menu_page( 'A$$et$', 'A$$et$', 'manage_options', 'bp-assets-dashboard', 'bp_assets_dashboard', 'dashicons-chart-pie', '3' );
                 include 'admin/data.php';
-                add_submenu_page( 'options.php', 'Data', 'Data', 'manage_options', 'bp-assets-data', 'bp_assets_data' );
+                add_submenu_page( 'options.php', esc_html__( 'Data', 'b3-assets-tracker' ), esc_html__( 'Data', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-data', 'bp_assets_data' );
                 include 'admin/add-data.php';
-                add_submenu_page( 'options.php', 'Add data', 'Add data', 'manage_options', 'bp-assets-add-data', 'bp_assets_add_data' );
+                add_submenu_page( 'options.php', esc_html__( 'Add data' ), esc_html__( 'Add data' ), 'manage_options', 'bp-assets-add-data', 'bp_assets_add_data' );
                 include 'admin/add-type.php';
-                add_submenu_page( 'options.php', 'Types', 'Types', 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
+                add_submenu_page( 'options.php', esc_html__( 'Types', 'b3-assets-tracker' ), esc_html__( 'Types', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
                 include 'admin/graphs.php';
-                add_submenu_page( 'options.php', 'Graphs', 'Graphs', 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
+                add_submenu_page( 'options.php', esc_html__( 'Graphs', 'b3-assets-tracker' ), esc_html__( 'Graphs', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
                 include 'admin/settings.php';
-                add_submenu_page( 'options.php', 'Settings', 'Settings', 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
+                add_submenu_page( 'options.php', esc_html__( 'Settings', 'b3-assets-tracker' ), esc_html__( 'Settings', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
             }
 
 
@@ -123,7 +123,7 @@
                 wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
 
                 if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
-                    if ( isset( $_POST[ 'stats_until' ] ) && isset( $_POST[ 'show_graph' ] ) ) {
+                    if ( isset( $_POST[ 'show_graph' ] ) ) {
                         $validated = b3_validate_graph_fields( $_POST );
 
                         if ( $validated ) {
@@ -133,9 +133,10 @@
                             $asset_groups = in_array( 'all', $asset_groups ) ? 'all' : $asset_groups;
                             $date_from    = isset( $_POST[ 'stats_from' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_from' ] ) ) : '';
                             $date_until   = isset( $_POST[ 'stats_until' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'stats_until' ] ) ) : '';
+                            $dates        = isset( $_POST[ 'bp_dates' ] ) ? wp_unslash( $_POST[ 'bp_dates' ] ) : [];
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types || 'all' == $asset_groups ? true : false;
-                            $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, $asset_groups, $show_all );
+                            $grouped_data = bp_get_results_range( $dates, $asset_types, $asset_groups, $show_all );
                             $h_axis_title = esc_html__( 'Date', 'b3-assets-tracker' );
                             $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
 
@@ -184,7 +185,7 @@
                     wp_register_style( 'bp-assets-front', plugins_url( 'assets/front.css', __FILE__ ), [], $this->bp_settings()[ 'version' ] );
                     wp_enqueue_style( 'bp-assets-front' );
 
-                    // @TODO: add IF is shortcode used
+                    // @TODO: add check IF shortcode is used
                     wp_enqueue_script( 'google-chart', 'https://www.gstatic.com/charts/loader.js', [], $this->bp_settings()[ 'version' ], false );
                     wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
                 }

@@ -43,7 +43,8 @@
 
             $date_from    = gmdate( 'Y-m-d', strtotime( $attributes[ 'from' ] ) );
             $date_until   = gmdate( 'Y-m-d', strtotime( $attributes[ 'until' ] ) );
-            $grouped_data = bp_get_results_range( $date_from, $date_until, 'all', [] );
+            $dates        = [ $date_from, $date_until ];
+            $grouped_data = bp_get_results_range( $dates, 'all' );
             $show_diff    = 1 < count( $grouped_data ) ? true : false;
 
             if ( ! empty( count( $grouped_data ) ) ) {
@@ -150,22 +151,24 @@
                             }
                         }
 
-                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) || ! empty( $shortcode_attributes[ 'until' ] ) ) {
+                    } elseif ( ! empty( $shortcode_attributes[ 'from' ] ) && ! empty( $shortcode_attributes[ 'until' ] ) ) {
                         $date_from    = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'from' ] ) );
-                        $date_until   = ! empty( $shortcode_attributes[ 'until' ] ) ? $shortcode_attributes[ 'until' ] : '';
                         $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                        $grouped_data = bp_get_results_range( $date_from, $date_until, $asset_types, [], $show_all );
+                        $dates        = [ $date_from, $date_until ];
+                        $grouped_data = bp_get_results_range( $dates, $asset_types, [], $show_all );
                     }
 
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
-                    $grouped_data = bp_get_results_range( '', $date_until, [], [] );
+                    $dates        = [ $date_until ];
+                    $grouped_data = bp_get_results_range( $dates, [], [] );
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );
 
                 if ( 1 < count( $grouped_data ) ) {
                     $processed_data = bp_process_data_for_chart( $grouped_data, $asset_types, $asset_groups, $graph_type );
+                    $margin_top     = apply_filters( 'b3_chart_top_margin', 'auto' );
 
                     $chart_args = [
                         'asset_group'  => $asset_groups,
@@ -176,7 +179,7 @@
                         'h_axis_title' => esc_html__( 'Date', 'b3-assets-tracker' ),
                         'v_axis_title' => esc_html__( 'Value', 'b3-assets-tracker' ),
                         'legend'       => $shortcode_attributes[ 'legend' ],
-                        'margin_top'   => 'auto',
+                        'margin_top'   => $margin_top,
                         'margin_left'  => 'auto',
                         'margin_right' => 'auto',
                         'data'         => $processed_data,
