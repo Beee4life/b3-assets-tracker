@@ -100,15 +100,15 @@
                 include 'admin/dashboard.php';
                 add_menu_page( 'A$$et$', 'A$$et$', 'manage_options', 'bp-assets-dashboard', 'bp_assets_dashboard', 'dashicons-chart-pie', '3' );
                 include 'admin/data.php';
-                add_submenu_page( 'options.php', esc_html__( 'Data', 'yoft' ), esc_html__( 'Data', 'yoft' ), 'manage_options', 'bp-assets-data', 'bp_assets_data' );
+                add_submenu_page( 'options.php', esc_html__( 'Data', 'b3-assets-tracker' ), esc_html__( 'Data', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-data', 'bp_assets_data' );
                 include 'admin/add-data.php';
                 add_submenu_page( 'options.php', esc_html__( 'Add data' ), esc_html__( 'Add data' ), 'manage_options', 'bp-assets-add-data', 'bp_assets_add_data' );
                 include 'admin/add-type.php';
-                add_submenu_page( 'options.php', esc_html__( 'Types', 'yoft' ), esc_html__( 'Types', 'yoft' ), 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
+                add_submenu_page( 'options.php', esc_html__( 'Types', 'b3-assets-tracker' ), esc_html__( 'Types', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-types', 'bp_assets_add_type' );
                 include 'admin/graphs.php';
-                add_submenu_page( 'options.php', esc_html__( 'Graphs', 'yoft' ), esc_html__( 'Graphs', 'yoft' ), 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
+                add_submenu_page( 'options.php', esc_html__( 'Graphs', 'b3-assets-tracker' ), esc_html__( 'Graphs', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-graphs', 'bp_assets_graphs' );
                 include 'admin/settings.php';
-                add_submenu_page( 'options.php', esc_html__( 'Settings', 'yoft' ), esc_html__( 'Settings', 'yoft' ), 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
+                add_submenu_page( 'options.php', esc_html__( 'Settings', 'b3-assets-tracker' ), esc_html__( 'Settings', 'b3-assets-tracker' ), 'manage_options', 'bp-assets-settings', 'bp_assets_settings' );
             }
 
 
