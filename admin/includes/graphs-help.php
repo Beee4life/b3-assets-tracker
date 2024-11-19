@@ -39,6 +39,16 @@
                 <li>
                     <?php esc_html_e( "Select only 1 date.", 'b3-assets-tracker' ); ?>
                 </li>
+            </ul>
+        </li>
+        <li class="graph-info">
+            <div class="graph-info__header">
+                <?php esc_html_e( 'Total charts', 'b3-assets-tracker' ); ?>
+            </div>
+            <ul>
+                <li>
+                    <?php esc_html_e( "Select only 1 date.", 'b3-assets-tracker' ); ?>
+                </li>
                 <li>
                     <?php esc_html_e( "Asset group/type is ignored (because it's defines by graph type).", 'b3-assets-tracker' ); ?>
                 </li>
