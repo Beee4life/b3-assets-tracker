@@ -117,7 +117,7 @@
 
                 $validated_shortcode_field = b3_validate_shortcode_fields( $shortcode_attributes );
                 if ( ! $validated_shortcode_field ) {
-                    if ( current_user_can( 'manage_options' ) ) {
+                    if ( apply_filters( 'b3_assets_role', 'manage_options' ) ) {
                         if ( ! empty( $shortcode_attributes[ 'till' ] ) ) {
                             return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for results.', 'b3-assets-tracker' ) );
                         } else {
@@ -187,7 +187,7 @@
                     return bp_get_chart_element();
 
                 } else {
-                    if ( current_user_can( 'manage_options' ) ) {
+                    if ( apply_filters( 'b3_assets_role', 'manage_options' ) ) {
                         return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for to display. Check the shortcode in the content.', 'b3-assets-tracker' ) );
                     } else {
                         return sprintf( '<p>%s</p>', esc_html__( 'Something went wrong with the results.', 'b3-assets-tracker' ) );
