@@ -121,6 +121,10 @@
     }
 }
 
+#dates.dropdown-check-list.visible .items {
+    width: 120px;
+}
+
 .graphs-help {
     margin-top: 1rem;
 }
