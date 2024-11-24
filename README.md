@@ -35,7 +35,7 @@ Add this to your composer.json
 
 Then run
 ```
-composer require "Beee4life/b3-assets-tracker"
+composer require "beee4life/b3-assets-tracker"
 ```
 
 ## CHANGELOG
