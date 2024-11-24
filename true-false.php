@@ -127,3 +127,13 @@
     function bp_use_group_icons() {
         return ! is_admin() && '1' == env( 'USE_GROUP_ICONS' ) ? true : false;
     }
+
+
+    function bp_date_exists( $date ) {
+        $dates = bp_get_dates();
+        if ( ! empty( $dates ) && in_array( $date, $dates ) ) {
+            return true;
+        }
+
+        return false;
+    }
