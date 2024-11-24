@@ -161,7 +161,7 @@
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
                     $dates        = [ $date_until ];
-                    $grouped_data = bp_get_results_range( $dates, [], [] );
+                    $grouped_data = bp_get_results_range( $dates, 'all', [] );
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );
