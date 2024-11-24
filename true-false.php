@@ -106,11 +106,11 @@
     }
 
 
-    function bp_show_admin_links() {
+    function bp_show_admin_links( $type = '' ) {
         if ( is_admin() ) {
             return true;
         } else {
-            return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+            return apply_filters( 'b3_show_admin_links', false );
         }
     }
 
