@@ -86,10 +86,8 @@
                     return $result;
                 }
             } else {
-                if ( current_user_can( 'manage_options' ) ) {
+                if ( current_user_can( apply_filters( 'b3_assets_role','manage_options' ) ) ) {
                     return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for results.', 'b3-assets-tracker' ) );
-                } else {
-                    return sprintf( '<p>%s</p>', esc_html__( 'Something went wrong with the results.', 'b3-assets-tracker' ) );
                 }
             }
         }
@@ -161,7 +159,7 @@
                 } elseif ( in_array( $graph_type, [ 'total_type', 'total_group' ] ) ) {
                     $date_until   = gmdate( 'Y-m-d', strtotime( $shortcode_attributes[ 'until' ] ) );
                     $dates        = [ $date_until ];
-                    $grouped_data = bp_get_results_range( $dates, [], [] );
+                    $grouped_data = bp_get_results_range( $dates, 'all', [] );
                 }
 
                 $graph_title = bp_get_graph_title( $shortcode_attributes );

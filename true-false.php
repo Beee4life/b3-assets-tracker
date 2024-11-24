@@ -106,11 +106,11 @@
     }
 
 
-    function bp_show_admin_links() {
+    function bp_show_admin_links( $type = '' ) {
         if ( is_admin() ) {
             return true;
         } else {
-            return '1' === env( 'SHOW_ADMIN_LINKS' ) ? true : false;
+            return apply_filters( 'b3_show_admin_links', false );
         }
     }
 
@@ -126,4 +126,14 @@
 
     function bp_use_group_icons() {
         return ! is_admin() && '1' == env( 'USE_GROUP_ICONS' ) ? true : false;
+    }
+
+
+    function bp_date_exists( $date ) {
+        $dates = bp_get_dates();
+        if ( ! empty( $dates ) && in_array( $date, $dates ) ) {
+            return true;
+        }
+
+        return false;
     }

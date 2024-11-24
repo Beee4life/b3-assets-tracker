@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-03 20:06+0100\n"
+"POT-Creation-Date: 2024-11-24 21:15+0100\n"
 "PO-Revision-Date: 2024-10-31 22:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,69 +16,73 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages\n"
 
-#: B3AssetsTracker.php:156 ShortCodes.php:178
+#: B3AssetsTracker.php:103 actions-bp.php:12
+msgid "Data"
+msgstr ""
+
+#: B3AssetsTracker.php:105 actions-bp.php:13
+msgid "Add data"
+msgstr ""
+
+#: B3AssetsTracker.php:107 actions-bp.php:15
+msgid "Types"
+msgstr ""
+
+#: B3AssetsTracker.php:109 actions-bp.php:14
+msgid "Graphs"
+msgstr ""
+
+#: B3AssetsTracker.php:111 actions-bp.php:16
+msgid "Settings"
+msgstr ""
+
+#: B3AssetsTracker.php:140 ShortCodes.php:177 admin/add-data.php:53
 msgid "Date"
 msgstr ""
 
-#: B3AssetsTracker.php:157 ShortCodes.php:179
+#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:178
 msgid "Value"
+msgstr ""
+
+#: B3AssetsTracker.php:148 process-data.php:14
+msgid "Asset"
 msgstr ""
 
 #: ShortCodes.php:35
 msgid "Shortcode is using old till value"
 msgstr ""
 
-#: ShortCodes.php:37 ShortCodes.php:125
+#: ShortCodes.php:37 ShortCodes.php:124
 msgid "Shortcode is missing 1 or more attributes"
 msgstr ""
 
-#: ShortCodes.php:58 ShortCodes.php:61
+#: ShortCodes.php:59 ShortCodes.php:62 admin/data.php:90
 msgid "Table scrolls horizontally."
 msgstr ""
 
-#: ShortCodes.php:71
+#: ShortCodes.php:72
 #, php-format
 msgid "This data comes from a WordPress %s I created to track my assets and easily share it within the site."
 msgstr ""
 
-#: ShortCodes.php:78
+#: ShortCodes.php:79
 msgid "This data comes from a WordPress plugin I created to track my assets and easily share it within the site."
 msgstr ""
 
-#: ShortCodes.php:89 ShortCodes.php:123
+#: ShortCodes.php:90 ShortCodes.php:122
 msgid "Not enough data for results."
-msgstr ""
-
-#: ShortCodes.php:91 ShortCodes.php:193
-msgid "Something went wrong with the results."
 msgstr ""
 
 #: ShortCodes.php:191
 msgid "Not enough data for to display. Check the shortcode in the content."
 msgstr ""
 
+#: ShortCodes.php:193
+msgid "Something went wrong with the results."
+msgstr ""
+
 #: actions-bp.php:11
 msgid "Dashboard"
-msgstr ""
-
-#: actions-bp.php:12
-msgid "Data"
-msgstr ""
-
-#: actions-bp.php:13
-msgid "Add data"
-msgstr ""
-
-#: actions-bp.php:14
-msgid "Graphs"
-msgstr ""
-
-#: actions-bp.php:15
-msgid "Types"
-msgstr ""
-
-#: actions-bp.php:16
-msgid "Settings"
 msgstr ""
 
 #: admin/add-data.php:7 admin/add-type.php:7 admin/dashboard.php:7
@@ -86,8 +90,25 @@ msgstr ""
 msgid "Sorry, you do not have sufficient permissions to access this page."
 msgstr ""
 
-#: admin/add-data.php:109 admin/dashboard.php:104 admin/data.php:70
-#: admin/graphs.php:80
+#: admin/add-data.php:62
+msgid "Status"
+msgstr ""
+
+#: admin/add-data.php:92
+msgid "Hidden"
+msgstr ""
+
+#: admin/add-data.php:98 admin/includes/types-input.php:51
+#: admin/includes/types-output.php:30
+msgid "Closed"
+msgstr ""
+
+#: admin/add-data.php:106 admin/settings.php:92
+msgid "Save"
+msgstr ""
+
+#: admin/add-data.php:111 admin/dashboard.php:105 admin/data.php:70
+#: admin/graphs.php:86
 msgid "Add types first"
 msgstr ""
 
@@ -99,8 +120,13 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: admin/dashboard.php:109 admin/data.php:76
+#: admin/dashboard.php:110 admin/data.php:76
 msgid "Add data now"
+msgstr ""
+
+#: admin/data.php:84
+#, php-format
+msgid "The last %d entries are shown or a specific range, selected above."
 msgstr ""
 
 #: admin/includes/data-output.php:20
@@ -111,7 +137,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:126
+#: admin/includes/date-range-form.php:13 admin/includes/from-till-form.php:153
 msgid "Filter"
 msgstr ""
 
@@ -119,32 +145,77 @@ msgstr ""
 msgid "Graph type"
 msgstr ""
 
-#: admin/includes/from-till-form.php:15 admin/includes/from-till-form.php:54
+#: admin/includes/from-till-form.php:16
+msgid "Dates"
+msgstr ""
+
+#: admin/includes/from-till-form.php:20
 msgid "From"
 msgstr ""
 
-#: admin/includes/from-till-form.php:18 admin/includes/from-till-form.php:64
+#: admin/includes/from-till-form.php:23
 msgid "Until"
 msgstr ""
 
-#: admin/includes/from-till-form.php:22
+#: admin/includes/from-till-form.php:28
 msgid "Show all"
 msgstr ""
 
-#: admin/includes/from-till-form.php:27
-msgid "Asset type(s)"
+#: admin/includes/from-till-form.php:33
+msgid "Asset types"
 msgstr ""
 
-#: admin/includes/from-till-form.php:32
-msgid "Asset group(s)"
+#: admin/includes/from-till-form.php:38
+msgid "Asset groups"
 msgstr ""
 
-#: admin/includes/from-till-form.php:82
-msgid "Select Type(s)"
+#: admin/includes/from-till-form.php:61
+msgid "Select date(s)"
 msgstr ""
 
-#: admin/includes/from-till-form.php:107
+#: admin/includes/from-till-form.php:109
+msgid "Select type(s)"
+msgstr ""
+
+#: admin/includes/from-till-form.php:134
 msgid "Select Group(s)"
+msgstr ""
+
+#: admin/includes/graphs-help.php:5 get-stuff.php:99
+msgid "Bar chart"
+msgstr ""
+
+#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:40
+#: admin/includes/graphs-help.php:50
+msgid "Select only 1 date."
+msgstr ""
+
+#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:30
+msgid "Choose either asset types or groups, not both."
+msgstr ""
+
+#: admin/includes/graphs-help.php:19 get-stuff.php:100
+msgid "Line chart"
+msgstr ""
+
+#: admin/includes/graphs-help.php:24
+msgid "Min. 2 dates are needed."
+msgstr ""
+
+#: admin/includes/graphs-help.php:27
+msgid "If you select 2 dates, the oldest is used as start date, the newest as end date."
+msgstr ""
+
+#: admin/includes/graphs-help.php:36 get-stuff.php:101
+msgid "Pie chart"
+msgstr ""
+
+#: admin/includes/graphs-help.php:46
+msgid "Total charts"
+msgstr ""
+
+#: admin/includes/graphs-help.php:53
+msgid "Asset group/type is ignored (because it's defines by graph type)."
 msgstr ""
 
 #: admin/includes/remove-date-form.php:5
@@ -175,16 +246,16 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: admin/includes/types-input.php:43 admin/includes/types-input.php:72
+#: admin/includes/types-input.php:43 admin/includes/types-input.php:77
 #: admin/includes/types-output.php:24
 msgid "Group"
 msgstr ""
 
-#: admin/includes/types-input.php:47 admin/includes/types-output.php:32
-msgid "Closed"
+#: admin/includes/types-input.php:48 admin/includes/types-output.php:27
+msgid "Added"
 msgstr ""
 
-#: admin/includes/types-input.php:50 admin/includes/types-output.php:35
+#: admin/includes/types-input.php:55 admin/includes/types-output.php:33
 msgid "Hide"
 msgstr ""
 
@@ -192,15 +263,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: admin/includes/types-output.php:28
-msgid "Added"
-msgstr ""
-
-#: admin/includes/types-output.php:38
+#: admin/includes/types-output.php:36
 msgid "Delete"
 msgstr ""
 
-#: admin/includes/types-output.php:88
+#: admin/includes/types-output.php:84
 msgid "Delete selected type(s)"
 msgstr ""
 
@@ -208,32 +275,44 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: admin/settings.php:92
-msgid "Save"
+#: admin/settings.php:74
+msgid "Date format"
 msgstr ""
 
-#: do-stuff.php:30
-msgid "You did not select an asset type or group."
+#: do-stuff.php:29
+msgid "You did't select any dates. At least one is needed, depending on your selected graph type."
 msgstr ""
 
-#: do-stuff.php:40
-msgid "If you select \"All\", you can't select any other types. Please select the types again."
+#: do-stuff.php:38
+msgid "You need only 1 date for a bar chart."
 msgstr ""
 
 #: do-stuff.php:47
-msgid "You need to select an an asset type OR group, not both."
+msgid "You need at least 2 dates for a line chart."
 msgstr ""
 
 #: do-stuff.php:57
-msgid "You didn't select a start date."
+msgid "You did not select an asset type or group."
 msgstr ""
 
-#: do-stuff.php:65
-msgid "You don't need a start date for a total. The until date is used for that."
+#: do-stuff.php:64
+msgid "You need to select an an asset type OR group, not both."
+msgstr ""
+
+#: do-stuff.php:75
+msgid "If you select 'All', you can't select any other types. Please select the types again."
+msgstr ""
+
+#: do-stuff.php:86
+msgid "If you select 'All', you can't select any other groups. Please select the groups again."
 msgstr ""
 
 #: form-handling.php:12
 msgid "No date selected."
+msgstr ""
+
+#: form-handling.php:21 forms/form--add-data.php:79
+msgid "This date already exists, please edit the existing date."
 msgstr ""
 
 #: forms/form--add-data.php:11 forms/form--add-type.php:11
@@ -242,11 +321,11 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
-#: forms/form--add-data.php:68
+#: forms/form--add-data.php:69
 msgid "Values updated."
 msgstr ""
 
-#: forms/form--add-data.php:89
+#: forms/form--add-data.php:98
 msgid "Values inserted."
 msgstr ""
 
@@ -254,15 +333,15 @@ msgstr ""
 msgid "No type selected."
 msgstr ""
 
-#: forms/form--add-type.php:55
+#: forms/form--add-type.php:60
 msgid "Type updated."
 msgstr ""
 
-#: forms/form--add-type.php:93
+#: forms/form--add-type.php:98
 msgid "Type inserted."
 msgstr ""
 
-#: forms/form--delete-data.php:26
+#: forms/form--delete-data.php:27
 msgid "Date removed."
 msgstr ""
 
@@ -270,24 +349,32 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: get-stuff.php:474 get-stuff.php:493 process-data.php:106
+#: get-stuff.php:102
+msgid "Total per type"
+msgstr ""
+
+#: get-stuff.php:103
+msgid "Total per group"
+msgstr ""
+
+#: get-stuff.php:416 get-stuff.php:437 process-data.php:106
 #: process-data.php:108
 msgid "Total"
 msgstr ""
 
-#: get-stuff.php:481
-msgid "Total assets value"
-msgstr ""
-
-#: get-stuff.php:483
-msgid "Week diff"
-msgstr ""
-
-#: get-stuff.php:487
+#: get-stuff.php:421 get-stuff.php:431
 msgid "Assets per type"
 msgstr ""
 
-#: get-stuff.php:490
+#: get-stuff.php:425
+msgid "Total assets value"
+msgstr ""
+
+#: get-stuff.php:427
+msgid "Week diff"
+msgstr ""
+
+#: get-stuff.php:434
 msgid "Assets per group"
 msgstr ""
 
@@ -298,4 +385,9 @@ msgstr ""
 
 #: process-data.php:35
 msgid "Diff in %"
+msgstr ""
+
+#: process-data.php:39
+#, no-php-format
+msgid "% of total"
 msgstr ""

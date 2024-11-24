@@ -19,7 +19,8 @@
                     $input  = $_POST;
                     $values = is_array( $input[ 'bp_value' ] ) ? $input[ 'bp_value' ] : [];
 
-                    if ( getenv( 'ASSETS' ) && ! empty( getenv( 'ASSETS' ) ) ) {
+                    // private feature for Beee
+                    if ( getenv( 'ASSETS' ) && ! empty( getenv( 'ASSETS' ) ) && 7 == get_current_blog_id() ) {
                         $assets = explode( ',', getenv( 'ASSETS' ) );
 
                         if ( ! empty( $values[ $assets[ 0 ] ] ) && ! empty( $values[ $assets[ 1 ] ] ) ) {
@@ -65,37 +66,68 @@
                         }
 
                         if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'success_type_updated', esc_html( __( 'Values updated.', 'b3-assets-tracker' ) ) );
+                            bp_errors()->add( 'success_values_updated', esc_html__( 'Values updated.', 'b3-assets-tracker' ) );
                         }
 
                     } else {
                         // insert row
-                        foreach( $values as $type => $value ) {
-                            $data = [
-                                'date'    => sanitize_text_field( $input[ 'bp_date' ] ),
-                                'type'    => (int) $type,
-                                'value'   => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
-                                'updated' => time(),
-                            ];
-                            $format = [
-                                '%s',
-                                '%d',
-                                '%f',
-                                '%d',
-                            ];
-                            $wpdb->insert( $table_data, $data );
-                        }
-                        if ( function_exists( 'bp_errors' ) ) {
-                            bp_errors()->add( 'success_type_inserted', esc_html( __( 'Values inserted.', 'b3-assets-tracker' ) ) );
+                        $date        = sanitize_text_field( $input[ 'bp_date' ] );
+                        $date_exists = bp_date_exists( $date );
+
+                        if ( true === $date_exists ) {
+                            if ( function_exists( 'bp_errors' ) ) {
+                                bp_errors()->add( 'error_date_exists', esc_html__( 'This date already exists, please edit the existing date.', 'b3-assets-tracker' ) );
+                            }
+                        } else {
+                            foreach( $values as $type => $value ) {
+                                $data = [
+                                    'date'    => $date,
+                                    'type'    => (int) $type,
+                                    'value'   => ! empty( $value ) ? sanitize_text_field( $value ) : '0.00',
+                                    'updated' => time(),
+                                ];
+                                $format = [
+                                    '%s',
+                                    '%d',
+                                    '%f',
+                                    '%d',
+                                ];
+                                $wpdb->insert( $table_data, $data );
+                            }
+                            if ( function_exists( 'bp_errors' ) ) {
+                                bp_errors()->add( 'success_values_inserted', esc_html__( 'Values inserted.', 'b3-assets-tracker' ) );
+                            }
                         }
                     }
+
                 } elseif ( function_exists( 'bp_errors' ) ) {
                     bp_errors()->add( $validated_fields[ 'code' ], esc_html( $validated_fields[ 'message' ] ) );
                 }
 
+
                 if ( ! is_admin() ) {
                     $redirect_url = get_home_url();
-                    $redirect_url = add_query_arg( 'data-updated', 'true', $redirect_url );
+
+                    if ( ! empty( bp_errors()->get_error_codes() ) ) {
+                        $message = bp_errors()->get_error_codes()[0];
+
+                        switch( $message ) {
+                            case 'error_date_exists':
+                                $redirect_url = add_query_arg( 'oops', 'date-exists', $redirect_url );
+                                break;
+                            case 'success_values_inserted':
+                                $redirect_url = add_query_arg( 'data', 'inserted', $redirect_url );
+                                break;
+                            case 'success_values_inserted':
+                                $redirect_url = add_query_arg( 'data', 'updated', $redirect_url );
+                                break;
+                        }
+
+                    } else {
+                        // fallback
+                        $redirect_url = add_query_arg( 'data', 'updated', $redirect_url );
+                    }
+
                     wp_redirect( $redirect_url );
                     exit;
                 }

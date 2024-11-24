@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-19 20:26+0100\n"
-"PO-Revision-Date: 2024-11-19 20:31+0100\n"
+"POT-Creation-Date: 2024-11-24 21:14+0100\n"
+"PO-Revision-Date: 2024-11-24 21:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -36,11 +36,11 @@ msgstr "Grafieken"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: B3AssetsTracker.php:140 ShortCodes.php:179 admin/add-data.php:53
+#: B3AssetsTracker.php:140 ShortCodes.php:177 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:180
+#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:178
 msgid "Value"
 msgstr "Waarde"
 
@@ -52,7 +52,7 @@ msgstr "Activa"
 msgid "Shortcode is using old till value"
 msgstr "Shortcode gebruikt de oude ‘tot’ waarde"
 
-#: ShortCodes.php:37 ShortCodes.php:126
+#: ShortCodes.php:37 ShortCodes.php:124
 msgid "Shortcode is missing 1 or more attributes"
 msgstr "Shortcode mist 1 of meer attributen"
 
@@ -77,18 +77,18 @@ msgstr ""
 "Deze gegevens zijn afkomstig van een WordPress plug-in die ik heb gemaakt om "
 "mijn activa bij te houden en deze gemakkelijk binnen de site te delen."
 
-#: ShortCodes.php:90 ShortCodes.php:124
+#: ShortCodes.php:90 ShortCodes.php:122
 msgid "Not enough data for results."
 msgstr "Niet genoeg gegevens voor resultaten."
 
-#: ShortCodes.php:92 ShortCodes.php:195
-msgid "Something went wrong with the results."
-msgstr "Er is iets misgegaan met de resultaten."
-
-#: ShortCodes.php:193
+#: ShortCodes.php:191
 msgid "Not enough data for to display. Check the shortcode in the content."
 msgstr ""
 "Niet genoeg gegevens om weer te geven. Controleer de shortcode in de inhoud."
+
+#: ShortCodes.php:193
+msgid "Something went wrong with the results."
+msgstr "Er is iets misgegaan met de resultaten."
 
 #: actions-bp.php:11
 msgid "Dashboard"
@@ -199,6 +199,7 @@ msgid "Bar chart"
 msgstr "Staafdiagram"
 
 #: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:40
+#: admin/includes/graphs-help.php:50
 msgid "Select only 1 date."
 msgstr "Selecteer 1 datum."
 
@@ -226,7 +227,11 @@ msgstr ""
 msgid "Pie chart"
 msgstr "Cirkeldiagram"
 
-#: admin/includes/graphs-help.php:43
+#: admin/includes/graphs-help.php:46
+msgid "Total charts"
+msgstr "Totaal grafieken"
+
+#: admin/includes/graphs-help.php:53
 msgid "Asset group/type is ignored (because it's defines by graph type)."
 msgstr ""
 "Activa groep/type wordt genegeerd (want het type grafiek bepaalt de output)."
@@ -336,17 +341,21 @@ msgstr ""
 msgid "No date selected."
 msgstr "Geen datum geselecteerd."
 
+#: form-handling.php:21 forms/form--add-data.php:79
+msgid "This date already exists, please edit the existing date."
+msgstr "Deze datum bestaat al, bewerk aub de bestaande datum."
+
 #: forms/form--add-data.php:11 forms/form--add-type.php:11
 #: forms/form--delete-data.php:7 forms/form--delete-type.php:12
 #: forms/form--settings.php:6
 msgid "Something went wrong. Please try again."
 msgstr "Er is iets verkeerd gegaan. Probeer het opnieuw."
 
-#: forms/form--add-data.php:68
+#: forms/form--add-data.php:69
 msgid "Values updated."
 msgstr "Waarden bijgewerkt."
 
-#: forms/form--add-data.php:89
+#: forms/form--add-data.php:98
 msgid "Values inserted."
 msgstr "Waarden ingevoegd."
 
@@ -362,7 +371,7 @@ msgstr "Type bijgewerkt."
 msgid "Type inserted."
 msgstr "Type ingevoegd."
 
-#: forms/form--delete-data.php:26
+#: forms/form--delete-data.php:27
 msgid "Date removed."
 msgstr "Data verwijderd."
 
