@@ -4,7 +4,7 @@
     <?php } ?>
 
     <?php if ( $asset_types ) { ?>
-        <form name="delete-assets" action="" method="POST" onsubmit="return confirm('All data with this type will be deleted. Are you sure ?');">
+        <form name="delete-assets" action="" method="POST" onsubmit="return confirm( esc_attr__( 'All data with this type will be deleted. Are you sure ?', 'b3-assets-tracker' ) );">
             <input type="hidden" name="delete_types_nonce" value="<?php echo esc_attr( wp_create_nonce( 'delete-types-nonce' ) ); ?>" />
             <table class="data-types">
                 <thead>
