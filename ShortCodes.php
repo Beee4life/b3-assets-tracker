@@ -86,10 +86,8 @@
                     return $result;
                 }
             } else {
-                if ( current_user_can( 'manage_options' ) ) {
+                if ( current_user_can( apply_filters( 'b3_assets_role','manage_options' ) ) ) {
                     return sprintf( '<p>[%s]</p>', esc_html__( 'Not enough data for results.', 'b3-assets-tracker' ) );
-                } else {
-                    return sprintf( '<p>%s</p>', esc_html__( 'Something went wrong with the results.', 'b3-assets-tracker' ) );
                 }
             }
         }
