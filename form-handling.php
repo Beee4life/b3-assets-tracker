@@ -12,6 +12,18 @@
                 'message' => esc_html__( 'No date selected.', 'b3-assets-tracker' ),
             ];
         }
+        if ( ! empty( $post_data[ 'bp_date' ] ) ) {
+            $date_exists = bp_date_exists( $post_data[ 'bp_date' ] );
+
+            if ( true === $date_exists ) {
+                return [
+                    'code'    => 'error_date_exists',
+                    'message' => esc_html__( 'This date already exists, please edit the existing date.', 'b3-assets-tracker' ),
+                ];
+            }
+
+        }
+
 
         return true;
     }
