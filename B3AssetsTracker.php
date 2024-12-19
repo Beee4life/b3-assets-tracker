@@ -136,6 +136,11 @@
                             $dates        = isset( $_POST[ 'bp_dates' ] ) ? wp_unslash( $_POST[ 'bp_dates' ] ) : [];
                             $graph_type   = isset( $_POST[ 'graph_type' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'graph_type' ] ) ) : '';
                             $show_all     = 'all' == $asset_types || 'all' == $asset_groups ? true : false;
+
+                            if ( ! empty( $dates ) && 2 < count( $dates ) ) {
+                                $show_all = false;
+                            }
+
                             $grouped_data = bp_get_results_range( $dates, $asset_types, $asset_groups, $show_all );
                             $h_axis_title = esc_html__( 'Date', 'b3-assets-tracker' );
                             $v_axis_title = esc_html__( 'Value', 'b3-assets-tracker' );
