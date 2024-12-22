@@ -78,8 +78,6 @@
                     }
                 }
 
-                return $results;
-
             } elseif ( ! empty( $asset_group ) ) {
                 die('@TODO ASSET GROUP');
             }
