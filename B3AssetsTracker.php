@@ -122,6 +122,7 @@
                 wp_enqueue_script( 'charts', plugins_url( 'assets/js.js', __FILE__ ), [], $this->bp_settings()[ 'version' ], false );
                 wp_enqueue_script( 'graphs', plugins_url( 'assets/graphs.js', __FILE__ ), [ 'jquery' ], $this->bp_settings()[ 'version' ], true );
 
+                // script code used for graphs in admin
                 if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
                     if ( isset( $_POST[ 'show_graph' ] ) ) {
                         $validated = b3_validate_graph_fields( $_POST );
