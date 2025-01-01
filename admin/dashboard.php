@@ -27,7 +27,7 @@
             $grouped_data       = [];
             $is_dashboard       = true;
             $scroll_class       = false;
-            $show_all_option    = true;
+            $show_all_dates     = true;
             $show_all           = false;
             $show_asset_groups  = false;
             $show_asset_types   = false;
