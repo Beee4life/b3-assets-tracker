@@ -30,7 +30,7 @@
             $totals[ $total_counter ] = $totals[ $total_counter ] + $total_value_on_date;
         }
 
-        if ( $show_diff ) {
+        if ( 1 < count( $data ) && $show_diff ) {
             $top_row[]  = sprintf( esc_html__( 'Diff in %s', 'b3-assets-tracker' ), get_option( 'bp_currency' ) );
             $top_row[]  = esc_html__( 'Diff in %', 'b3-assets-tracker' );
         }
@@ -53,6 +53,7 @@
             if ( bp_is_type_hidden( $type->id ) ) {
                 continue;
             }
+
             $icon         = bp_get_asset_icon( $type->id );
             $type_label   = is_admin() ? $type->name : sprintf( '%s%s', $icon, $type->name );
             $entry_row[]  = $type_label;
@@ -62,8 +63,7 @@
                 $key = bp_find_id_in_values( $date_entries, $type->id );
 
                 if ( false === $key ) {
-                    $value       = '0.00';
-                    $entry_row[] = sprintf( '%s &mdash;', get_option( 'bp_currency' ) );
+                    $entry_row[] = bp_format_value( (float) '0.00' );
                 } else {
                     if ( $type->id == $date_entries[ $key ]->type ) {
                         $value       = $date_entries[ $key ]->value;
@@ -75,7 +75,9 @@
                     $start_value_row = $value;
                 }
 
+                // needed for total
                 $end_value_row = (float) $value;
+
                 if ( $show_diff && $total_columns == $date_counter ) {
                     $diff        = bp_calculate_diff( $date_from, $date_until, $type->id );
                     $entry_row[] = bp_format_value( (float) $diff );
