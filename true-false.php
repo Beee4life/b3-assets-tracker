@@ -75,6 +75,10 @@
                 if ( $added <= $end_date ) {
                     return true;
                 }
+            } elseif ( ! empty( $added ) && isset( $start_date ) ) {
+                if ( $added <= $start_date ) {
+                    return true;
+                }
             }
         }
 
