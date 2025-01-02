@@ -40,7 +40,7 @@ composer require "beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
-1.16.0 - xx.11.24
+1.16.0 - xx.01.25
 * nice checkboxes
 
 1.15.0 - 24.11.24
