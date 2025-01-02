@@ -195,7 +195,6 @@
             }
 
         } elseif ( 'line' === $graph_type ) {
-            // @TODO: check if range spans NYE
             $a_lot = 10 < count( $data ) ? false : true;
 
             foreach( $data as $date => $date_entries ) {
