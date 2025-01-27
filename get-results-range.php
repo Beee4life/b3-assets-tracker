@@ -52,7 +52,7 @@
 
             return $results;
 
-        } elseif ( 2 == count( $dates ) ) {
+        } elseif ( 1 < count( $dates ) ) {
 
             if ( 'all' == $asset_type || 'all' == $asset_group ) {
                 // dashboard/shortcode
@@ -78,10 +78,8 @@
                     }
                 }
 
-                return $results;
-
             } elseif ( ! empty( $asset_group ) ) {
-                // @TODO
+                die('@TODO ASSET GROUP');
             }
 
             $grouped_data = [];
@@ -97,6 +95,7 @@
             }
 
         } elseif ( 2 < count( $dates ) ) {
+            error_log('MORE THAN 2 DATES');
         }
 
         return [];

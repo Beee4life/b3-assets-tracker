@@ -35,13 +35,16 @@ Add this to your composer.json
 
 Then run
 ```
-composer require "Beee4life/b3-assets-tracker"
+composer require "beee4life/b3-assets-tracker"
 ```
 
 ## CHANGELOG
 
-1.15.0 - xx.11.24
-* ?
+1.16.0 - xx.01.25
+* nice checkboxes
+
+1.15.0 - 24.11.24
+* improve stuff
 
 1.14.0 - 19.11.24
 * add date input for added

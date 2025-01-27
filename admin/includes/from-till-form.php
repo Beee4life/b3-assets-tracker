@@ -23,7 +23,7 @@
                     <?php esc_html_e( 'Until', 'b3-assets-tracker' ); ?>
                 </th>
             <?php } ?>
-            <?php if ( $show_all_option ) { ?>
+            <?php if ( $show_all_dates ) { ?>
                 <th class="checkbox">
                     <?php esc_html_e( 'Show all', 'b3-assets-tracker' ); ?>
                 </th>
@@ -95,7 +95,7 @@
                     </label>
                 </td>
             <?php } ?>
-            <?php if ( $show_all_option ) { ?>
+            <?php if ( $show_all_dates ) { ?>
                 <td class="checkbox">
                     <label>
                         <input type="checkbox" name="show_all" value="1"<?php checked( $show_all ); ?>>
