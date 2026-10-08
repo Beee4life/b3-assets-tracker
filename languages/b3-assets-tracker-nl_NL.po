@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B3 Assets Tracker\n"
-"POT-Creation-Date: 2024-11-24 21:14+0100\n"
-"PO-Revision-Date: 2024-11-24 21:14+0100\n"
+"POT-Creation-Date: 2024-12-23 01:27+0100\n"
+"PO-Revision-Date: 2024-12-23 01:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -36,15 +36,15 @@ msgstr "Grafieken"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: B3AssetsTracker.php:140 ShortCodes.php:177 admin/add-data.php:53
+#: B3AssetsTracker.php:146 ShortCodes.php:177 admin/add-data.php:53
 msgid "Date"
 msgstr "Datum"
 
-#: B3AssetsTracker.php:141 B3AssetsTracker.php:147 ShortCodes.php:178
+#: B3AssetsTracker.php:147 B3AssetsTracker.php:153 ShortCodes.php:178
 msgid "Value"
 msgstr "Waarde"
 
-#: B3AssetsTracker.php:148 process-data.php:14
+#: B3AssetsTracker.php:154 process-data.php:14
 msgid "Asset"
 msgstr "Activa"
 
@@ -117,7 +117,7 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: admin/add-data.php:111 admin/dashboard.php:105 admin/data.php:70
-#: admin/graphs.php:86
+#: admin/graphs.php:87
 msgid "Add types first"
 msgstr "Voeg eerst types toe"
 
@@ -194,44 +194,52 @@ msgstr "Selecteer type(s)"
 msgid "Select Group(s)"
 msgstr "Selecteer groep(en)"
 
-#: admin/includes/graphs-help.php:5 get-stuff.php:99
-msgid "Bar chart"
-msgstr "Staafdiagram"
+#: admin/includes/graphs-help.php:5
+msgid "General"
+msgstr "Algemeen"
 
-#: admin/includes/graphs-help.php:10 admin/includes/graphs-help.php:40
-#: admin/includes/graphs-help.php:50
-msgid "Select only 1 date."
-msgstr "Selecteer 1 datum."
-
-#: admin/includes/graphs-help.php:13 admin/includes/graphs-help.php:30
+#: admin/includes/graphs-help.php:10
 msgid "Choose either asset types or groups, not both."
 msgstr "Kies een activa type OF groep, niet beide."
 
-#: admin/includes/graphs-help.php:19 get-stuff.php:100
+#: admin/includes/graphs-help.php:16 get-stuff.php:99
+msgid "Bar chart"
+msgstr "Staafdiagram"
+
+#: admin/includes/graphs-help.php:21 admin/includes/graphs-help.php:48
+#: admin/includes/graphs-help.php:58
+msgid "Select only 1 date."
+msgstr "Selecteer 1 datum."
+
+#: admin/includes/graphs-help.php:27 get-stuff.php:100
 msgid "Line chart"
 msgstr "Lijndiagram"
 
-#: admin/includes/graphs-help.php:24
+#: admin/includes/graphs-help.php:32
 msgid "Min. 2 dates are needed."
 msgstr "Minimaal 2 datums zijn vereist."
 
-#: admin/includes/graphs-help.php:27
+#: admin/includes/graphs-help.php:35
 msgid ""
 "If you select 2 dates, the oldest is used as start date, the newest as end "
 "date."
 msgstr ""
-"Als je 2 datums selecteer, wordt de oudste als start datum en de nieuwste "
+"Als je 2 datums selecteert, wordt de oudste als start datum en de nieuwste "
 "als eind datum gekozen."
 
-#: admin/includes/graphs-help.php:36 get-stuff.php:101
+#: admin/includes/graphs-help.php:38
+msgid "If you select 2 dates, all dates in between are shown as well."
+msgstr "Als je 2 datums selecteert, worden alle data ertussen ook getoond."
+
+#: admin/includes/graphs-help.php:44 get-stuff.php:101
 msgid "Pie chart"
 msgstr "Cirkeldiagram"
 
-#: admin/includes/graphs-help.php:46
+#: admin/includes/graphs-help.php:54
 msgid "Total charts"
 msgstr "Totaal grafieken"
 
-#: admin/includes/graphs-help.php:53
+#: admin/includes/graphs-help.php:61
 msgid "Asset group/type is ignored (because it's defines by graph type)."
 msgstr ""
 "Activa groep/type wordt genegeerd (want het type grafiek bepaalt de output)."

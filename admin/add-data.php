@@ -12,7 +12,7 @@
         $max_date     = gmdate( 'Y-m-d', ( time() + WEEK_IN_SECONDS ) );
         $types        = bp_get_asset_types();
 
-        if ( $edit_date ) {
+        if ( ! empty( $edit_date ) ) {
             $data         = bp_get_data( $edit_date );
             $grouped_data = $data;
 

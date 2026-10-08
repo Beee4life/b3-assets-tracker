@@ -29,7 +29,8 @@
         $selected_dates        = [];
         $show_asset_groups     = true;
         $show_asset_types      = true;
-        $show_all_option       = false;
+        $show_all_dates        = false;
+        $show_all              = false;
         $show_graph_options    = true;
 
         if ( isset( $_POST[ 'b3_from_till_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'b3_from_till_nonce' ] ) ), 'b3-from-till-nonce' ) ) {
