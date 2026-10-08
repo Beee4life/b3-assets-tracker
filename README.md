@@ -40,8 +40,10 @@ composer require "beee4life/b3-assets-tracker"
 
 ## CHANGELOG
 
-1.16.0 - xx.01.25
+1.16.0 - 08.10.26
 * nice checkboxes
+* fix existing date
+* probably more...
 
 1.15.0 - 24.11.24
 * improve stuff
